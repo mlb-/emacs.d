@@ -83,7 +83,7 @@ re-downloaded in order to locate PACKAGE."
 ;; colorcolumn/row?
 ;; relativenumber?
 ;; tabbar
-;; "scroll-off"
+(setq scroll-margin 1)
 ;; pre-save delete-trailing-whitespace
 ;; auto-resize splits
 ;; projectionist-like dispatch?
