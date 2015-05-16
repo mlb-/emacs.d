@@ -110,7 +110,7 @@ re-downloaded in order to locate PACKAGE."
 
 ;; evil-jumper
 ;; compare company-mode vs auto-complete
-;; evil-mode
+(use-package evil)
 
 (defun electric-pair ()
   "If at end of line, insert character pair without surrounding spaces.
