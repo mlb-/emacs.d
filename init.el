@@ -104,7 +104,10 @@ re-downloaded in order to locate PACKAGE."
 ;; unimpaired?
 ;; nerdtree
 ;; speeddating
-;; rainbow-parens
+
+(use-package rainbow-delimiters
+  :hook (prog-mode-hook . rainbow-delimiters-mode))
+
 ;; evil-jumper
 ;; compare company-mode vs auto-complete
 ;; evil-mode
