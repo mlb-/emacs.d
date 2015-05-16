@@ -55,3 +55,11 @@ re-downloaded in order to locate PACKAGE."
 (use-package ido-ubiquitous
   :disabled t
   :config (ido-ubiquitous))
+
+;; As per suggestion 5
+(use-package paredit
+  :diminish "()"
+  :hook (emacs-lisp-mode-hook . paredit-mode)
+  :bind (:map paredit-mode-map
+              ("M-{" . paredit-wrap-curly)
+              ("M-[" . paredit-wrap-square)))
