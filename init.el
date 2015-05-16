@@ -68,28 +68,48 @@ re-downloaded in order to locate PACKAGE."
 (add-hook 'prog-mode-hook 'my-coding-hook)
 
 ;; Clojure support
-;; Get "indexedsearch" equivalent
+
+(require-package 'anzu)
+(global-anzu-mode t)
+
 ;; colorcolumn/row?
 ;; relativenumber?
 ;; tabbar
-;; "scroll-off"
+(setq scroll-margin 1)
 ;; pre-save delete-trailing-whitespace
 ;; auto-resize splits
 ;; projectionist-like dispatch?
 ;; sudo-write
-;; markdown
+(require-package 'markdown-mode)
 ;; erlang-mode?
 ;; magit
-;; latex?
+
+(require-package 'auctex)
+
+(require-package 'exec-path-from-shell)
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+
 ;; syntastic -- flycheck?
 ;; tagbar
 ;; surround -- change balanced pairs
 ;; unimpaired?
 ;; nerdtree
 ;; speeddating
-;; rainbow-parens
+
+(require-package 'rainbow-delimiters)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
 ;; look at evil-jumper
 ;; compare company-mode vs auto-complete
 ;; evil-mode?
-;;
-;; Emacs rocks stuff?
+
+(require-package 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
+(pending-delete-mode t)
+
+(require-package 'multiple-cursors)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
