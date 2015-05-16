@@ -88,7 +88,7 @@ re-downloaded in order to locate PACKAGE."
 ;; auto-resize splits
 ;; projectionist-like dispatch?
 ;; sudo-write
-;; markdown
+(use-package markdown-mode)
 ;; erlang-mode?
 ;; magit
 ;; latex?
