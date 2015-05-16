@@ -104,6 +104,30 @@ re-downloaded in order to locate PACKAGE."
 ;; compare company-mode vs auto-complete
 ;; evil-mode?
 
+(require-package 'js2-mode)
+(eval-after-load 'js2-mode
+  '(custom-set-variables
+    '(js2-basic-offset 2)))
+
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
+(require-package 'js2-refactor)
+(require 'js2-refactor)
+(add-hook 'js2-mode-hook #'js2-refactor-mode)
+(js2r-add-keybindings-with-prefix "C-c C-m")
+
+(defun electric-pair ()
+  "If at end of line, insert character pair without surrounding spaces.
+    Otherwise, just insert the typed character."
+  (interactive)
+  (if (eolp) (let (parens-require-spaces) (insert-pair)) (self-insert-command 1)))
+
+(add-hook 'js2-mode-hook
+          (lambda ()
+            (define-key js2-mode-map "(" 'electric-pair)
+            (define-key js2-mode-map "{" 'electric-pair)
+            (define-key js2-mode-map "[" 'electric-pair)))
+
 (require-package 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
 (pending-delete-mode t)
