@@ -111,5 +111,13 @@ re-downloaded in order to locate PACKAGE."
 ;; evil-jumper
 ;; compare company-mode vs auto-complete
 ;; evil-mode
-;;
-;; "Emacs rocks" stuff?
+
+(use-package expand-region
+  :bind ("C-=" . er/expand-region)
+  :config (pending-delete-mode t))
+
+(use-package multiple-cursors
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+         ("C->" . mc/mark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this)
+         ("C-c C-<" . mc/mark-all-like-this)))
