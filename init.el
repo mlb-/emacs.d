@@ -34,3 +34,6 @@ re-downloaded in order to locate PACKAGE."
 
 ;; Thanks, technomancy! (https://github.com/technomancy/emacs-starter-kit/)
 (use-package better-defaults)
+;; And, as per suggestion 1
+(use-package ido-hacks
+  :disabled t)
