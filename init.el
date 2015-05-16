@@ -102,7 +102,7 @@ re-downloaded in order to locate PACKAGE."
 
 ;; look at evil-jumper
 ;; compare company-mode vs auto-complete
-;; evil-mode?
+(require-package 'evil)
 
 (require-package 'js2-mode)
 (eval-after-load 'js2-mode
