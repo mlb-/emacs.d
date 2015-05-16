@@ -65,7 +65,9 @@ re-downloaded in order to locate PACKAGE."
 ;; As per suggestion 5
 (use-package paredit
   :diminish "()"
-  :hook (emacs-lisp-mode-hook . paredit-mode)
+  :hook ((emacs-lisp-mode-hook . paredit-mode)
+         (cider-repl-mode-hook . paredit-mode)
+         (clojure-mode-hook . paredit-mode))
   :bind (:map paredit-mode-map
               ("M-{" . paredit-wrap-curly)
               ("M-[" . paredit-wrap-square)))
@@ -80,7 +82,17 @@ re-downloaded in order to locate PACKAGE."
     (idle-highlight-mode t))
   :hook (prog-mode-hook . my-coding-hook))
 
-;; Clojure support
+(use-package cider
+  :custom (cider-repl-pop-to-buffer-on-connect nil
+                                               "Don't be rude."))
+(use-package clojure-mode)
+(use-package clj-refactor
+  :after cider)
+
+(use-package flycheck-clojure
+  :after cider
+  :config (flycheck-clojure-setup))
+
 
 (use-package anzu
   :diminish ""
@@ -115,7 +127,8 @@ re-downloaded in order to locate PACKAGE."
 ;; speeddating
 
 (use-package rainbow-delimiters
-  :hook (prog-mode-hook . rainbow-delimiters-mode))
+  :hook ((prog-mode-hook . rainbow-delimiters-mode)
+         (cider-repl-mode-hook . rainbow-delimiters-mode)))
 
 ;; evil-jumper
 ;; compare company-mode vs auto-complete
