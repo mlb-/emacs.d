@@ -1,5 +1,12 @@
 ;;; I'm a dog using emacs. HALP! I don't know what I'm doing.
 
+;; This hook only works in 24.4 -- not yet available on Ubuntu 14.04.02
+(defun save-all ()
+  (interactive)
+  (save-some-buffers t))
+
+(add-hook 'focus-out-hook 'save-all)
+
 ;; Yay packages!
 (require 'package)
 ;; Do I need these other repos? Who knows!
