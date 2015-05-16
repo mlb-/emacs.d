@@ -26,6 +26,8 @@ re-downloaded in order to locate PACKAGE."
 (use-package use-package
   :custom (use-package-hook-name-suffix "" "Don't magically append `-hook` for me."))
 
+(use-package delight)
+
 (use-package exec-path-from-shell
   :if (memq window-system '(mac ns))
   :config (exec-path-from-shell-initialize))
@@ -90,7 +92,11 @@ re-downloaded in order to locate PACKAGE."
 (setq scroll-margin 1)
 ;; pre-save delete-trailing-whitespace
 ;; auto-resize splits
-;; projectionist-like dispatch?
+
+(use-package projectile
+  :bind-keymap ("C-c p" . projectile-command-map)
+  :delight '(:eval (concat " [" (projectile-project-name) "]"))
+  :config (projectile-global-mode t))
 ;; sudo-write
 (use-package markdown-mode)
 ;; erlang-mode?
