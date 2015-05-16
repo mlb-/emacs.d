@@ -37,3 +37,5 @@ re-downloaded in order to locate PACKAGE."
 ;; And, as per suggestion 1
 (use-package ido-hacks
   :disabled t)
+;; And, as per suggestion 2
+;;(setq ido-use-virtual-buffers t)
