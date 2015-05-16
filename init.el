@@ -73,3 +73,28 @@ re-downloaded in order to locate PACKAGE."
     (if window-system (hl-line-mode t))
     (idle-highlight-mode t))
   :hook (prog-mode-hook . my-coding-hook))
+
+;; Clojure support
+;; Get "indexedsearch" equivalent
+;; colorcolumn/row?
+;; relativenumber?
+;; tabbar
+;; "scroll-off"
+;; pre-save delete-trailing-whitespace
+;; auto-resize splits
+;; projectionist-like dispatch?
+;; sudo-write
+;; markdown
+;; erlang-mode?
+;; git
+;; latex?
+;; syntastic -- flycheck?
+;; tagbar
+;; surround -- change balanced pairs
+;; unimpaired?
+;; nerdtree
+;; speeddating
+;; rainbow-parens
+;; jumplist
+;; autocompletion
+;; vim keybindings
