@@ -56,3 +56,13 @@ re-downloaded in order to locate PACKAGE."
                     (define-key paredit-mode-map (kbd "M-[") 'paredit-wrap-square)))
 
 (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+
+;; As per suggestion 6
+(require-package 'idle-highlight-mode)
+(defun my-coding-hook ()
+  (make-local-variable 'column-number-mode)
+  (column-number-mode t)
+  (if window-system (hl-line-mode t))
+  (idle-highlight-mode t))
+
+(add-hook 'prog-mode-hook 'my-coding-hook)
