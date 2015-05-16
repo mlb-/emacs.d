@@ -66,3 +66,30 @@ re-downloaded in order to locate PACKAGE."
   (idle-highlight-mode t))
 
 (add-hook 'prog-mode-hook 'my-coding-hook)
+
+;; Clojure support
+;; Get "indexedsearch" equivalent
+;; colorcolumn/row?
+;; relativenumber?
+;; tabbar
+;; "scroll-off"
+;; pre-save delete-trailing-whitespace
+;; auto-resize splits
+;; projectionist-like dispatch?
+;; sudo-write
+;; markdown
+;; erlang-mode?
+;; magit
+;; latex?
+;; syntastic -- flycheck?
+;; tagbar
+;; surround -- change balanced pairs
+;; unimpaired?
+;; nerdtree
+;; speeddating
+;; rainbow-parens
+;; look at evil-jumper
+;; compare company-mode vs auto-complete
+;; evil-mode?
+;;
+;; Emacs rocks stuff?
