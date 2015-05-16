@@ -116,7 +116,8 @@ re-downloaded in order to locate PACKAGE."
 ;; sudo-write
 (use-package markdown-mode)
 ;; erlang-mode?
-;; magit
+(use-package magit
+  :bind ("C-c g" . magit-status))
 
 (use-package tex-site
   :ensure auctex)
