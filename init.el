@@ -39,3 +39,11 @@ re-downloaded in order to locate PACKAGE."
   :disabled t)
 ;; And, as per suggestion 2
 ;;(setq ido-use-virtual-buffers t)
+;; And, as per suggestion 3
+(use-package smex
+  :disabled t
+  :bind (("M-x" . smex)
+         ("M-X" . smex-major-mode-commands)
+         ;; This is your old M-x.
+         ("C-c C-c M-x" . execute-extended-command))
+  :config (smex-initialize))
