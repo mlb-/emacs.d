@@ -91,7 +91,9 @@ re-downloaded in order to locate PACKAGE."
 (use-package markdown-mode)
 ;; erlang-mode?
 ;; magit
-;; latex?
+
+(use-package tex-site
+  :ensure auctex)
 ;; syntastic -- flycheck?
 ;; tagbar
 ;; surround -- change balanced pairs
