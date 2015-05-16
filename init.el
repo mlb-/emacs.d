@@ -96,6 +96,10 @@ re-downloaded in order to locate PACKAGE."
 (use-package projectile
   :delight '(:eval (concat " [" (projectile-project-name) "]"))
   :config (projectile-global-mode t))
+
+;; Welcome screen begone!
+(setq inhibit-startup-message t)
+
 ;; sudo-write
 (use-package markdown-mode)
 ;; erlang-mode?
