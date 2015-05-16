@@ -78,7 +78,12 @@ re-downloaded in order to locate PACKAGE."
 (setq scroll-margin 1)
 ;; pre-save delete-trailing-whitespace
 ;; auto-resize splits
-;; projectionist-like dispatch?
+
+(require-package 'projectile)
+(projectile-global-mode t)
+;; Welcome screen begone!
+(setq inhibit-startup-message t)
+
 ;; sudo-write
 (require-package 'markdown-mode)
 ;; erlang-mode?
