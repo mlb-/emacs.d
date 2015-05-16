@@ -86,7 +86,7 @@ re-downloaded in order to locate PACKAGE."
 ;; sudo-write
 ;; markdown
 ;; erlang-mode?
-;; git
+;; magit
 ;; latex?
 ;; syntastic -- flycheck?
 ;; tagbar
@@ -95,6 +95,8 @@ re-downloaded in order to locate PACKAGE."
 ;; nerdtree
 ;; speeddating
 ;; rainbow-parens
-;; jumplist
-;; autocompletion
-;; vim keybindings
+;; evil-jumper
+;; compare company-mode vs auto-complete
+;; evil-mode
+;;
+;; "Emacs rocks" stuff?
