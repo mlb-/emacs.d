@@ -67,7 +67,17 @@ re-downloaded in order to locate PACKAGE."
 
 (add-hook 'prog-mode-hook 'my-coding-hook)
 
-;; Clojure support
+(require-package 'cider)
+(require-package 'clojure-mode)
+(add-hook 'clojure-mode-hook 'paredit-mode)
+(add-hook 'cider-repl-mode-hook #'paredit-mode)
+(add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
+(setq cider-repl-pop-to-buffer-on-connect nil)
+(require-package 'clj-refactor)
+
+(require-package 'flycheck-clojure)
+(eval-after-load 'flycheck '(flycheck-clojure-setup))
+
 
 (require-package 'anzu)
 (global-anzu-mode t)
