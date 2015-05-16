@@ -94,7 +94,8 @@ re-downloaded in order to locate PACKAGE."
 ;; sudo-write
 (require-package 'markdown-mode)
 ;; erlang-mode?
-;; magit
+(require-package 'magit)
+(global-set-key (kbd "C-c g") 'magit-status)
 
 (require-package 'auctex)
 
