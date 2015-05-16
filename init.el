@@ -29,3 +29,21 @@ re-downloaded in order to locate PACKAGE."
 
 ;; Thanks, technomancy! (https://github.com/technomancy/emacs-starter-kit/)
 (require-package 'better-defaults)
+;; And, as per suggestion 1
+;(require-package 'ido-hacks)
+;; And, as per suggestion 2
+;(setq ido-use-virtual-buffers t)
+;; And, as per suggestion 3
+;(require-package 'smex)
+;(smex-initialize)
+;(global-set-key (kbd "M-x") 'smex)
+;(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+;(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+(require-package 'helm)
+(helm-mode t)
+
+;; As per suggestion 4
+;(require-package 'ido-ubiquitous)
+;(ido-ubiquitous)
