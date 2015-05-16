@@ -63,3 +63,13 @@ re-downloaded in order to locate PACKAGE."
   :bind (:map paredit-mode-map
               ("M-{" . paredit-wrap-curly)
               ("M-[" . paredit-wrap-square)))
+
+;; As per suggestion 6
+(use-package idle-highlight-mode
+  :init
+  (defun my-coding-hook ()
+    (make-local-variable 'column-number-mode)
+    (column-number-mode t)
+    (if window-system (hl-line-mode t))
+    (idle-highlight-mode t))
+  :hook (prog-mode-hook . my-coding-hook))
