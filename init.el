@@ -26,6 +26,10 @@ re-downloaded in order to locate PACKAGE."
 (use-package use-package
   :custom (use-package-hook-name-suffix "" "Don't magically append `-hook` for me."))
 
+(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns))
+  :config (exec-path-from-shell-initialize))
+
 (use-package zenburn-theme
   :config (load-theme 'zenburn t))
 
