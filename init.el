@@ -47,3 +47,7 @@ re-downloaded in order to locate PACKAGE."
          ;; This is your old M-x.
          ("C-c C-c M-x" . execute-extended-command))
   :config (smex-initialize))
+;; As per suggestion 4
+(use-package ido-ubiquitous
+  :disabled t
+  :config (ido-ubiquitous))
