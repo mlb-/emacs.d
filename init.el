@@ -75,7 +75,11 @@ re-downloaded in order to locate PACKAGE."
   :hook (prog-mode-hook . my-coding-hook))
 
 ;; Clojure support
-;; Get "indexedsearch" equivalent
+
+(use-package anzu
+  :diminish ""
+  :config (global-anzu-mode t))
+
 ;; colorcolumn/row?
 ;; relativenumber?
 ;; tabbar
