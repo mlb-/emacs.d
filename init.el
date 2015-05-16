@@ -47,3 +47,12 @@ re-downloaded in order to locate PACKAGE."
 ;; As per suggestion 4
 ;(require-package 'ido-ubiquitous)
 ;(ido-ubiquitous)
+
+;; As per suggestion 5
+(require-package 'paredit)
+(eval-after-load 'paredit
+                 '(progn
+                    (define-key paredit-mode-map (kbd "M-{") 'paredit-wrap-curly)
+                    (define-key paredit-mode-map (kbd "M-[") 'paredit-wrap-square)))
+
+(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
