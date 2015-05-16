@@ -112,6 +112,27 @@ re-downloaded in order to locate PACKAGE."
 ;; compare company-mode vs auto-complete
 ;; evil-mode
 
+(defun electric-pair ()
+  "If at end of line, insert character pair without surrounding spaces.
+    Otherwise, just insert the typed character."
+  (interactive)
+  (if (eolp) (let (parens-require-spaces) (insert-pair)) (self-insert-command 1)))
+
+(use-package js2-mode
+  :mode "\\.js$"
+  :custom (js2-basic-offset 2
+                            "Not gonna let callback hell make me scroll offscreen")
+  :config (add-hook 'js2-mode-hook
+                         (lambda ()
+                           (define-key js2-mode-map "(" 'electric-pair)
+                           (define-key js2-mode-map "{" 'electric-pair)
+                           (define-key js2-mode-map "[" 'electric-pair))))
+
+(use-package js2-refactor
+  :after js2-mode
+  :hook (js2-mode-mode . js2-refactor-mode)
+  :config (js2r-add-keybindings-with-prefix "C-c C-m"))
+
 (use-package expand-region
   :bind ("C-=" . er/expand-region)
   :config (pending-delete-mode t))
