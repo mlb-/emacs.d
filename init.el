@@ -97,6 +97,10 @@ re-downloaded in order to locate PACKAGE."
   :bind-keymap ("C-c p" . projectile-command-map)
   :delight '(:eval (concat " [" (projectile-project-name) "]"))
   :config (projectile-global-mode t))
+
+;; Welcome screen begone!
+(setq inhibit-startup-message t)
+
 ;; sudo-write
 (use-package markdown-mode)
 ;; erlang-mode?
