@@ -125,7 +125,14 @@ re-downloaded in order to locate PACKAGE."
 
 (use-package tex-site
   :ensure auctex)
-;; syntastic -- flycheck?
+
+(use-package flycheck
+  :hook (after-init-hook . global-flycheck-mode))
+
+(use-package flycheck-pos-tip
+  :after flycheck
+  :config (flycheck-pos-tip-mode))
+
 ;; tagbar
 ;; surround -- change balanced pairs
 ;; unimpaired?
