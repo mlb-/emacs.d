@@ -28,3 +28,6 @@ re-downloaded in order to locate PACKAGE."
 
 (use-package zenburn-theme
   :config (load-theme 'zenburn t))
+
+(use-package nyan-mode
+  :config (nyan-mode t))
