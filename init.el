@@ -31,3 +31,6 @@ re-downloaded in order to locate PACKAGE."
 
 (use-package nyan-mode
   :config (nyan-mode t))
+
+;; Thanks, technomancy! (https://github.com/technomancy/emacs-starter-kit/)
+(use-package better-defaults)
