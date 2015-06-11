@@ -113,7 +113,14 @@ re-downloaded in order to locate PACKAGE."
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 
-;; syntastic -- flycheck?
+(require-package 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+(require-package 'flycheck-pos-tip)
+(with-eval-after-load 'flycheck
+  (flycheck-pos-tip-mode))
+;;(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages)
+
 ;; tagbar
 ;; surround -- change balanced pairs
 ;; unimpaired?
