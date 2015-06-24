@@ -143,7 +143,6 @@ re-downloaded in order to locate PACKAGE."
          (cider-repl-mode-hook . rainbow-delimiters-mode)))
 
 ;; evil-jumper
-;; compare company-mode vs auto-complete
 (use-package evil)
 
 (defun electric-pair ()
@@ -176,3 +175,8 @@ re-downloaded in order to locate PACKAGE."
          ("C->" . mc/mark-next-like-this)
          ("C-<" . mc/mark-previous-like-this)
          ("C-c C-<" . mc/mark-all-like-this)))
+
+(use-package company
+  :diminish ""
+  :hook (after-init-hook . global-company-mode)
+  :bind ("TAB" . company-indent-or-complete-common))
