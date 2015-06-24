@@ -131,7 +131,6 @@ re-downloaded in order to locate PACKAGE."
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 ;; look at evil-jumper
-;; compare company-mode vs auto-complete
 (require-package 'evil)
 
 (require-package 'js2-mode)
@@ -167,3 +166,6 @@ re-downloaded in order to locate PACKAGE."
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
+(require-package 'company)
+(add-hook 'after-init-hook 'global-company-mode)
