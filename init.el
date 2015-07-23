@@ -181,3 +181,6 @@ re-downloaded in order to locate PACKAGE."
   :diminish ""
   :hook (after-init-hook . global-company-mode)
   :bind ("TAB" . company-indent-or-complete-common))
+
+(use-package graphviz-dot-mode
+  :mode "\\.dot$")
