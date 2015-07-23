@@ -166,3 +166,5 @@ re-downloaded in order to locate PACKAGE."
 
 (require-package 'company)
 (add-hook 'after-init-hook 'global-company-mode)
+
+(require-package 'graphviz-dot-mode)
