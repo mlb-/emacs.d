@@ -131,6 +131,7 @@ re-downloaded in order to locate PACKAGE."
 
 (use-package projectile
   :delight '(:eval (concat " [" (projectile-project-name) "]"))
+  :custom (projectile-use-git-grep t)
   :config (projectile-global-mode t))
 
 ;; Welcome screen begone!
