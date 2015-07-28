@@ -74,6 +74,9 @@ re-downloaded in order to locate PACKAGE."
   :diminish helm-mode
   :config (helm-mode t))
 
+(use-package helm-descbinds
+  :config (helm-descbinds-mode))
+
 ;; As per suggestion 4
 (use-package ido-ubiquitous
   :disabled t
