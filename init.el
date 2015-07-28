@@ -74,6 +74,10 @@ re-downloaded in order to locate PACKAGE."
   :diminish helm-mode
   :config (helm-mode t))
 
+(use-package helm-projectile
+  :custom (projectile-completion-system 'helm)
+  :config (helm-projectile-on))
+
 (use-package helm-descbinds
   :config (helm-descbinds-mode))
 
