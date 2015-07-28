@@ -61,6 +61,9 @@ re-downloaded in order to locate PACKAGE."
 (global-set-key (kbd "C-c h o") 'helm-occur)
 (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
 
+(require-package 'helm-descbinds)
+(helm-descbinds-mode)
+
 ;; As per suggestion 4
 ;(require-package 'ido-ubiquitous)
 ;(ido-ubiquitous)
