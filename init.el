@@ -61,6 +61,10 @@ re-downloaded in order to locate PACKAGE."
 (global-set-key (kbd "C-c h o") 'helm-occur)
 (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
 
+(require-package 'helm-projectile)
+(setq projectile-completion-system 'helm)
+(helm-projectile-on)
+
 (require-package 'helm-descbinds)
 (helm-descbinds-mode)
 
