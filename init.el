@@ -49,7 +49,17 @@ re-downloaded in order to locate PACKAGE."
 ;(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 (require-package 'helm)
+;;; Thanks, https://tuhdo.github.io/helm-intro.html
+(require 'helm-config)
+(global-unset-key (kbd "C-x c"))
+(global-set-key (kbd "C-c h") 'helm-command-prefix)
 (helm-mode t)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+(global-set-key (kbd "C-x b") 'helm-mini)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-c h o") 'helm-occur)
+(global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
 
 ;; As per suggestion 4
 ;(require-package 'ido-ubiquitous)
