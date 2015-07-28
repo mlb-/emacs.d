@@ -115,6 +115,7 @@ re-downloaded in order to locate PACKAGE."
 
 (require-package 'projectile)
 (projectile-global-mode t)
+(setq projectile-use-git-grep t)
 ;; Welcome screen begone!
 (setq inhibit-startup-message t)
 
