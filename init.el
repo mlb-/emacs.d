@@ -58,7 +58,20 @@ re-downloaded in order to locate PACKAGE."
          ("C-c C-c M-x" . execute-extended-command))
   :config (smex-initialize))
 
-(use-package helm
+;;; Thanks, https://tuhdo.github.io/helm-intro.html
+(use-package helm-config
+  :ensure helm
+  :demand t
+  :custom (helm-command-prefix-key "C-c h" "Avoid fat-fingering C-c C-x.")
+  :bind (("M-x" . helm-M-x)
+         ("M-y" . helm-show-kill-ring)
+         ("C-x b" . helm-mini)
+         ("C-x C-f" . helm-find-files)
+         ("C-c h" . helm-command-prefix)
+         ("C-h SPC" . helm-all-mark-rings)
+         :map helm-command-map
+         ("o" . helm-occur))
+  :diminish helm-mode
   :config (helm-mode t))
 
 ;; As per suggestion 4
