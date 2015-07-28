@@ -132,6 +132,7 @@ re-downloaded in order to locate PACKAGE."
 (use-package projectile
   :bind-keymap ("C-c p" . projectile-command-map)
   :delight '(:eval (concat " [" (projectile-project-name) "]"))
+  :custom (projectile-use-git-grep t)
   :config (projectile-global-mode t))
 
 ;; Welcome screen begone!
