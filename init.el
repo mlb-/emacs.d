@@ -139,6 +139,9 @@ re-downloaded in order to locate PACKAGE."
 (setq inhibit-startup-message t)
 
 ;; sudo-write
+(use-package tramp
+  :config (add-to-list 'tramp-default-proxies-alist
+                       '(nil "root" "/ssh:%h:")))
 (use-package markdown-mode)
 ;; erlang-mode?
 (use-package magit
