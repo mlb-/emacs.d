@@ -153,7 +153,8 @@ re-downloaded in order to locate PACKAGE."
   :ensure auctex)
 
 (use-package flycheck
-  :hook (after-init-hook . global-flycheck-mode))
+  :hook ((after-init-hook . global-flycheck-mode)
+         (prog-mode-hook . flyspell-prog-mode)))
 
 (use-package flycheck-pos-tip
   :after flycheck
