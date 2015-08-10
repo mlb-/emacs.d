@@ -132,6 +132,7 @@ re-downloaded in order to locate PACKAGE."
 
 (require-package 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
 (require-package 'flycheck-pos-tip)
 (eval-after-load 'flycheck
