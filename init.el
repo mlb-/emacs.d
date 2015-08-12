@@ -195,5 +195,7 @@ re-downloaded in order to locate PACKAGE."
 
 (require-package 'graphviz-dot-mode)
 
+(setq-default indent-tabs-mode nil)
+
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
