@@ -140,8 +140,10 @@ re-downloaded in order to locate PACKAGE."
 
 ;; sudo-write
 (use-package tramp
-  :config (add-to-list 'tramp-default-proxies-alist
-                       '(nil "root" "/ssh:%h:")))
+  :config
+  (add-to-list 'tramp-default-proxies-alist
+               '(nil "root" "/ssh:%h:"))
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 (use-package markdown-mode)
 ;; erlang-mode?
 (use-package magit
