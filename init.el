@@ -191,3 +191,6 @@ re-downloaded in order to locate PACKAGE."
 (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
 
 (require-package 'graphviz-dot-mode)
+
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
