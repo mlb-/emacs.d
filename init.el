@@ -212,6 +212,13 @@ re-downloaded in order to locate PACKAGE."
 (use-package graphviz-dot-mode
   :mode "\\.dot$")
 
+(use-package eldoc
+  :diminish ""
+  :hook ((emacs-lisp-mode-hook . eldoc-mode)
+         (cider-mode-hook . eldoc-mode))
+  :custom (eldoc-idle-delay 0.1
+                            "I'm impatient."))
+
 (setq-default indent-tabs-mode nil)
 
 (setq custom-file "~/.emacs.d/custom.el")
