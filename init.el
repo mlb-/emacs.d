@@ -195,6 +195,10 @@ re-downloaded in order to locate PACKAGE."
 
 (require-package 'graphviz-dot-mode)
 
+(add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+(add-hook 'cider-mode-hook 'eldoc-mode)
+(setq eldoc-idle-delay 0.1)
+
 (setq-default indent-tabs-mode nil)
 
 (setq custom-file "~/.emacs.d/custom.el")
