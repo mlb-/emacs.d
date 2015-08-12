@@ -122,6 +122,7 @@ re-downloaded in order to locate PACKAGE."
 ;; sudo-write
 (add-to-list 'tramp-default-proxies-alist
              '(nil "root" "/ssh:%h:"))
+(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 (require-package 'markdown-mode)
 ;; erlang-mode?
 (require-package 'magit)
