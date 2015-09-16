@@ -185,6 +185,7 @@ re-downloaded in order to locate PACKAGE."
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "M-S-<mouse-1>") 'mc/add-cursor-on-click)
 
 (require-package 'company)
 (add-hook 'after-init-hook 'global-company-mode)
