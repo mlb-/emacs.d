@@ -226,3 +226,6 @@ re-downloaded in order to locate PACKAGE."
 
 (use-package gist
   :defer t)
+
+(use-package rainbow-identifiers
+  :hook (prog-mode-hook . rainbow-identifiers-mode))
