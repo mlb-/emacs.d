@@ -206,3 +206,6 @@ re-downloaded in order to locate PACKAGE."
 (load custom-file)
 
 (require-package 'gist)
+
+(require-package 'rainbow-identifiers)
+(add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
