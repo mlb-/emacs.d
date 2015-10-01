@@ -204,3 +204,5 @@ re-downloaded in order to locate PACKAGE."
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
+
+(require-package 'gist)
