@@ -230,3 +230,6 @@ re-downloaded in order to locate PACKAGE."
 
 (use-package rainbow-identifiers
   :hook (prog-mode-hook . rainbow-identifiers-mode))
+
+(use-package docker-tramp
+  :custom (docker-tramp-use-names t))
