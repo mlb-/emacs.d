@@ -206,3 +206,8 @@ re-downloaded in order to locate PACKAGE."
 
 (require-package 'rainbow-identifiers)
 (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
+
+(require-package 'docker-tramp)
+(eval-after-load 'docker-tramp
+  '(custom-set-variables
+    '(docker-tramp-use-names t)))
