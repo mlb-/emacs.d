@@ -208,3 +208,6 @@ re-downloaded in order to locate PACKAGE."
 
 (require-package 'undo-tree)
 (global-undo-tree-mode t)
+
+(require-package 'yasnippet)
+(yas-global-mode t)
