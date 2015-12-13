@@ -233,3 +233,7 @@ re-downloaded in order to locate PACKAGE."
 
 (use-package docker-tramp
   :custom (docker-tramp-use-names t))
+
+(use-package undo-tree
+  :diminish ""
+  :config (global-undo-tree-mode t))
