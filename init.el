@@ -156,9 +156,7 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'evil)
 
 (require-package 'js2-mode)
-(eval-after-load 'js2-mode
-  '(custom-set-variables
-    '(js2-basic-offset 2)))
+(setq js2-basic-offset 2)
 
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
@@ -211,6 +209,4 @@ re-downloaded in order to locate PACKAGE."
 (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
 
 (require-package 'docker-tramp)
-(eval-after-load 'docker-tramp
-  '(custom-set-variables
-    '(docker-tramp-use-names t)))
+(setq docker-tramp-use-names t)
