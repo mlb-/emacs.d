@@ -237,3 +237,8 @@ re-downloaded in order to locate PACKAGE."
 (use-package undo-tree
   :diminish ""
   :config (global-undo-tree-mode t))
+
+(use-package yasnippet
+  :disabled t
+  :diminish yas-minor-mode
+  :config (yas-global-mode t))
