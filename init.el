@@ -205,3 +205,6 @@ re-downloaded in order to locate PACKAGE."
 
 (require-package 'docker-tramp)
 (setq docker-tramp-use-names t)
+
+(require-package 'undo-tree)
+(global-undo-tree-mode t)
