@@ -212,3 +212,4 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'yasnippet)
 (yas-global-mode t)
 (setq visible-bell nil)
+(setq save-interprogram-paste-before-kill t)
