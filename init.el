@@ -244,3 +244,5 @@ re-downloaded in order to locate PACKAGE."
   :config (yas-global-mode t))
 
 (setq visible-bell nil)
+
+(setq save-interprogram-paste-before-kill t)
