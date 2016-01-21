@@ -241,3 +241,5 @@ re-downloaded in order to locate PACKAGE."
   :disabled t
   :diminish yas-minor-mode
   :config (yas-global-mode t))
+
+(setq visible-bell nil)
