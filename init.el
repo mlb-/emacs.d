@@ -35,8 +35,8 @@ re-downloaded in order to locate PACKAGE."
         (package-refresh-contents)
         (require-package package min-version t)))))
 
-(require-package 'zenburn-theme)
-(load-theme 'zenburn t)
+(require-package 'solarized-theme)
+(load-theme 'solarized-dark t)
 
 (require-package 'nyan-mode)
 (nyan-mode t)
