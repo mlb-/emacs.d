@@ -229,3 +229,6 @@ re-downloaded in order to locate PACKAGE."
 (setq save-interprogram-paste-before-kill t)
 
 (require-package 'yaml-mode)
+
+(require-package 'maxframe)
+(add-hook 'window-setup-hook 'maximize-frame t)
