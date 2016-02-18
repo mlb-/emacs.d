@@ -255,3 +255,7 @@ re-downloaded in order to locate PACKAGE."
 
 (use-package yaml-mode
   :mode "\\.yml$")
+
+(use-package maxframe
+  :if (string-equal (window-system) "ns")
+  :hook (window-setup-hook . maximize-frame))
