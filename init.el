@@ -39,8 +39,8 @@ re-downloaded in order to locate PACKAGE."
   :if (memq window-system '(mac ns))
   :config (exec-path-from-shell-initialize))
 
-(use-package zenburn-theme
-  :config (load-theme 'zenburn t))
+(use-package solarized-theme
+  :config (load-theme 'solarized-dark t))
 
 (use-package nyan-mode
   :config (nyan-mode t))
