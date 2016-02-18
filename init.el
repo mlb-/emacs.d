@@ -4,8 +4,15 @@
 (require 'package)
 ;; Do I need these other repos? Who knows!
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ;("marmalade" . "https://marmalade-repo.org/packages/")
+                         ;;("marmalade" . "https://marmalade-repo.org/packages/")
+                         ("melpa-stable" . "https://stable.melpa.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")))
+
+(setq package-pinned-packages
+      '((magit . "melpa-stable")
+        (cider . "melpa-stable")
+        (clj-refactor . "melpa-stable")))
+
 (package-initialize)
 
 ;; Shamelessly stolen!
