@@ -16,21 +16,13 @@
                          ("melpa" . "http://melpa.org/packages/")))
 
 (package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
 
-;; Shamelessly stolen!
-(defun require-package (package &optional min-version no-refresh)
-  "Install given PACKAGE, optionally requiring MIN-VERSION.
-If NO-REFRESH is non-nil, the available package lists will not becall
-re-downloaded in order to locate PACKAGE."
-  (if (package-installed-p package min-version)
-      t
-    (if (or (assoc package package-archive-contents) no-refresh)
-        (package-install package)
-      (progn
-        (package-refresh-contents)
-        (require-package package min-version t)))))
+(setq use-package-always-ensure t)
 
-(require-package 'use-package)
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
 
 (use-package solarized-theme
   :config (load-theme 'solarized-dark t))
