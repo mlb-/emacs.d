@@ -20,3 +20,8 @@ re-downloaded in order to locate PACKAGE."
       (progn
         (package-refresh-contents)
         (require-package package min-version t)))))
+
+(require-package 'use-package)
+
+(use-package use-package
+  :custom (use-package-hook-name-suffix "" "Don't magically append `-hook` for me."))
