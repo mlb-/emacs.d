@@ -37,11 +37,11 @@ re-downloaded in order to locate PACKAGE."
 
 (require-package 'use-package)
 
-(use-package solarized-theme)
-(load-theme 'solarized-dark t)
+(use-package solarized-theme
+  :config (load-theme 'solarized-dark t))
 
-(use-package nyan-mode)
-(nyan-mode t)
+(use-package nyan-mode
+  :config (nyan-mode t))
 
 ;; Thanks, technomancy! (https://github.com/technomancy/emacs-starter-kit/)
 (use-package better-defaults)
@@ -57,63 +57,68 @@ re-downloaded in order to locate PACKAGE."
 ;; This is your old M-x.
 ;(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
-(use-package helm)
-;;; Thanks, https://tuhdo.github.io/helm-intro.html
-(require 'helm-config)
-(global-unset-key (kbd "C-x c"))
-(global-set-key (kbd "C-c h") 'helm-command-prefix)
-(helm-mode t)
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "C-x b") 'helm-mini)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-c h o") 'helm-occur)
-(global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
+(use-package helm
+  :config
+  ;; Thanks, https://tuhdo.github.io/helm-intro.html
+  (require 'helm-config)
+  (global-unset-key (kbd "C-x c"))
+  (global-set-key (kbd "C-c h") 'helm-command-prefix)
+  (helm-mode t)
+  (global-set-key (kbd "M-x") 'helm-M-x)
+  (global-set-key (kbd "M-y") 'helm-show-kill-ring)
+  (global-set-key (kbd "C-x b") 'helm-mini)
+  (global-set-key (kbd "C-x C-f") 'helm-find-files)
+  (global-set-key (kbd "C-c h o") 'helm-occur)
+  (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings))
 
-(use-package helm-projectile)
-(setq projectile-completion-system 'helm)
-(helm-projectile-on)
+(use-package helm-projectile
+  :config
+  (setq projectile-completion-system 'helm)
+  (helm-projectile-on))
 
-(use-package helm-descbinds)
-(helm-descbinds-mode)
+(use-package helm-descbinds
+  :config (helm-descbinds-mode))
 
 ;; As per suggestion 4
 ;(use-package ido-ubiquitous)
 ;(ido-ubiquitous)
 
 ;; As per suggestion 5
-(use-package paredit)
-(eval-after-load 'paredit
-                 '(progn
-                    (define-key paredit-mode-map (kbd "M-{") 'paredit-wrap-curly)
-                    (define-key paredit-mode-map (kbd "M-[") 'paredit-wrap-square)))
+(use-package paredit
+  :config
+  (eval-after-load 'paredit
+    '(progn
+       (define-key paredit-mode-map (kbd "M-{") 'paredit-wrap-curly)
+       (define-key paredit-mode-map (kbd "M-[") 'paredit-wrap-square)))
 
-(add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+  (add-hook 'emacs-lisp-mode-hook 'paredit-mode))
 
 ;; As per suggestion 6
-(use-package idle-highlight-mode)
-(defun my-coding-hook ()
-  (make-local-variable 'column-number-mode)
-  (column-number-mode t)
-  (if window-system (hl-line-mode t))
-  (idle-highlight-mode t))
+(use-package idle-highlight-mode
+  :config
+  (defun my-coding-hook ()
+    (make-local-variable 'column-number-mode)
+    (column-number-mode t)
+    (if window-system (hl-line-mode t))
+    (idle-highlight-mode t))
 
-(add-hook 'prog-mode-hook 'my-coding-hook)
+  (add-hook 'prog-mode-hook 'my-coding-hook))
 
-(use-package cider)
-(use-package clojure-mode)
-(add-hook 'clojure-mode-hook 'paredit-mode)
-(add-hook 'cider-repl-mode-hook #'paredit-mode)
-(add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
-(setq cider-repl-pop-to-buffer-on-connect nil)
+(use-package cider
+  :config (setq cider-repl-pop-to-buffer-on-connect nil))
+(use-package clojure-mode
+  :config
+  (add-hook 'clojure-mode-hook 'paredit-mode)
+  (add-hook 'cider-repl-mode-hook #'paredit-mode)
+  (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode))
 (use-package clj-refactor)
 
-(use-package flycheck-clojure)
-(eval-after-load 'flycheck '(flycheck-clojure-setup))
+(use-package flycheck-clojure
+  :config (eval-after-load 'flycheck '(flycheck-clojure-setup)))
 
 
-(use-package anzu)
-(global-anzu-mode t)
+(use-package anzu
+  :config (global-anzu-mode t))
 
 ;; colorcolumn/row?
 ;; relativenumber?
@@ -122,9 +127,10 @@ re-downloaded in order to locate PACKAGE."
 ;; pre-save delete-trailing-whitespace
 ;; auto-resize splits
 
-(use-package projectile)
-(projectile-global-mode t)
-(setq projectile-use-git-grep t)
+(use-package projectile
+  :config
+  (projectile-global-mode t)
+  (setq projectile-use-git-grep t))
 ;; Welcome screen begone!
 (setq inhibit-startup-message t)
 
@@ -134,22 +140,23 @@ re-downloaded in order to locate PACKAGE."
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 (use-package markdown-mode)
 ;; erlang-mode?
-(use-package magit)
-(global-set-key (kbd "C-c g") 'magit-status)
+(use-package magit
+  :config (global-set-key (kbd "C-c g") 'magit-status))
 
 (use-package auctex)
 
-(use-package exec-path-from-shell)
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
+(use-package exec-path-from-shell
+  :config (when (memq window-system '(mac ns))
+            (exec-path-from-shell-initialize)))
 
-(use-package flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
-(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+(use-package flycheck
+  :config
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  (add-hook 'prog-mode-hook 'flyspell-prog-mode))
 
-(use-package flycheck-pos-tip)
-(with-eval-after-load 'flycheck
-  (flycheck-pos-tip-mode))
+(use-package flycheck-pos-tip
+  :config (with-eval-after-load 'flycheck
+            (flycheck-pos-tip-mode)))
 ;;(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages)
 
 ;; tagbar
@@ -158,48 +165,51 @@ re-downloaded in order to locate PACKAGE."
 ;; nerdtree
 ;; speeddating
 
-(use-package rainbow-delimiters)
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+(use-package rainbow-delimiters
+  :config (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 ;; look at evil-jumper
 (use-package evil)
-
-(use-package js2-mode)
-(setq js2-basic-offset 2)
-
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-
-(use-package js2-refactor)
-(require 'js2-refactor)
-(add-hook 'js2-mode-hook #'js2-refactor-mode)
-(js2r-add-keybindings-with-prefix "C-c C-m")
 
 (defun electric-pair ()
   "If at end of line, insert character pair without surrounding spaces.
     Otherwise, just insert the typed character."
   (interactive)
   (if (eolp) (let (parens-require-spaces) (insert-pair)) (self-insert-command 1)))
+(use-package js2-mode
+  :config (setq js2-basic-offset 2)
 
-(add-hook 'js2-mode-hook
+  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+  
+  (add-hook 'js2-mode-hook
           (lambda ()
             (define-key js2-mode-map "(" 'electric-pair)
             (define-key js2-mode-map "{" 'electric-pair)
-            (define-key js2-mode-map "[" 'electric-pair)))
+            (define-key js2-mode-map "[" 'electric-pair))))
 
-(use-package expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
-(pending-delete-mode t)
+(use-package js2-refactor
+  :config
+  (require 'js2-refactor)
+  (add-hook 'js2-mode-hook #'js2-refactor-mode)
+  (js2r-add-keybindings-with-prefix "C-c C-m"))
 
-(use-package multiple-cursors)
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-(global-set-key (kbd "M-S-<mouse-1>") 'mc/add-cursor-on-click)
+(use-package expand-region
+  :config
+  (global-set-key (kbd "C-=") 'er/expand-region)
+  (pending-delete-mode t))
 
-(use-package company)
-(add-hook 'after-init-hook 'global-company-mode)
-(global-set-key (kbd "TAB") #'company-indent-or-complete-common)
+(use-package multiple-cursors
+  :config
+  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+  (global-set-key (kbd "M-S-<mouse-1>") 'mc/add-cursor-on-click))
+
+(use-package company
+  :config
+  (add-hook 'after-init-hook 'global-company-mode)
+  (global-set-key (kbd "TAB") #'company-indent-or-complete-common))
 
 (use-package graphviz-dot-mode)
 
@@ -214,17 +224,17 @@ re-downloaded in order to locate PACKAGE."
 
 (use-package gist)
 
-(use-package rainbow-identifiers)
-(add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
+(use-package rainbow-identifiers
+  :config (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
 
-(use-package docker-tramp)
-(setq docker-tramp-use-names t)
+(use-package docker-tramp
+  :config (setq docker-tramp-use-names t))
 
-(use-package undo-tree)
-(global-undo-tree-mode t)
+(use-package undo-tree
+  :config (global-undo-tree-mode t))
 
-(use-package yasnippet)
-(yas-global-mode t)
+(use-package yasnippet
+  :config (yas-global-mode t))
 
 (setq visible-bell nil)
 
@@ -232,8 +242,8 @@ re-downloaded in order to locate PACKAGE."
 
 (use-package yaml-mode)
 
-(use-package maxframe)
-(add-hook 'window-setup-hook 'maximize-frame t)
+(use-package maxframe
+  :config (add-hook 'window-setup-hook 'maximize-frame t))
 
-(use-package n4js)
-(setq n4js-cli-arguments '("-port" "5555"))
+(use-package n4js
+  :config (setq n4js-cli-arguments '("-port" "5555")))
