@@ -168,7 +168,8 @@
          (cider-repl-mode-hook . rainbow-delimiters-mode)))
 
 ;; evil-jumper
-(use-package evil)
+(use-package evil
+  :disabled t)
 
 (defun electric-pair ()
   "If at end of line, insert character pair without surrounding spaces.
