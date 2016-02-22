@@ -15,11 +15,6 @@
                          ("melpa-stable" . "https://stable.melpa.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")))
 
-(setq package-pinned-packages
-      '((magit . "melpa-stable")
-        (cider . "melpa-stable")
-        (clj-refactor . "melpa-stable")))
-
 (package-initialize)
 
 ;; Shamelessly stolen!
@@ -105,13 +100,15 @@ re-downloaded in order to locate PACKAGE."
   (add-hook 'prog-mode-hook 'my-coding-hook))
 
 (use-package cider
+  :pin melpa-stable
   :config (setq cider-repl-pop-to-buffer-on-connect nil))
 (use-package clojure-mode
   :config
   (add-hook 'clojure-mode-hook 'paredit-mode)
   (add-hook 'cider-repl-mode-hook #'paredit-mode)
   (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode))
-(use-package clj-refactor)
+(use-package clj-refactor
+  :pin melpa-stable)
 
 (use-package flycheck-clojure
   :config (eval-after-load 'flycheck '(flycheck-clojure-setup)))
@@ -141,6 +138,7 @@ re-downloaded in order to locate PACKAGE."
 (use-package markdown-mode)
 ;; erlang-mode?
 (use-package magit
+  :pin melpa-stable
   :config (global-set-key (kbd "C-c g") 'magit-status))
 
 (use-package auctex)
