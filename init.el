@@ -19,7 +19,8 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-(setq use-package-always-ensure t)
+(setq use-package-always-ensure t
+      use-package-verbose t)
 
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
