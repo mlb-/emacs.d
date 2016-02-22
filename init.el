@@ -133,7 +133,8 @@
   :pin melpa-stable
   :config (global-set-key (kbd "C-c g") 'magit-status))
 
-(use-package auctex)
+(use-package tex-site
+  :ensure auctex)
 
 (use-package exec-path-from-shell
   :config (when (memq window-system '(mac ns))
