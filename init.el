@@ -17,7 +17,8 @@
 
 (use-package use-package
   :custom ((use-package-hook-name-suffix "" "Don't magically append `-hook` for me.")
-           (use-package-always-ensure t)))
+           (use-package-always-ensure t)
+           (use-package-verbose t)))
 
 (use-package delight)
 
