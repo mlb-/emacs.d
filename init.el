@@ -232,3 +232,6 @@ re-downloaded in order to locate PACKAGE."
 
 (require-package 'maxframe)
 (add-hook 'window-setup-hook 'maximize-frame t)
+
+(require-package 'n4js)
+(setq n4js-cli-arguments '("-port" "5555"))
