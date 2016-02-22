@@ -284,6 +284,10 @@
   :hook (window-setup-hook . toggle-frame-fullscreen)
   :config (set-face-attribute 'default nil :height 140))
 
+(use-package n4js
+  :commands n4js-start
+  :config (setq n4js-cli-arguments '("-port" "5555")))
+
 (use-package whitespace
   :diminish ""
   :hook (((prog-mode-hook text-mode-hook) . whitespace-mode)
