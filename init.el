@@ -9,24 +9,15 @@
                          ("melpa" . "http://melpa.org/packages/")))
 
 (package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
 
-;; Shamelessly stolen!
-(defun require-package (package &optional min-version no-refresh)
-  "Install given PACKAGE, optionally requiring MIN-VERSION.
-If NO-REFRESH is non-nil, the available package lists will not becall
-re-downloaded in order to locate PACKAGE."
-  (if (package-installed-p package min-version)
-      t
-    (if (or (assoc package package-archive-contents) no-refresh)
-        (package-install package)
-      (progn
-        (package-refresh-contents)
-        (require-package package min-version t)))))
-
-(require-package 'use-package)
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
 
 (use-package use-package
-  :custom (use-package-hook-name-suffix "" "Don't magically append `-hook` for me."))
+  :custom ((use-package-hook-name-suffix "" "Don't magically append `-hook` for me.")
+           (use-package-always-ensure t)))
 
 (use-package delight)
 
