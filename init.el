@@ -25,3 +25,6 @@ re-downloaded in order to locate PACKAGE."
 
 (use-package use-package
   :custom (use-package-hook-name-suffix "" "Don't magically append `-hook` for me."))
+
+(use-package zenburn-theme
+  :config (load-theme 'zenburn t))
