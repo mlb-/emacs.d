@@ -45,18 +45,18 @@
 ;(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 (use-package helm
+  :bind (("M-x" . helm-M-x)
+         ("M-y" . helm-show-kill-ring)
+         ("C-x b" . helm-mini)
+         ("C-x C-f" . helm-find-files)
+         ("C-c h" . helm-command-prefix)
+         ("C-h SPC" . helm-all-mark-rings))
   :config
   ;; Thanks, https://tuhdo.github.io/helm-intro.html
   (require 'helm-config)
   (global-unset-key (kbd "C-x c"))
-  (global-set-key (kbd "C-c h") 'helm-command-prefix)
-  (helm-mode t)
-  (global-set-key (kbd "M-x") 'helm-M-x)
-  (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-  (global-set-key (kbd "C-x b") 'helm-mini)
-  (global-set-key (kbd "C-x C-f") 'helm-find-files)
   (global-set-key (kbd "C-c h o") 'helm-occur)
-  (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings))
+  (helm-mode t))
 
 (use-package helm-projectile
   :config
@@ -131,7 +131,7 @@
 ;; erlang-mode?
 (use-package magit
   :pin melpa-stable
-  :config (global-set-key (kbd "C-c g") 'magit-status))
+  :bind ("C-c g" . magit-status))
 
 (use-package tex-site
   :ensure auctex)
@@ -185,17 +185,15 @@
   (js2r-add-keybindings-with-prefix "C-c C-m"))
 
 (use-package expand-region
-  :config
-  (global-set-key (kbd "C-=") 'er/expand-region)
-  (pending-delete-mode t))
+  :bind ("C-=" . er/expand-region)
+  :config (pending-delete-mode t))
 
 (use-package multiple-cursors
-  :config
-  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-  (global-set-key (kbd "M-S-<mouse-1>") 'mc/add-cursor-on-click))
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+         ("C->" . mc/mark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this)
+         ("C-c C-<" . mc/mark-all-like-this)
+         ("M-S-<mouse-1>" . mc/add-cursor-on-click)))
 
 (use-package company
   :config
