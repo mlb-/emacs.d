@@ -98,15 +98,15 @@
   :config
   (setq cider-repl-pop-to-buffer-on-connect nil)
   (use-package clj-refactor
-    :pin melpa-stable))
+    :pin melpa-stable)
+  (use-package flycheck-clojure
+    :config (eval-after-load 'flycheck '(flycheck-clojure-setup))))
 (use-package clojure-mode
   :config
   (add-hook 'clojure-mode-hook 'paredit-mode)
   (add-hook 'cider-repl-mode-hook #'paredit-mode)
   (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode))
 
-(use-package flycheck-clojure
-  :config (eval-after-load 'flycheck '(flycheck-clojure-setup)))
 
 
 (use-package anzu
