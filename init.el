@@ -240,6 +240,9 @@
   :if (string-equal (window-system) "ns")
   :config (add-hook 'window-setup-hook 'maximize-frame t))
 
+(use-package scala-mode
+  :mode "\\.scala$")
+
 (use-package n4js
   :commands n4js-start
   :config (setq n4js-cli-arguments '("-port" "5555")))
