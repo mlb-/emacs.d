@@ -442,6 +442,9 @@ The following %-sequences are provided:
   :config
   (lsp-javacomp-install-server))
 
+(use-package scala-mode
+  :mode "\\.scala$")
+
 (use-package elm-mode
   :after company
   :custom ((elm-format-on-save t)
