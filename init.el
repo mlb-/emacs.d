@@ -31,16 +31,16 @@
 ;; Thanks, technomancy! (https://github.com/technomancy/emacs-starter-kit/)
 (use-package better-defaults)
 ;; And, as per suggestion 1
-;(use-package ido-hacks)
+;;(use-package ido-hacks)
 ;; And, as per suggestion 2
-;(setq ido-use-virtual-buffers t)
+;;(setq ido-use-virtual-buffers t)
 ;; And, as per suggestion 3
-;(use-package smex)
-;(smex-initialize)
-;(global-set-key (kbd "M-x") 'smex)
-;(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;;(use-package smex)
+;;(smex-initialize)
+;;(global-set-key (kbd "M-x") 'smex)
+;;(global-set-key (kbd "M-X") 'smex-major-mode-commands)
 ;; This is your old M-x.
-;(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+;;(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 (use-package helm
   :bind (("M-x" . helm-M-x)
@@ -65,8 +65,8 @@
   :config (helm-descbinds-mode))
 
 ;; As per suggestion 4
-;(use-package ido-ubiquitous)
-;(ido-ubiquitous)
+;;(use-package ido-ubiquitous)
+;;(ido-ubiquitous)
 
 ;; As per suggestion 5
 (use-package paredit
