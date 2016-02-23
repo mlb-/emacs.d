@@ -203,7 +203,8 @@
   (add-hook 'after-init-hook 'global-company-mode)
   (global-set-key (kbd "TAB") #'company-indent-or-complete-common))
 
-(use-package graphviz-dot-mode)
+(use-package graphviz-dot-mode
+  :mode ("\\.dot$" "\\.gv$"))
 
 (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
 (add-hook 'cider-mode-hook 'eldoc-mode)
