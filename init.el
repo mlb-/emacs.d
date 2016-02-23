@@ -75,10 +75,8 @@
   :commands paredit-mode
   :diminish "()"
   :config
-  (eval-after-load 'paredit
-    '(progn
-       (define-key paredit-mode-map (kbd "M-{") 'paredit-wrap-curly)
-       (define-key paredit-mode-map (kbd "M-[") 'paredit-wrap-square))))
+  (define-key paredit-mode-map (kbd "M-{") 'paredit-wrap-curly)
+  (define-key paredit-mode-map (kbd "M-[") 'paredit-wrap-square))
 
 ;; As per suggestion 6
 (use-package idle-highlight-mode
@@ -99,7 +97,7 @@
   (use-package clj-refactor
     :pin melpa-stable)
   (use-package flycheck-clojure
-    :config (eval-after-load 'flycheck '(flycheck-clojure-setup))))
+    :config (flycheck-clojure-setup)))
 (use-package clojure-mode
   :config
   (add-hook 'clojure-mode-hook 'paredit-mode)
@@ -146,11 +144,9 @@
 (use-package flycheck
   :config
   (add-hook 'after-init-hook #'global-flycheck-mode)
-  (add-hook 'prog-mode-hook 'flyspell-prog-mode))
-
-(use-package flycheck-pos-tip
-  :config (with-eval-after-load 'flycheck
-            (flycheck-pos-tip-mode)))
+  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+  (use-package flycheck-pos-tip
+    :config (flycheck-pos-tip-mode)))
 ;;(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages)
 
 ;; tagbar
