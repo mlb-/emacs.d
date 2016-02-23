@@ -43,6 +43,7 @@
 ;;(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 (use-package helm
+  :diminish ""
   :bind (("M-x" . helm-M-x)
          ("M-y" . helm-show-kill-ring)
          ("C-x b" . helm-mini)
@@ -72,6 +73,7 @@
 (use-package paredit
   :init (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
   :commands paredit-mode
+  :diminish "()"
   :config
   (eval-after-load 'paredit
     '(progn
@@ -107,6 +109,7 @@
 
 
 (use-package anzu
+  :diminish ""
   :config (global-anzu-mode t))
 
 ;; colorcolumn/row?
@@ -196,6 +199,7 @@
          ("M-S-<mouse-1>" . mc/add-cursor-on-click)))
 
 (use-package company
+  :diminish ""
   :config
   (add-hook 'after-init-hook 'global-company-mode)
   (global-set-key (kbd "TAB") #'company-indent-or-complete-common))
@@ -221,9 +225,11 @@
   :config (setq docker-tramp-use-names t))
 
 (use-package undo-tree
+  :diminish ""
   :config (global-undo-tree-mode t))
 
 (use-package yasnippet
+  :diminish (yas-minor-mode "")
   :config (yas-global-mode t))
 
 (setq visible-bell nil)
