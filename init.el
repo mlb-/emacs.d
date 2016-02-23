@@ -73,13 +73,13 @@
 
 ;; As per suggestion 5
 (use-package paredit
+  :init (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+  :commands paredit-mode
   :config
   (eval-after-load 'paredit
     '(progn
        (define-key paredit-mode-map (kbd "M-{") 'paredit-wrap-curly)
-       (define-key paredit-mode-map (kbd "M-[") 'paredit-wrap-square)))
-
-  (add-hook 'emacs-lisp-mode-hook 'paredit-mode))
+       (define-key paredit-mode-map (kbd "M-[") 'paredit-wrap-square))))
 
 ;; As per suggestion 6
 (use-package idle-highlight-mode
