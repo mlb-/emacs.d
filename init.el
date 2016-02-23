@@ -232,7 +232,8 @@
 
 (setq save-interprogram-paste-before-kill t)
 
-(use-package yaml-mode)
+(use-package yaml-mode
+  :mode "\\.yml$")
 
 (use-package maxframe
   :if (string-equal (window-system) "ns")
