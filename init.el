@@ -235,6 +235,7 @@
 (use-package yaml-mode)
 
 (use-package maxframe
+  :if (string-equal (window-system) "ns")
   :config (add-hook 'window-setup-hook 'maximize-frame t))
 
 (use-package n4js
