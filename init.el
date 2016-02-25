@@ -249,7 +249,8 @@
 
 (use-package maxframe
   :if (string-equal (window-system) "ns")
-  :hook (window-setup-hook . maximize-frame))
+  :hook (window-setup-hook . toggle-frame-fullscreen)
+  :config (set-face-attribute 'default nil :height 140))
 
 (use-package whitespace
   :diminish ""
