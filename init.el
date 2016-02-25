@@ -237,7 +237,10 @@
 
 (use-package maxframe
   :if (string-equal (window-system) "ns")
-  :config (add-hook 'window-setup-hook 'maximize-frame t))
+  :config
+  (add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
+  (set-face-attribute 'default nil :height 140))
+
 
 (use-package scala-mode
   :mode "\\.scala$")
