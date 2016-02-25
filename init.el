@@ -122,7 +122,6 @@
 ;; relativenumber?
 ;; tabbar
 (setq scroll-margin 1)
-;; pre-save delete-trailing-whitespace
 ;; auto-resize splits
 
 (use-package projectile
@@ -251,3 +250,10 @@
 (use-package maxframe
   :if (string-equal (window-system) "ns")
   :hook (window-setup-hook . maximize-frame))
+
+(use-package whitespace
+  :diminish ""
+  :hook (((prog-mode-hook text-mode-hook) . whitespace-mode)
+         (before-save-hook . whitespace-cleanup))
+  :custom ((whitespace-line-column 80 "limit line length")
+           (whitespace-style '(face tabs empty trailing lines-tail))))
