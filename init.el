@@ -102,8 +102,11 @@
 
 (use-package cider
   :pin melpa-stable
-  :custom (cider-repl-pop-to-buffer-on-connect nil
-                                               "Don't be rude."))
+  :custom ((cider-repl-pop-to-buffer-on-connect nil
+                                                "Don't be rude.")
+           (cider-test-show-report-on-success t
+                                              "See what passed."))
+  :commands (cider-jack-in cider-connect))
 (use-package clojure-mode)
 (use-package clj-refactor
   :pin melpa-stable
