@@ -261,3 +261,9 @@
 (use-package alert
   :commands alert
   :custom (alert-default-style 'notifier))
+
+(use-package compile
+  :init (defun compile-finish-hook (buf why)
+          (display-buffer buf)
+          (alert why :buffer buf))
+  :hook (compilation-finish-functions . compile-finish-hook))
