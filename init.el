@@ -94,6 +94,7 @@
   :commands (cider-jack-in cider-connect)
   :config
   (setq cider-repl-pop-to-buffer-on-connect nil)
+  (setq cider-test-show-report-on-success t)
   (use-package clj-refactor
     :pin melpa-stable)
   (use-package flycheck-clojure
