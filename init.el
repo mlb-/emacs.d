@@ -257,3 +257,19 @@
   :config
   (setq whitespace-line-column 80) ;; limit line length
   (setq whitespace-style '(face tabs empty trailing lines-tail)))
+
+(use-package compile
+  :defer t
+  :config
+  (use-package alert
+    :config
+    (setq alert-default-style 'notifier))
+  (eval-when-compile
+    (defvar exit-status))
+  (add-hook 'compilation-finish-functions
+            (lambda (buf why)
+              (display-buffer buf)
+              (if (> exit-status 0)
+                  (alert "Compilation finished with errors"
+                          :severity 'high)
+                (alert "Compilation finished" :buffer buf)))))
