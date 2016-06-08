@@ -145,7 +145,8 @@
 ;; erlang-mode?
 (use-package magit
   :pin melpa-stable
-  :bind ("C-c g" . magit-status))
+  :bind ("C-c g" . magit-status)
+  :custom (magit-branch-prefer-remote-upstream '("master" "develop")))
 
 (use-package tex-site
   :ensure auctex)
