@@ -258,3 +258,7 @@
          (before-save-hook . whitespace-cleanup))
   :custom ((whitespace-line-column 80 "limit line length")
            (whitespace-style '(face tabs empty trailing lines-tail))))
+
+(use-package alert
+  :commands alert
+  :custom (alert-default-style 'notifier))
