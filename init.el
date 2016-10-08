@@ -130,7 +130,8 @@
 (use-package projectile
   :bind-keymap ("C-c p" . projectile-command-map)
   :delight '(:eval (concat " [" (projectile-project-name) "]"))
-  :custom (projectile-use-git-grep t)
+  :custom ((projectile-use-git-grep t)
+           (projectile-switch-project-action 'projectile-vc))
   :config (projectile-global-mode t))
 
 ;; Welcome screen begone!
