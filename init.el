@@ -121,7 +121,8 @@
 (use-package projectile
   :config
   (projectile-global-mode t)
-  (setq projectile-use-git-grep t))
+  (setq projectile-use-git-grep t)
+  (setq projectile-switch-project-action 'projectile-vc))
 ;; Welcome screen begone!
 (setq inhibit-startup-message t)
 
