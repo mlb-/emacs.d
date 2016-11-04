@@ -269,7 +269,13 @@
   :custom (alert-default-style 'notifier))
 
 (use-package compile
-  :init (defun compile-finish-hook (buf why)
-          (display-buffer buf)
-          (alert why :buffer buf))
-  :hook (compilation-finish-functions . compile-finish-hook))
+  :init
+  (defun compile-finish-hook (buf why)
+    (display-buffer buf)
+    (alert why :buffer buf))
+  (defun ansi-color-compilation-buf ()
+    (when (eq major-mode 'compilation-mode)
+      (interactive)
+      (ansi-color-apply-on-region compilation-filter-start (point-max))))
+  :hook ((compilation-finish-functions . compile-finish-hook)
+         (compilation-filter-hook . ansi-color-compilation-buf)))
