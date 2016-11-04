@@ -264,6 +264,12 @@
 (use-package compile
   :defer t
   :config
+  (use-package ansi-color)
+  (add-hook 'compilation-filter-hook
+            (lambda ()
+              (when (eq major-mode 'compilation-mode)
+                (interactive)
+                (ansi-color-apply-on-region compilation-filter-start (point-max)))))
   (use-package alert
     :config
     (setq alert-default-style 'notifier))
