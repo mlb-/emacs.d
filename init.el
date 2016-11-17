@@ -93,6 +93,14 @@
   :pin melpa-stable
   :commands (cider-jack-in cider-connect)
   :config
+  (add-hook 'cider-connected-hook
+            (lambda ()
+              (alert "Clojure REPL connected"
+                     :title "CIDER")))
+  (add-hook 'cider-test-report-mode-hook
+            (lambda ()
+              (alert "Finished running test(s)"
+                     :title "CIDER")))
   (setq cider-repl-pop-to-buffer-on-connect nil)
   (setq cider-test-show-report-on-success t)
   (use-package clj-refactor
@@ -266,6 +274,11 @@
   (setq whitespace-line-column 80) ;; limit line length
   (setq whitespace-style '(face tabs empty trailing lines-tail)))
 
+(use-package alert
+  :commands alert
+  :config
+  (setq alert-default-style 'notifier))
+
 (use-package compile
   :defer t
   :config
@@ -275,9 +288,6 @@
               (when (eq major-mode 'compilation-mode)
                 (interactive)
                 (ansi-color-apply-on-region compilation-filter-start (point-max)))))
-  (use-package alert
-    :config
-    (setq alert-default-style 'notifier))
   (eval-when-compile
     (defvar exit-status))
   (add-hook 'compilation-finish-functions
@@ -285,5 +295,5 @@
               (display-buffer buf)
               (if (> exit-status 0)
                   (alert "Compilation finished with errors"
-                          :severity 'high)
+                         :severity 'high)
                 (alert "Compilation finished" :buffer buf)))))
