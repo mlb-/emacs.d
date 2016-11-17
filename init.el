@@ -107,7 +107,16 @@
            (cider-test-show-report-on-success t
                                               "See what passed."))
   :commands (cider-jack-in cider-connect))
-(use-package clojure-mode)
+(use-package clojure-mode
+  :after compile
+  :config
+  (add-to-list 'compilation-error-regexp-alist-alist
+               '(lein-test
+                 "^FAIL in (.+) (\\(.+\\):\\([0-9]+\\))$"
+                 1
+                 2
+                 nil))
+  (add-to-list 'compilation-error-regexp-alist 'lein-test))
 (use-package clj-refactor
   :pin melpa-stable
   :after cider)
