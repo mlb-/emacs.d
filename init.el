@@ -106,7 +106,16 @@
                                                 "Don't be rude.")
            (cider-test-show-report-on-success t
                                               "See what passed."))
-  :commands (cider-jack-in cider-connect))
+  :commands (cider-jack-in cider-connect)
+  :init
+  (defun repl-connected-alert ()
+    (alert "Clojure REPL connected"
+           :title "CIDER"))
+  (defun cider-tests-finished-alert ()
+    (alert "Finished running test(s)"
+           :title "CIDER"))
+  :hook ((cider-connected-hook . repl-connected-alert)
+         (cider-test-report-mode-hook . cider-tests-finished-alert)))
 (use-package clojure-mode
   :after compile
   :config
