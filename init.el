@@ -103,9 +103,14 @@
   :config
   (add-hook 'clojure-mode-hook 'paredit-mode)
   (add-hook 'cider-repl-mode-hook #'paredit-mode)
-  (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode))
-
-
+  (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
+  (add-to-list 'compilation-error-regexp-alist-alist
+               '(lein-test
+                 "^FAIL in (.+) (\\(.+\\):\\([0-9]+\\))$"
+                 1
+                 2
+                 nil))
+  (add-to-list 'compilation-error-regexp-alist 'lein-test))
 
 (use-package anzu
   :diminish ""
