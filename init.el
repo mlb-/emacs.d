@@ -167,6 +167,9 @@
   :bind ("C-c g" . magit-status)
   :custom (magit-branch-prefer-remote-upstream '("master" "develop")))
 
+(use-package magithub
+  :after magit)
+
 (use-package tex-site
   :ensure auctex)
 
