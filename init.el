@@ -299,4 +299,11 @@
               (if (> exit-status 0)
                   (alert "Compilation finished with errors"
                          :severity 'high)
-                (alert "Compilation finished" :buffer buf)))))
+                (alert "Compilation finished" :buffer buf))))
+  (add-to-list 'compilation-error-regexp-alist-alist
+               '(mocha-test
+                 "^at .* (\\(.+\\):\\([0-9]+\\):\\([0-9]+\\))$"
+                 1
+                 2
+                 3))
+  (add-to-list 'compilation-error-regexp-alist 'mocha-test))
