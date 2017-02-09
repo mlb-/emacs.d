@@ -188,7 +188,7 @@
   (if (eolp) (let (parens-require-spaces) (insert-pair)) (self-insert-command 1)))
 (use-package js2-mode
   :mode "\\.js$"
-  :config (setq js2-basic-offset 2)
+  :config (setq js2-basic-offset 4)
 
   (add-hook 'js2-mode-hook
             (lambda ()
