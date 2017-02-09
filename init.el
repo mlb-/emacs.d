@@ -314,7 +314,15 @@
       (interactive)
       (ansi-color-apply-on-region compilation-filter-start (point-max))))
   :hook ((compilation-finish-functions . compile-finish-hook)
-         (compilation-filter-hook . ansi-color-compilation-buf)))
+         (compilation-filter-hook . ansi-color-compilation-buf))
+  :config
+  (add-to-list 'compilation-error-regexp-alist-alist
+               '(mocha-test
+                 "^at .* (\\(.+\\):\\([0-9]+\\):\\([0-9]+\\))$"
+                 1
+                 2
+                 3))
+  (add-to-list 'compilation-error-regexp-alist 'mocha-test))
 
 (use-package org
   :bind (("C-c c" . org-capture)
