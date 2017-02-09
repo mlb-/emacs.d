@@ -204,8 +204,6 @@
 
 (use-package js2-mode
   :mode "\\.js$"
-  :custom (js2-basic-offset 2
-                            "Not gonna let callback hell make me scroll offscreen")
   :config (add-hook 'js2-mode-hook
                          (lambda ()
                            (define-key js2-mode-map "(" 'electric-pair)
