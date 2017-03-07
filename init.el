@@ -183,7 +183,11 @@
 
 (use-package smartparens-config
   :ensure smartparens
-  :commands turn-on-smartparens-strict-mode)
+  :commands turn-on-smartparens-strict-mode
+  :config (sp-use-paredit-bindings)
+  :bind (:map smartparens-strict-mode-map
+              ("M-J" . sp-join-sexp)
+              ("]" . sp-up-sexp)))
 
 (use-package js2-mode
   :mode "\\.js$"
