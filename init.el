@@ -296,10 +296,7 @@
   (add-hook 'compilation-finish-functions
             (lambda (buf why)
               (display-buffer buf)
-              (if (> exit-status 0)
-                  (alert "Compilation finished with errors"
-                         :severity 'high)
-                (alert "Compilation finished" :buffer buf))))
+              (alert why :buffer buf)))
   (add-to-list 'compilation-error-regexp-alist-alist
                '(mocha-test
                  "^at .* (\\(.+\\):\\([0-9]+\\):\\([0-9]+\\))$"
