@@ -151,7 +151,9 @@
   :config (setq magit-branch-prefer-remote-upstream '("master" "develop")))
 
 (use-package magithub
-  :after magit)
+  :after magit
+  :pin melpa-stable
+  :config (magithub-feature-autoinject t))
 
 (use-package tex-site
   :ensure auctex)
