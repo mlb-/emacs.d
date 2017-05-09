@@ -236,6 +236,8 @@
 (use-package rainbow-identifiers
   :config (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
 
+(use-package docker)
+
 (use-package docker-tramp
   :config (setq docker-tramp-use-names t))
 
