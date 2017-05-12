@@ -168,6 +168,10 @@
   :bind ("C-c g" . magit-status)
   :custom (magit-branch-prefer-remote-upstream '("master" "develop")))
 
+(use-package bug-reference
+  :after magit
+  :hook (magit-mode-hook . bug-reference-mode))
+
 (use-package magithub
   :after magit
   :pin melpa-stable
