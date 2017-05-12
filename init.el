@@ -148,7 +148,9 @@
 (use-package magit
   :pin melpa-stable
   :bind ("C-c g" . magit-status)
-  :config (setq magit-branch-prefer-remote-upstream '("master" "develop")))
+  :config
+  (setq magit-branch-prefer-remote-upstream '("master" "develop"))
+  (add-hook 'magit-mode-hook #'bug-reference-mode))
 
 (use-package magithub
   :after magit
