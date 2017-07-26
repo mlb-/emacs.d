@@ -330,3 +330,8 @@
 
   (use-package org-journal)
   (use-package org-alert))
+
+(setq bug-reference-bug-regexp "\\(?2:NSN-[0-9]+\\)")
+(setq bug-reference-url-format "https://xeranet.atlassian.net/browse/%s")
+(add-hook 'org-mode-hook #'bug-reference-mode)
+(add-hook 'org-agenda-mode-hook #'bug-reference-mode)
