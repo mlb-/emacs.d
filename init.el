@@ -120,6 +120,9 @@
                  nil))
   (add-to-list 'compilation-error-regexp-alist 'lein-test))
 
+;;(remove-hook 'clojure-mode-hook 'paredit-mode)
+;;(add-hook 'clojure-mode-hook 'paredit-mode)
+
 (use-package anzu
   :diminish ""
   :config (global-anzu-mode t))
