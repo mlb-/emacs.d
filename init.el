@@ -292,8 +292,13 @@
 
 (use-package alert
   :commands alert
-  :config
-  (setq alert-default-style 'notifier))
+  :config (setq alert-user-configuration
+                '((((:status buried idle)
+                    (:mode . "^compilation-mode$"))
+                   pushover
+                   ((:continue . t)))
+                  (nil notifier nil)
+                  (nil log nil))))
 
 (use-package compile
   :defer t
@@ -335,3 +340,10 @@
 (setq bug-reference-url-format "https://xeranet.atlassian.net/browse/%s")
 (add-hook 'org-mode-hook #'bug-reference-mode)
 (add-hook 'org-agenda-mode-hook #'bug-reference-mode)
+
+(use-package pushover
+  :config (setq pushover-user-key (plist-get (car (auth-source-search :host "pushover"))
+                                             :token)))
+
+(pushover-send "emacs"
+               "startup complete")
