@@ -161,7 +161,8 @@
 (use-package magithub
   :after magit
   :pin melpa-stable
-  :config (magithub-feature-autoinject t))
+  :config (magithub-feature-autoinject t)
+  (setq magithub-pull-request-arguments '("-f" "-o" "--base=develop")))
 
 (use-package tex-site
   :ensure auctex)
