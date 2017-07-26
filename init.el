@@ -105,8 +105,8 @@
   (setq cider-test-show-report-on-success t)
   (use-package clj-refactor
     :pin melpa-stable)
-  (use-package flycheck-clojure
-    :config (flycheck-clojure-setup)))
+  ;;(use-package flycheck-clojure :config (flycheck-clojure-setup))
+  )
 (use-package clojure-mode
   :config
   (add-hook 'clojure-mode-hook 'paredit-mode)
