@@ -134,6 +134,7 @@
   :after cider)
 
 (use-package flycheck-clojure
+  :disabled t
   :after cider
   :config (flycheck-clojure-setup))
 
