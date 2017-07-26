@@ -333,7 +333,7 @@
   :bind (("C-c c" . org-capture)
          ("C-c a" . org-agenda))
   :custom ((org-directory "~/org")
-           (org-default-notes-file (concat org-directory "/01_notes.org"))
+           (org-default-notes-file (concat org-directory "/notes.org"))
            (org-agenda-files (list org-default-notes-file))
            (org-agenda-include-diary t)
            (org-log-into-drawer t)
