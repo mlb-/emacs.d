@@ -310,3 +310,13 @@
                  2
                  3))
   (add-to-list 'compilation-error-regexp-alist 'mocha-test))
+
+(use-package org
+  :config
+  (setq org-directory "~/org"
+        org-default-notes-file (concat org-directory "/01_notes.org")
+        org-agenda-files (list org-default-notes-file)
+        org-agenda-include-diary t)
+  (add-to-list 'org-modules 'habits)
+  (global-set-key (kbd "C-c c") 'org-capture)
+  (global-set-key (kbd "C-c a") 'org-agenda))
