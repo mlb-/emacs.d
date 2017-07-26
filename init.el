@@ -133,6 +133,9 @@
   :pin melpa-stable
   :after cider)
 
+;;(remove-hook 'clojure-mode-hook 'paredit-mode)
+;;(add-hook 'clojure-mode-hook 'paredit-mode)
+
 (use-package flycheck-clojure
   :disabled t
   :after cider
