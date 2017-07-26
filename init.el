@@ -318,3 +318,6 @@
            (org-log-into-drawer t)
            (org-log-state-notes-insert-after-drawers t))
   :config (add-to-list 'org-modules 'habits))
+
+(use-package org-journal
+  :after org)
