@@ -328,4 +328,5 @@
   (global-set-key (kbd "C-c c") 'org-capture)
   (global-set-key (kbd "C-c a") 'org-agenda)
 
-  (use-package org-journal))
+  (use-package org-journal)
+  (use-package org-alert))
