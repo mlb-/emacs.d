@@ -326,4 +326,6 @@
         org-agenda-include-diary t)
   (add-to-list 'org-modules 'habits)
   (global-set-key (kbd "C-c c") 'org-capture)
-  (global-set-key (kbd "C-c a") 'org-agenda))
+  (global-set-key (kbd "C-c a") 'org-agenda)
+
+  (use-package org-journal))
