@@ -294,7 +294,12 @@
 
 (use-package alert
   :commands alert
-  :custom (alert-default-style 'notifier))
+  :custom (alert-user-configuration '((((:status buried idle)
+                                        (:mode . "^compilation-mode$"))
+                                       pushover
+                                       ((:continue . t)))
+                                      (nil notifier nil)
+                                      (nil log nil))))
 
 (use-package compile
   :init
@@ -321,3 +326,10 @@
 
 (use-package org-journal
   :after org)
+
+(use-package pushover
+  :custom (pushover-user-key (plist-get (car (auth-source-search :host "pushover"))
+                                        :token)))
+
+(pushover-send "emacs"
+               "startup complete")
