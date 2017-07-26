@@ -344,6 +344,9 @@
 (use-package org-journal
   :after org)
 
+(use-package org-alert
+  :after org)
+
 (use-package helm-pass
   :commands helm-pass)
 
