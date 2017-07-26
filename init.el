@@ -320,7 +320,7 @@
 (use-package org
   :config
   (setq org-directory "~/org"
-        org-default-notes-file (concat org-directory "/01_notes.org")
+        org-default-notes-file (concat org-directory "/notes.org")
         org-agenda-files (list org-default-notes-file)
         org-agenda-include-diary t)
   (add-to-list 'org-modules 'habits)
