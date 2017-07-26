@@ -303,3 +303,14 @@
       (ansi-color-apply-on-region compilation-filter-start (point-max))))
   :hook ((compilation-finish-functions . compile-finish-hook)
          (compilation-filter-hook . ansi-color-compilation-buf)))
+
+(use-package org
+  :bind (("C-c c" . org-capture)
+         ("C-c a" . org-agenda))
+  :custom ((org-directory "~/org")
+           (org-default-notes-file (concat org-directory "/01_notes.org"))
+           (org-agenda-files (list org-default-notes-file))
+           (org-agenda-include-diary t)
+           (org-log-into-drawer t)
+           (org-log-state-notes-insert-after-drawers t))
+  :config (add-to-list 'org-modules 'habits))
