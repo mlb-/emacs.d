@@ -285,8 +285,13 @@
 
 (use-package alert
   :commands alert
-  :config
-  (setq alert-default-style 'notifier))
+  :config (setq alert-user-configuration
+                '((((:status buried idle)
+                    (:mode . "^compilation-mode$"))
+                   pushover
+                   ((:continue . t)))
+                  (nil notifier nil)
+                  (nil log nil))))
 
 (use-package compile
   :defer t
@@ -322,3 +327,10 @@
   (global-set-key (kbd "C-c a") 'org-agenda))
 
 (setq epa-pinentry-mode 'loopback)
+
+(use-package pushover
+  :config (setq pushover-user-key (plist-get (car (auth-source-search :host "pushover"))
+                                             :token)))
+
+(pushover-send "emacs"
+               "startup complete")
