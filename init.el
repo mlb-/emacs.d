@@ -152,7 +152,8 @@
   :pin melpa-stable
   :bind ("C-c g" . magit-status)
   :config
-  (setq magit-branch-prefer-remote-upstream '("master" "develop"))
+  (setq magit-branch-prefer-remote-upstream '("master" "develop")
+        magit-commit-arguments (quote ("--author=Matthew Batema <matthew.batema+github@gmail.com>")))
   (add-hook 'magit-mode-hook #'bug-reference-mode))
 
 (use-package magithub
