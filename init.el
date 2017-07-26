@@ -28,6 +28,8 @@
   :diminish ""
   :config (super-save-mode +1))
 
+(diminish 'auto-revert-mode)
+
 ;; Thanks, technomancy! (https://github.com/technomancy/emacs-starter-kit/)
 (use-package better-defaults)
 ;; And, as per suggestion 1
