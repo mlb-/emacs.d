@@ -347,6 +347,11 @@
 (use-package org-alert
   :after org)
 
+(setq bug-reference-bug-regexp "\\(?2:NSN-[0-9]+\\)")
+(setq bug-reference-url-format "https://xeranet.atlassian.net/browse/%s")
+(add-hook 'org-mode-hook #'bug-reference-mode)
+(add-hook 'org-agenda-mode-hook #'bug-reference-mode)
+
 (use-package helm-pass
   :commands helm-pass)
 
