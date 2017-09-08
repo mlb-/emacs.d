@@ -351,3 +351,7 @@
 (use-package lastpass
   :config (setq lastpass-user "matthew.batema@gmail.com"
                 lastpass-multifactor-use-passcode t))
+
+(use-package helm-pass
+  :ensure t
+  :commands (helm-pass))
