@@ -327,6 +327,9 @@
 (use-package org-journal
   :after org)
 
+(use-package helm-pass
+  :commands helm-pass)
+
 (use-package pushover
   :custom (pushover-user-key (plist-get (car (auth-source-search :host "pushover"))
                                         :token)))
