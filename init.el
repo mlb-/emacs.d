@@ -361,3 +361,7 @@
 
 (pushover-send "emacs"
                "startup complete")
+
+(use-package lastpass
+  :config (setq lastpass-user "matthew.batema@gmail.com"
+                lastpass-multifactor-use-passcode t))
