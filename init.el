@@ -327,6 +327,9 @@
 (use-package org-journal
   :after org)
 
+(use-package epa
+  :custom (epa-pinentry-mode 'loopback))
+
 (use-package helm-pass
   :commands helm-pass)
 
