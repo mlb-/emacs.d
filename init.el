@@ -328,6 +328,8 @@ unique name per project."
           java-mode-hook
           scala-mode-hook
           ensime-inf-mode-hook
+          ein:notebook-multilang-mode-hook
+          python-mode-hook
           json-mode-hook) . turn-on-smartparens-strict-mode)
   :bind (:map smartparens-strict-mode-map
               ("M-J" . 'sp-join-sexp)
@@ -552,6 +554,18 @@ unique name per project."
 
 (use-package helm-pass
   :commands helm-pass)
+
+(use-package ein
+  :commands ein:jupyter-server-start
+  :config
+  (setq ein:jupyter-default-notebook-directory "~/dev")
+  (require 'ein-loaddefs)
+  (require 'ein-notebook)
+  (require 'ein-subpackages))
+
+(use-package company-jedi
+  :config
+  (add-to-list 'company-backends 'company-jedi))
 
 (use-package pushover
   :custom (pushover-user-key (plist-get (car (auth-source-search :host "pushover"))
