@@ -471,6 +471,23 @@ The following %-sequences are provided:
   :custom ((whitespace-line-column 120 "limit line length")
            (whitespace-style '(face tabs empty trailing lines-tail))))
 
+(use-package copy-as-format)
+
+(use-package emojify
+  :hook (slack-mode . emojify-mode))
+
+(use-package slack
+  :hook (after-init . slack-start)
+  :custom ((slack-prefer-current-team t))
+  :config
+  (slack-register-team
+   :name "Apixio"
+   :default t
+   :client-id "emacs-slack"
+   :client-secret "hunter2"
+   :token (plist-get (car (auth-source-search :host "apixio.slack.com"))
+                     :token)))
+
 (use-package org-gcal
   :after org
   :preface (setq creds (car (auth-source-search :host "org-gcal")))
