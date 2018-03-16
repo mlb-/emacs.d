@@ -333,9 +333,10 @@ The following %-sequences are provided:
 (use-package smartparens-config
   :ensure smartparens
   :demand t
-  :hook ((ensime-inf-mode-hook
-          js2-mode-hook
+  :hook ((ein:notebook-multilang-mode-hook
+          ensime-inf-mode-hook
           java-mode-hook
+          js2-mode-hook
           json-mode-hook
           python-mode-hook
           scala-mode-hook) . turn-on-smartparens-strict-mode)
@@ -566,6 +567,18 @@ The following %-sequences are provided:
 
 (use-package helm-pass
   :commands helm-pass)
+
+(use-package ein
+  :commands ein:jupyter-server-start
+  :config
+  (setq ein:jupyter-default-notebook-directory "~/dev")
+  (require 'ein-loaddefs)
+  (require 'ein-notebook)
+  (require 'ein-subpackages))
+
+(use-package company-jedi
+  :config
+  (add-to-list 'company-backends 'company-jedi))
 
 (use-package wgrep-helm
   :custom ((wgrep-auto-save-buffer t "I use git, so autosave is cool")))
