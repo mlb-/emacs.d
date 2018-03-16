@@ -176,6 +176,7 @@
   :hook (magit-mode-hook . bug-reference-mode))
 
 (use-package magithub
+  :disabled t
   :after magit
   :pin melpa-stable
   :config (magithub-feature-autoinject t))
