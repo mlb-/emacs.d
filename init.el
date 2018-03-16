@@ -366,6 +366,10 @@ The following %-sequences are provided:
   :hook (after-init-hook . global-company-mode)
   :bind ("TAB" . company-indent-or-complete-common))
 
+(use-package company-quickhelp
+  :after company
+  :config (company-quickhelp-mode))
+
 (use-package graphviz-dot-mode
   :mode "\\.dot$")
 
