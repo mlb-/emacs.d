@@ -447,6 +447,11 @@ The following %-sequences are provided:
   :custom ((scala-indent:align-parameters t))
   :mode "\\.scala$")
 
+(use-package ensime
+  :custom ((ensime-startup-notification nil))
+  :commands ensime
+  :pin melpa-stable)
+
 (use-package elm-mode
   :after company
   :custom ((elm-format-on-save t)
