@@ -29,6 +29,22 @@
 (use-package solarized-theme
   :config (load-theme 'solarized-dark t))
 
+(use-package calendar
+  :custom ((calendar-latitude 37.6239587)
+           (calendar-longitude -122.0439688)))
+
+(use-package sky-color-clock
+  :load-path "~/.emacs.d/sky-color-clock"
+  :custom ((sky-color-clock-enable-emoji-icon nil)
+           (sky-color-clock-enable-xpm-icon t))
+  :config
+  (sky-color-clock-initialize calendar-latitude)
+  (sky-color-clock-initialize-openweathermap-client (plist-get (car (auth-source-search :host "openweathermap"))
+                                                               :token)
+                                                    5322745 ;; Hayward - 94544
+                                                    )
+  (add-to-list 'global-mode-string '(:eval (sky-color-clock))))
+
 (use-package nyan-mode
   :config (nyan-mode t))
 
