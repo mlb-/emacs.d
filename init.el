@@ -422,7 +422,7 @@ The following %-sequences are provided:
 (use-package maxframe
   :if (string-equal (window-system) "ns")
   :hook (window-setup-hook . toggle-frame-fullscreen)
-  :config (set-face-attribute 'default nil :height 140))
+  :config (set-face-attribute 'default nil :height 120))
 
 (use-package lsp-ui
   :bind (:map lsp-ui-mode-map
