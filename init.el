@@ -464,6 +464,11 @@ unique name per project."
   :hook (slack-mode . emojify-mode))
 
 (use-package slack
+  :preface
+  (setq url-http-extra-headers nil
+        oauth--token-data nil
+        url-callback-function nil
+        url-callback-arguments nil)
   :hook (after-init . slack-start)
   :custom ((slack-prefer-current-team t))
   :config
