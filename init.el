@@ -339,6 +339,7 @@ The following %-sequences are provided:
           js2-mode-hook
           json-mode-hook
           python-mode-hook
+          python-shell-setup-codes
           scala-mode-hook) . turn-on-smartparens-strict-mode)
   :bind (:map smartparens-strict-mode-map
               ("M-J" . 'sp-join-sexp)
@@ -567,6 +568,12 @@ The following %-sequences are provided:
 
 (use-package helm-pass
   :commands helm-pass)
+
+(setq python-shell-interpreter "python2")
+(use-package elpy
+  :custom ((elpy-rpc-python-command "python2")
+           (elpy-shell-use-project-root nil))
+  :config (elpy-enable))
 
 (use-package ein
   :commands ein:jupyter-server-start
