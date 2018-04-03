@@ -416,6 +416,10 @@ unique name per project."
   :custom ((whitespace-line-column 80 "limit line length")
            (whitespace-style '(face tabs empty trailing lines-tail))))
 
+(use-package ace-window
+  :custom (aw-keys '(?j ?k ?l ?\; ?m ?, ?. ?/))
+  :bind ("M-o" . ace-window))
+
 (use-package alert
   :commands alert
   :custom (alert-user-configuration '((((:status buried idle)
