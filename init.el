@@ -48,6 +48,10 @@
 (use-package nyan-mode
   :config (nyan-mode t))
 
+(use-package spaceline-config
+  :ensure spaceline
+  :config (spaceline-spacemacs-theme))
+
 (use-package super-save
   :diminish ""
   :config (super-save-mode +1))
@@ -201,6 +205,8 @@
   :ensure auctex)
 
 (use-package flycheck
+  :diminish ((flycheck-mode . "")
+             (flyspell-mode . ""))
   :hook ((after-init-hook . global-flycheck-mode)
          (prog-mode-hook . flyspell-prog-mode)))
 
