@@ -150,6 +150,10 @@ The following %-sequences are provided:
 (use-package helm-descbinds
   :config (helm-descbinds-mode))
 
+(use-package which-key
+  :diminish ""
+  :config (which-key-mode))
+
 ;; As per suggestion 4
 (use-package ido-ubiquitous
   :disabled t
