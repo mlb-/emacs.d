@@ -416,5 +416,7 @@ The following %-sequences are provided:
   :custom (pushover-user-key (plist-get (car (auth-source-search :host "pushover"))
                                         :token)))
 
+(use-package restart-emacs)
+
 (pushover-send "emacs"
                "startup complete")
