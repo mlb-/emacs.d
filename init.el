@@ -590,6 +590,8 @@ The following %-sequences are provided:
 (use-package wgrep-helm
   :custom ((wgrep-auto-save-buffer t "I use git, so autosave is cool")))
 
+(use-package es-mode)
+
 (use-package pushover
   :custom (pushover-user-key (plist-get (car (auth-source-search :host "pushover"))
                                         :token)))
