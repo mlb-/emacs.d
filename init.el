@@ -483,6 +483,9 @@ unique name per project."
    :token (plist-get (car (auth-source-search :host "apixio.slack.com"))
                      :token)))
 
+(use-package org-jira
+  :custom ((jiralib-url "https://apixio.atlassian.net")))
+
 (use-package org-gcal
   :after org
   :preface (setq creds (car (auth-source-search :host "org-gcal")))
