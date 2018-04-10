@@ -574,6 +574,8 @@ unique name per project."
   :config
   (add-to-list 'company-backends 'company-jedi))
 
+(use-package es-mode)
+
 (use-package pushover
   :custom (pushover-user-key (plist-get (car (auth-source-search :host "pushover"))
                                         :token)))
