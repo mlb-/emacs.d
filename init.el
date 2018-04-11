@@ -422,6 +422,22 @@ The following %-sequences are provided:
   :custom ((whitespace-line-column 80 "limit line length")
            (whitespace-style '(face tabs empty trailing lines-tail))))
 
+(use-package org-gcal
+  :after org
+  :preface (setq creds (car (auth-source-search :host "org-gcal")))
+  :custom ((org-gcal-client-id (plist-get creds :client-id))
+           (org-gcal-client-secret (plist-get creds :client-secret))
+           (org-gcal-file-alist (mapcar (lambda (e)
+                                          (cons (plist-get e :calendar-id)
+                                                (concat "~/org/gcal/" (plist-get e :org-file))))
+                                        ;; Move the configuration from
+                                        ;; here into authfiles, with
+                                        ;; entries like:
+                                        ;; machine org-gcal-entry calendar-id you@gmail.com org-file you.org
+                                        (auth-source-search :host "org-gcal-entry"
+                                                            :max 20))))
+  :config (org-gcal-fetch))
+
 (use-package ace-window
   :custom (aw-keys '(?j ?k ?l ?\; ?m ?, ?. ?/))
   :bind ("M-o" . ace-window))
@@ -452,7 +468,8 @@ The following %-sequences are provided:
          ("C-c a" . org-agenda))
   :custom ((org-directory "~/org")
            (org-default-notes-file (concat org-directory "/01_notes.org"))
-           (org-agenda-files (list org-default-notes-file))
+           (org-agenda-files (append (list org-default-notes-file)
+                                     (file-expand-wildcards "~/org/gcal/*.org")))
            (org-agenda-include-diary t)
            (org-log-into-drawer t)
            (org-log-state-notes-insert-after-drawers t))
