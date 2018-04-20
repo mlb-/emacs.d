@@ -333,7 +333,8 @@ The following %-sequences are provided:
 (use-package smartparens-config
   :ensure smartparens
   :demand t
-  :hook ((js2-mode-hook
+  :hook ((ensime-inf-mode-hook
+          js2-mode-hook
           java-mode-hook
           json-mode-hook
           python-mode-hook
