@@ -327,6 +327,7 @@ unique name per project."
   :hook ((js2-mode-hook
           java-mode-hook
           scala-mode-hook
+          ensime-inf-mode-hook
           json-mode-hook) . turn-on-smartparens-strict-mode)
   :bind (:map smartparens-strict-mode-map
               ("M-J" . 'sp-join-sexp)
