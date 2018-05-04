@@ -430,6 +430,7 @@ unique name per project."
   (lsp-javacomp-install-server))
 
 (use-package scala-mode
+  :custom ((scala-indent:align-parameters t))
   :mode "\\.scala$")
 
 (use-package elm-mode
