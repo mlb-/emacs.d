@@ -327,7 +327,8 @@ The following %-sequences are provided:
 (use-package smartparens-config
   :ensure smartparens
   :demand t
-  :hook (js2-mode-hook . turn-on-smartparens-strict-mode)
+  :hook ((js2-mode-hook
+          json-mode-hook) . turn-on-smartparens-strict-mode)
   :bind (:map smartparens-strict-mode-map
               ("M-J" . 'sp-join-sexp)
               ("]" . 'sp-up-sexp))
