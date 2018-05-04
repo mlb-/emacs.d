@@ -228,8 +228,48 @@ The following %-sequences are provided:
   :bind-keymap ("C-c p" . projectile-command-map)
   :delight '(:eval (concat " [" (projectile-project-name) "]"))
   :custom ((projectile-use-git-grep t)
-           (projectile-switch-project-action 'projectile-vc))
-  :config (projectile-global-mode t))
+           (projectile-switch-project-action 'projectile-vc)
+           (projectile-per-project-compilation-buffer t))
+  :init
+  (defmacro projectile-compilation-buffer-name-for-command (command-name)
+    "Wrap `projectile-compilation-buffer-name`, since `projectile`
+     clears `compilation-buffer-name-function`."
+    `(lambda (compilation-mode)
+       (let* ((original-name (funcall ,(symbol-function 'projectile-compilation-buffer-name) compilation-mode))
+              (i (+ 2 (s-index-of "*" (substring original-name 1)))))
+         (concat (substring original-name 0 i)
+                 "[" ,command-name "]"
+                 (substring original-name i)))))
+  (defun projectile-run-project--namespace-buffer (orig-fun &rest args)
+    (cl-letf (((symbol-function 'projectile-compilation-buffer-name)
+               (projectile-compilation-buffer-name-for-command "Run")))
+      (apply orig-fun args)))
+  (defun projectile-install-project--namespace-buffer (orig-fun &rest args)
+    (cl-letf (((symbol-function 'projectile-compilation-buffer-name)
+               (projectile-compilation-buffer-name-for-command "Install")))
+      (apply orig-fun args)))
+  (defun projectile-test-project--namespace-buffer (orig-fun &rest args)
+    (cl-letf (((symbol-function 'projectile-compilation-buffer-name)
+               (projectile-compilation-buffer-name-for-command "Test")))
+      (apply orig-fun args)))
+  (defun projectile-compile-project--namespace-buffer (orig-fun &rest args)
+    (cl-letf (((symbol-function 'projectile-compilation-buffer-name)
+               (projectile-compilation-buffer-name-for-command "Compile")))
+      (apply orig-fun args)))
+  :config
+  (projectile-global-mode t)
+  (advice-add 'projectile-run-project
+              :around
+              #'projectile-run-project--namespace-buffer)
+  (advice-add 'projectile-install-project
+              :around
+              #'projectile-install-project--namespace-buffer)
+  (advice-add 'projectile-test-project
+              :around
+              #'projectile-test-project--namespace-buffer)
+  (advice-add 'projectile-compile-project
+              :around
+              #'projectile-compile-project--namespace-buffer))
 
 ;; Welcome screen begone!
 (setq inhibit-startup-message t)
