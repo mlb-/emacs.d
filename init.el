@@ -436,7 +436,8 @@ unique name per project."
   :mode "\\.scala$")
 
 (use-package ensime
-  :custom ((ensime-startup-notification nil))
+  :custom ((ensime-startup-notification nil)
+           (ensime-inf-cmd-template '("sbt" "test:console")))
   :commands ensime
   :pin melpa-stable)
 
