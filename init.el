@@ -229,7 +229,42 @@ The following %-sequences are provided:
   :delight '(:eval (concat " [" (projectile-project-name) "]"))
   :custom ((projectile-use-git-grep t)
            (projectile-switch-project-action 'projectile-vc))
-  :config (projectile-global-mode t))
+  :init
+  (defun projectile-run-project--namespace-buffer
+      (orig-fun &rest args)
+    "Avoid clobbering the *compilation* buffer by granting a
+unique name per project."
+    (let* ((compilation-buffer-name-function (lambda (_)
+                                               (format "*Run[%s]*"
+                                                       (projectile-project-name)))))
+      (apply orig-fun args)))
+  (defun projectile-test-project--namespace-buffer
+      (orig-fun &rest args)
+    "Avoid clobbering the *compilation* buffer by granting a
+unique name per project."
+    (let* ((compilation-buffer-name-function (lambda (_)
+                                               (format "*Test[%s]*"
+                                                       (projectile-project-name)))))
+      (apply orig-fun args)))
+  (defun projectile-compile-project--namespace-buffer
+      (orig-fun &rest args)
+    "Avoid clobbering the *compilation* buffer by granting a
+unique name per project."
+    (let* ((compilation-buffer-name-function (lambda (_)
+                                               (format "*Compile[%s]*"
+                                                       (projectile-project-name)))))
+      (apply orig-fun args)))
+  :config
+  (projectile-global-mode t)
+  (advice-add 'projectile-run-project
+              :around
+              #'projectile-run-project--namespace-buffer)
+  (advice-add 'projectile-test-project
+              :around
+              #'projectile-test-project--namespace-buffer)
+  (advice-add 'projectile-compile-project
+              :around
+              #'projectile-compile-project--namespace-buffer))
 
 ;; Welcome screen begone!
 (setq inhibit-startup-message t)
