@@ -364,6 +364,16 @@ The following %-sequences are provided:
   :hook (window-setup-hook . toggle-frame-fullscreen)
   :config (set-face-attribute 'default nil :height 140))
 
+(use-package elm-mode
+  :after company
+  :custom ((elm-format-on-save t)
+           (elm-sort-imports-on-save t))
+  :config (add-to-list 'company-backends 'company-elm))
+
+(use-package flycheck-elm
+  :after elm-mode
+  :hook ((flycheck-mode-hook . flycheck-elm-setup)))
+
 (use-package whitespace
   :diminish ""
   :hook (((prog-mode-hook text-mode-hook) . whitespace-mode)
