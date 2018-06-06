@@ -338,6 +338,7 @@ The following %-sequences are provided:
           java-mode-hook
           js2-mode-hook
           json-mode-hook
+          groovy-mode-hook
           python-mode-hook
           python-shell-setup-codes
           scala-mode-hook) . turn-on-smartparens-strict-mode)
@@ -445,6 +446,9 @@ The following %-sequences are provided:
 
   :config
   (lsp-javacomp-install-server))
+
+(use-package groovy-mode
+  :mode "\\.groovy")
 
 (use-package scala-mode
   :custom ((scala-indent:align-parameters t))

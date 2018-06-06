@@ -1,0 +1,14 @@
+;; Emacs-W3 HTTP cookies file
+;; Automatically generated file!!! DO NOT EDIT!!!
+
+(setq url-cookie-storage
+ '((".pushover.net"
+  [url-cookie "__cfduid" "d0cf500a897a7559573b99c7ad4d373341620060981" "Wed, 02-Jun-21 16:56:21 GMT" "/" ".pushover.net" nil]))
+)
+(setq url-cookie-secure-storage
+ 'nil)
+
+;; Local Variables:
+;; version-control: never
+;; no-byte-compile: t
+;; End:
