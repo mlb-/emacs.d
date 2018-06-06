@@ -326,6 +326,7 @@ unique name per project."
   :demand t
   :hook ((js2-mode-hook
           java-mode-hook
+          groovy-mode-hook
           scala-mode-hook
           ensime-inf-mode-hook
           ein:notebook-multilang-mode-hook
@@ -433,6 +434,9 @@ unique name per project."
 
   :config
   (lsp-javacomp-install-server))
+
+(use-package groovy-mode
+  :mode "\\.groovy")
 
 (use-package scala-mode
   :custom ((scala-indent:align-parameters t))
