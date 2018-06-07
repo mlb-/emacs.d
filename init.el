@@ -293,7 +293,11 @@ The following %-sequences are provided:
 
 (use-package bug-reference
   :after magit
-  :hook (magit-mode-hook . bug-reference-mode))
+  :custom ((bug-reference-bug-regexp "\\(?2:EN-[0-9]+\\)"))
+  :hook ((magit-mode-hook
+          org-mode-hook
+          org-agenda-mode-hook) . bug-reference-mode)
+  :config (setq bug-reference-url-format "https://apixio.atlassian.net/browse/%s"))
 
 (use-package magithub
   :disabled t
