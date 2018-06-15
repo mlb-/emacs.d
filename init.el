@@ -474,6 +474,7 @@ unique name per project."
 (use-package copy-as-format)
 
 (use-package emojify
+  :after slack
   :hook (slack-mode . emojify-mode))
 
 (use-package slack
