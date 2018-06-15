@@ -49,6 +49,8 @@
   :config (nyan-mode t))
 
 (use-package spaceline-config
+  ;; Is this a "fix" for the clock not always renderig in the bar?
+  ;; :after sky-color-clock
   :ensure spaceline
   :config (spaceline-spacemacs-theme))
 
