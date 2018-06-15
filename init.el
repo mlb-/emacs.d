@@ -486,6 +486,7 @@ The following %-sequences are provided:
 (use-package copy-as-format)
 
 (use-package emojify
+  :after slack
   :hook (slack-mode . emojify-mode))
 
 (use-package slack
