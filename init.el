@@ -522,6 +522,44 @@ The following %-sequences are provided:
                                                             :max 20))))
   :config (org-gcal-fetch))
 
+(use-package wanderlust
+  :commands (wl
+             wl-other-frame
+             wl-draft
+             wl-user-agent-compose)
+  :custom (;; IMAP settings
+           (elmo-imap4-default-server "imap.gmail.com")
+           (elmo-imap4-default-user "mbatema@apixio.com")
+           (elmo-imap4-default-authenticate-type 'clear)
+           (elmo-imap4-default-port '993)
+           (elmo-imap4-default-stream-type 'ssl)
+           ;; SMTP settings
+           (wl-smtp-connection-type 'starttls)
+           (wl-smtp-posting-port 587)
+           (wl-smtp-authenticate-type "plain")
+           (wl-smtp-posting-user "mbatema@apixio.com")
+           (wl-smtp-posting-server "smtp.gmail.com")
+           (wl-local-domain "gmail.com")
+           ;; Folders
+           (wl-default-folder "%inbox")
+           (wl-default-spec "%")
+           (wl-draft-folder "%[Gmail]/Drafts") ; Gmail IMAP
+           (wl-trash-folder "%[Gmail]/Trash")
+           (wl-folder-check-async t)
+           ;; Credentials
+           (elmo-passwd-storage-type 'auth-source))
+  :config
+  (setq elmo-imap4-use-modified-utf7 t)
+  (if (boundp 'mail-user-agent)
+      (setq mail-user-agent 'wl-user-agent))
+  (if (fboundp 'define-mail-user-agent)
+      (define-mail-user-agent
+        'wl-user-agent
+        'wl-user-agent-compose
+        'wl-draft-send
+        'wl-draft-kill
+        'mail-send-hook)))
+
 (use-package ace-window
   :custom (aw-keys '(?j ?k ?l ?\; ?m ?, ?. ?/))
   :bind ("M-o" . ace-window))
