@@ -293,6 +293,9 @@ The following %-sequences are provided:
   :bind ("C-c g" . magit-status)
   :custom (magit-branch-prefer-remote-upstream '("master" "develop")))
 
+(use-package magit-gitflow
+  :hook (magit-mode-hook . turn-on-magit-gitflow))
+
 (use-package bug-reference
   :after magit
   :custom ((bug-reference-bug-regexp "\\(?2:EN-[0-9]+\\)"))
