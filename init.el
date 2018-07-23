@@ -456,6 +456,11 @@ unique name per project."
 (use-package org-journal
   :after org)
 
+(use-package auth-source
+  :custom (auth-sources (list "~/.authinfo.gpg"
+                              "~/.authinfo"
+                              "~/.netrc")))
+
 (use-package epa
   :custom (epa-pinentry-mode 'loopback))
 
