@@ -501,7 +501,8 @@ The following %-sequences are provided:
          ("C-c a" . org-agenda))
   :custom ((org-directory "~/org")
            (org-default-notes-file (concat org-directory "/01_notes.org"))
-           (org-agenda-files (append (list org-default-notes-file)
+           (org-agenda-files (append (list org-default-notes-file
+                                           "~/org/fairway.org")
                                      (file-expand-wildcards "~/org/gcal/*.org")))
            (org-refile-targets '((nil :maxlevel . 9)
                                  (org-agenda-files :maxlevel . 2)))
