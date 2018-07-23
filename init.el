@@ -495,6 +495,8 @@ The following %-sequences are provided:
            (org-default-notes-file (concat org-directory "/01_notes.org"))
            (org-agenda-files (append (list org-default-notes-file)
                                      (file-expand-wildcards "~/org/gcal/*.org")))
+           (org-refile-targets '((nil :maxlevel . 9)
+                                 (org-agenda-files :maxlevel . 2)))
            (org-agenda-include-diary t)
            (org-log-into-drawer t)
            (org-log-state-notes-insert-after-drawers t)
