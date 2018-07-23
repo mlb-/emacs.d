@@ -512,6 +512,9 @@ The following %-sequences are provided:
 (use-package org-jira
   :custom ((jiralib-url "https://apixio.atlassian.net")))
 
+(use-package ox-jira
+  :after org)
+
 (use-package org-gcal
   :after org
   :preface (setq creds (car (auth-source-search :host "org-gcal")))
