@@ -514,13 +514,21 @@ The following %-sequences are provided:
   :hook ((compilation-finish-functions . compile-finish-hook)
          (compilation-filter-hook . ansi-color-compilation-buf)))
 
+(when (executable-find "hunspell")
+  (setq-default ispell-program-name "hunspell")
+  (setq ispell-really-hunspell t))
+
 (use-package org
   :bind (("C-c c" . org-capture)
          ("C-c a" . org-agenda))
   :custom ((org-directory "~/org")
            (org-default-notes-file (concat org-directory "/01_notes.org"))
            (org-agenda-files (append (list org-default-notes-file
-                                           "~/org/fairway.org")
+                                           "~/org/fairway.org"
+                                           "~/org/notes.org"
+                                           "~/org/jobhunt.org"
+                                           "~/org/bills.org"
+                                           "~/org/01_todo.org")
                                      (file-expand-wildcards "~/org/gcal/*.org")))
            (org-refile-targets '((nil :maxlevel . 9)
                                  (org-agenda-files :maxlevel . 2)))
