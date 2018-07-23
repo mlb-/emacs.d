@@ -282,7 +282,7 @@ unique name per project."
 (use-package magit
   :pin melpa-stable
   :bind ("C-c g" . magit-status)
-  :custom (magit-branch-prefer-remote-upstream '("master" "develop")))
+  :custom (magit-branch-prefer-remote-upstream '("master" "develop" "dev")))
 
 (use-package magit-gitflow
   :hook (magit-mode-hook . turn-on-magit-gitflow))
