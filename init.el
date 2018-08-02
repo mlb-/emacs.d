@@ -292,6 +292,8 @@ unique name per project."
   :pin melpa-stable
   :config (magithub-feature-autoinject t))
 
+(use-package git-link)
+
 (use-package tex-site
   :ensure auctex)
 
