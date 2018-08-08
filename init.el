@@ -336,6 +336,7 @@ unique name per project."
   :hook ((js2-mode-hook
           java-mode-hook
           groovy-mode-hook
+          java-mode-hook
           scala-mode-hook
           ensime-inf-mode-hook
           ein:notebook-multilang-mode-hook
@@ -456,6 +457,17 @@ unique name per project."
            (ensime-inf-cmd-template '("sbt" "test:console")))
   :commands ensime
   :pin melpa-stable)
+
+(use-package company-lsp
+  :after company)
+
+(use-package lsp-javacomp
+  :after company-lsp
+  :hook ((java-mode-hook . (lambda ()
+                             (lsp-javacomp-enable)
+                             (set (make-variable-buffer-local 'company-backends) '(company-lsp))
+                             (set (make-variable-buffer-local 'company-idle-delay) 0.1)
+                             (set (make-variable-buffer-local 'company-minimum-prefix-length) 1)))))
 
 (use-package elm-mode
   :after company
