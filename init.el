@@ -469,6 +469,17 @@ The following %-sequences are provided:
   :commands ensime
   :pin melpa-stable)
 
+(use-package company-lsp
+  :after company)
+
+(use-package lsp-javacomp
+  :after company-lsp
+  :hook ((java-mode-hook . (lambda ()
+                             (lsp-javacomp-enable)
+                             (set (make-variable-buffer-local 'company-backends) '(company-lsp))
+                             (set (make-variable-buffer-local 'company-idle-delay) 0.1)
+                             (set (make-variable-buffer-local 'company-minimum-prefix-length) 1)))))
+
 (use-package elm-mode
   :after company
   :custom ((elm-format-on-save t)
