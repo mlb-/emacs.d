@@ -328,6 +328,7 @@ The following %-sequences are provided:
   :ensure smartparens
   :demand t
   :hook ((js2-mode-hook
+          java-mode-hook
           json-mode-hook) . turn-on-smartparens-strict-mode)
   :bind (:map smartparens-strict-mode-map
               ("M-J" . 'sp-join-sexp)
@@ -404,6 +405,28 @@ The following %-sequences are provided:
   :if (string-equal (window-system) "ns")
   :hook (window-setup-hook . toggle-frame-fullscreen)
   :config (set-face-attribute 'default nil :height 140))
+
+(use-package lsp-ui
+  :bind (:map lsp-ui-mode-map
+              ([remap xref-find-definitions] . 'lsp-ui-peek-find-definitions)
+              ([remap xref-find-references] . 'lsp-ui-peek-find-references))
+  :hook ((lsp-mode-hook . lsp-ui-mode)))
+
+(use-package company-lsp)
+
+(use-package lsp-javacomp
+  :after company-lsp
+  :commands lsp-javacomp-enable
+  :hook (java-mode-hook . (lambda ()
+                          (lsp-javacomp-enable)
+                          ;; Use company-lsp as the company completion backend
+                          (set (make-variable-buffer-local 'company-backends) '(company-lsp))
+                          ;; Optional company-mode settings
+                          (set (make-variable-buffer-local 'company-idle-delay) 0.1)
+                          (set (make-variable-buffer-local 'company-minimum-prefix-length) 1)))
+
+  :config
+  (lsp-javacomp-install-server))
 
 (use-package elm-mode
   :after company
