@@ -626,6 +626,8 @@ The following %-sequences are provided:
                                      :immediate-finish t)
                                     ("w" "Weekly update item" item (file+headline "" "TODO Weekly update")
                                      "%?")))
+           (org-babel-load-languages (append org-babel-load-languages
+                                             (list (cons 'shell t))))
            (org-agenda-span 'day))
   :config (add-to-list 'org-modules 'habits))
 
