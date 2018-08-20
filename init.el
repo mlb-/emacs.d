@@ -179,6 +179,8 @@ The following %-sequences are provided:
     (idle-highlight-mode t))
   :hook (prog-mode-hook . my-coding-hook))
 
+(transient-mark-mode 0)
+
 (use-package cider
   :pin melpa-stable
   :custom ((cider-repl-pop-to-buffer-on-connect nil
