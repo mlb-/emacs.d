@@ -671,3 +671,5 @@ unique name per project."
 
 (pushover-send "emacs"
                "startup complete")
+
+(put 'narrow-to-region 'disabled nil)
