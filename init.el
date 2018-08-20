@@ -684,3 +684,5 @@ The following %-sequences are provided:
 
 (pushover-send "emacs"
                "startup complete")
+
+(put 'narrow-to-region 'disabled nil)
