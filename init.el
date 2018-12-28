@@ -465,7 +465,9 @@ The following %-sequences are provided:
 
 (use-package ensime
   :custom ((ensime-startup-notification nil)
-           (ensime-inf-cmd-template '("sbt" "test:console")))
+           (ensime-inf-cmd-template '("sbt" "test:console"))
+           (ensime-auto-connect 'ask)
+           (ensime-auto-generate-config t))
   :commands ensime
   :pin melpa-stable)
 
