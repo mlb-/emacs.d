@@ -497,7 +497,11 @@ The following %-sequences are provided:
                                      (file-expand-wildcards "~/org/gcal/*.org")))
            (org-agenda-include-diary t)
            (org-log-into-drawer t)
-           (org-log-state-notes-insert-after-drawers t))
+           (org-log-state-notes-insert-after-drawers t)
+           (org-capture-templates '(("t" "Task" entry (file+headline "" "Tasks")
+                                     "* TODO %?\n  %u\n  %a")
+                                    ("m" "Meeting" entry (file+headline "" "Meetings")
+                                     "* TODO %?\n  %u\n  %a" :clock-in t))))
   :config (add-to-list 'org-modules 'habits))
 
 (use-package org-journal
