@@ -282,7 +282,8 @@ unique name per project."
 (use-package markdown-mode)
 ;; erlang-mode?
 (use-package magit
-  :pin melpa-stable
+  :disabled t
+  ;;:pin melpa-stable
   :bind ("C-c g" . magit-status)
   :custom (magit-branch-prefer-remote-upstream '("master" "develop" "dev")))
 
@@ -297,11 +298,9 @@ unique name per project."
           org-agenda-mode-hook) . bug-reference-mode)
   :config (setq bug-reference-url-format "https://apixio.atlassian.net/browse/%s"))
 
-(use-package magithub
-  :disabled t
+(use-package forge
   :after magit
-  :pin melpa-stable
-  :config (magithub-feature-autoinject t))
+  :pin melpa)
 
 (use-package git-link)
 
