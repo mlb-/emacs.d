@@ -632,6 +632,11 @@ The following %-sequences are provided:
                                      "* TODO Weekly update\n  DEADLINE: <%(org-read-date nil nil \"Fri\") 10:00>"
                                      :immediate-finish t)
                                     ("w" "Weekly update item" item (file+headline "" "TODO Weekly update")
+                                     "%?")
+                                    ("D" "Weekly Darren Demo Prep" entry (file "")
+                                     "* TODO Weekly Darren Demo Prep\n  DEADLINE: <%(org-read-date nil nil \"+2Thu\") 14:00>"
+                                     :immediate-finish t)
+                                    ("d" "Darren Demo update item" item (file+headline "" "TODO Weekly Darren Demo Prep")
                                      "%?")))
            (org-babel-load-languages (append org-babel-load-languages
                                              (list (cons 'shell t))))
