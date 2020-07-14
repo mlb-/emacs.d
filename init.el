@@ -434,6 +434,7 @@ The following %-sequences are provided:
   :config (set-face-attribute 'default nil :height 120))
 
 (use-package lsp-ui
+  :custom (lsp-ui-flycheck-enable t)
   :bind (:map lsp-ui-mode-map
               ([remap xref-find-definitions] . 'lsp-ui-peek-find-definitions)
               ([remap xref-find-references] . 'lsp-ui-peek-find-references))
@@ -670,6 +671,10 @@ The following %-sequences are provided:
            (elpy-shell-use-project-root nil))
   :config (elpy-enable))
 
+(use-package flycheck-mypy
+  :after flycheck
+  )
+
 (use-package ein
   :commands ein:jupyter-server-start
   :config
@@ -681,6 +686,11 @@ The following %-sequences are provided:
 (use-package company-jedi
   :config
   (add-to-list 'company-backends 'company-jedi))
+
+(use-package lsp-python-ms
+  :hook (python-mode-hook . (lambda ()
+                              (require 'lsp-python-ms)
+                              (lsp))))
 
 (use-package wgrep-helm
   :custom ((wgrep-auto-save-buffer t "I use git, so autosave is cool")))
