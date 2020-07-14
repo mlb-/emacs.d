@@ -425,6 +425,7 @@ unique name per project."
   :config (set-face-attribute 'default nil :height 120))
 
 (use-package lsp-ui
+  :custom (lsp-ui-flycheck-enable t)
   :bind (:map lsp-ui-mode-map
               ([remap xref-find-definitions] . 'lsp-ui-peek-find-definitions)
               ([remap xref-find-references] . 'lsp-ui-peek-find-references))
@@ -660,6 +661,10 @@ unique name per project."
            (elpy-shell-use-project-root nil))
   :config (elpy-enable))
 
+(use-package flycheck-mypy
+  :after flycheck
+  )
+
 (use-package ein
   :commands ein:jupyter-server-start
   :config
@@ -671,6 +676,11 @@ unique name per project."
 (use-package company-jedi
   :config
   (add-to-list 'company-backends 'company-jedi))
+
+(use-package lsp-python-ms
+  :hook (python-mode-hook . (lambda ()
+                              (require 'lsp-python-ms)
+                              (lsp))))
 
 (use-package es-mode)
 
