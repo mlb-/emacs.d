@@ -635,6 +635,13 @@ The following %-sequences are provided:
 (use-package org-journal
   :after org)
 
+(use-package ob-mermaid
+  :after org
+  :config
+  (add-to-list 'org-babel-load-languages '(mermaid . t))
+  (setq ob-mermaid-cli-path "~/.nvm/versions/node/v7.0.0/bin/mmdc")
+  )
+
 (use-package auth-source
   :custom (auth-sources (list "~/.authinfo.gpg"
                               "~/.authinfo"
