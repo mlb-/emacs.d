@@ -500,6 +500,10 @@ The following %-sequences are provided:
 
 (use-package copy-as-format)
 
+(use-package company-emoji
+  :after company
+  :init (add-to-list 'company-backends 'company-emoji))
+
 (use-package emojify
   :after slack
   :hook (slack-mode . emojify-mode))
