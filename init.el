@@ -617,6 +617,8 @@ unique name per project."
                                      "* TODO %?\n  %u\n  %a")
                                     ("m" "Meeting" entry (file+headline "" "Meetings")
                                      "* TODO %?\n  %u\n  %a" :clock-in t)
+                                    ("c" "Clock notes" entry (clock)
+                                     "* Notes for %U\n  From: %a\n%?")
                                     ("W" "Weekly update" entry (file "")
                                      "* TODO Weekly update\n  DEADLINE: <%(org-read-date nil nil \"Fri\") 10:00>"
                                      :immediate-finish t)
