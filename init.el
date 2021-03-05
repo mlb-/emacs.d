@@ -36,6 +36,8 @@
            (calendar-longitude -122.0439688)))
 
 (use-package sky-color-clock
+  ;; Gotta clone from https://github.com/zk-phi/sky-color-clock til I
+  ;; get around to using https://github.com/quelpa/quelpa-use-package
   :load-path "~/.emacs.d/sky-color-clock"
   :custom ((sky-color-clock-enable-emoji-icon nil)
            (sky-color-clock-enable-xpm-icon t))
