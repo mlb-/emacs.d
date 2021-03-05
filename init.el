@@ -630,6 +630,7 @@ unique name per project."
                                      :immediate-finish t)
                                     ("d" "Darren Demo update item" item (file+headline "" "TODO Weekly Darren Demo Prep")
                                      "%?")))
+           (org-agenda-clockreport-parameter-plist '(:link t :maxlevel 3))
            (org-babel-load-languages (append org-babel-load-languages
                                              (list (cons 'shell t)))))
   :config (add-to-list 'org-modules 'habits))
