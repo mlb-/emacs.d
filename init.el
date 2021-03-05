@@ -639,6 +639,7 @@ The following %-sequences are provided:
                                      :immediate-finish t)
                                     ("d" "Darren Demo update item" item (file+headline "" "TODO Weekly Darren Demo Prep")
                                      "%?")))
+           (org-agenda-clockreport-parameter-plist '(:link t :maxlevel 3))
            (org-babel-load-languages (append org-babel-load-languages
                                              (list (cons 'shell t))))
            (org-agenda-span 'day))
