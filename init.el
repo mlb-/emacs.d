@@ -344,7 +344,7 @@ The following %-sequences are provided:
   :ensure smartparens
   :demand t
   :hook ((ein:notebook-multilang-mode-hook
-          ensime-inf-mode-hook
+          ; ensime-inf-mode-hook
           java-mode-hook
           js2-mode-hook
           json-mode-hook
@@ -466,6 +466,7 @@ The following %-sequences are provided:
   :mode "\\.scala$")
 
 (use-package ensime
+  :disabled t
   :custom ((ensime-startup-notification nil)
            (ensime-inf-cmd-template '("sbt" "test:console"))
            (ensime-auto-connect 'ask)
