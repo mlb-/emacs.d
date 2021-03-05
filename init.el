@@ -24,7 +24,9 @@
 
 (use-package exec-path-from-shell
   :if (memq window-system '(mac ns))
-  :config (exec-path-from-shell-initialize))
+  :config (exec-path-from-shell-initialize)
+          (exec-path-from-shell-copy-env "JAVA_HOME")
+)
 
 (use-package solarized-theme
   :config (load-theme 'solarized-dark t))
