@@ -343,7 +343,6 @@ unique name per project."
           groovy-mode-hook
           java-mode-hook
           scala-mode-hook
-          ; ensime-inf-mode-hook
           ein:notebook-multilang-mode-hook
           python-mode-hook
           python-shell-setup-codes
@@ -457,15 +456,6 @@ unique name per project."
 (use-package scala-mode
   :custom ((scala-indent:align-parameters t))
   :mode "\\.scala$")
-
-(use-package ensime
-  :disabled t
-  :custom ((ensime-startup-notification nil)
-           (ensime-inf-cmd-template '("sbt" "test:console"))
-           (ensime-auto-connect 'ask)
-           (ensime-auto-generate-config t))
-  :commands ensime
-  :pin melpa-stable)
 
 (use-package company-lsp
   :after company)
