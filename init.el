@@ -443,22 +443,6 @@ The following %-sequences are provided:
               ([remap xref-find-references] . 'lsp-ui-peek-find-references))
   :hook ((lsp-mode-hook . lsp-ui-mode)))
 
-;; (use-package company-lsp)
-
-(use-package lsp-javacomp
-  :after company-lsp
-  :commands lsp-javacomp-enable
-  :hook (java-mode-hook . (lambda ()
-                          (lsp-javacomp-enable)
-                          ;; Use company-lsp as the company completion backend
-                          (set (make-variable-buffer-local 'company-backends) '(company-lsp))
-                          ;; Optional company-mode settings
-                          (set (make-variable-buffer-local 'company-idle-delay) 0.1)
-                          (set (make-variable-buffer-local 'company-minimum-prefix-length) 1)))
-
-  :config
-  (lsp-javacomp-install-server))
-
 (use-package groovy-mode
   :mode "\\.groovy")
 
@@ -530,17 +514,6 @@ The following %-sequences are provided:
   (lsp-mode . dap-mode)
   (lsp-mode . dap-ui-mode)
   )
-
-(use-package company-lsp
-  :after company)
-
-(use-package lsp-javacomp
-  :after company-lsp
-  :hook ((java-mode-hook . (lambda ()
-                             (lsp-javacomp-enable)
-                             (set (make-variable-buffer-local 'company-backends) '(company-lsp))
-                             (set (make-variable-buffer-local 'company-idle-delay) 0.1)
-                             (set (make-variable-buffer-local 'company-minimum-prefix-length) 1)))))
 
 (use-package elm-mode
   :after company
