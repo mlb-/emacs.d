@@ -743,6 +743,8 @@ unique name per project."
                               (require 'lsp-python-ms)
                               (lsp))))
 
+(use-package protobuf-mode)
+
 (use-package es-mode)
 
 (use-package pushover
