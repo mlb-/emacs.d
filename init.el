@@ -296,7 +296,7 @@ unique name per project."
 
 (use-package bug-reference
   :after magit
-  :custom ((bug-reference-bug-regexp "\\(?2:EN-[0-9]+\\)"))
+  :custom ((bug-reference-bug-regexp "\\(?2:[A-Z]+-[0-9]+\\)"))
   :hook ((magit-mode-hook
           org-mode-hook
           org-agenda-mode-hook) . bug-reference-mode)
