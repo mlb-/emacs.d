@@ -506,6 +506,9 @@ unique name per project."
   (lsp-mode . dap-ui-mode)
   )
 
+(use-package lsp-java
+  :hook (java-mode-hook . lsp))
+
 (use-package elm-mode
   :after company
   :custom ((elm-format-on-save t)
