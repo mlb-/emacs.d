@@ -719,6 +719,9 @@ unique name per project."
                               (require 'lsp-python-ms)
                               (lsp))))
 
+(use-package wgrep-helm
+  :custom ((wgrep-auto-save-buffer t "I use git, so autosave is cool")))
+
 (use-package protobuf-mode)
 
 (use-package es-mode)
