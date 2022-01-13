@@ -346,12 +346,13 @@ The following %-sequences are provided:
   :ensure smartparens
   :demand t
   :hook ((ein:notebook-multilang-mode-hook
+          inferior-python-mode-hook
           java-mode-hook
           js2-mode-hook
           json-mode-hook
           groovy-mode-hook
           python-mode-hook
-          python-shell-setup-codes
+          ;; python-shell-setup-codes
           scala-mode-hook) . turn-on-smartparens-strict-mode)
   :bind (:map smartparens-strict-mode-map
               ("M-J" . 'sp-join-sexp)
@@ -702,11 +703,18 @@ The following %-sequences are provided:
 (use-package helm-pass
   :commands helm-pass)
 
-(setq python-shell-interpreter "python2")
+(setq python-shell-interpreter "python")
+(setq python-shell-interpreter-args "-i")
+;; (setq elpy-shell-echo-output nil)
+;; (setq python-shell-prompt-detect-failure-warning nil)
+(setq python-shell-completion-native-enable nil)
 (use-package elpy
-  :custom ((elpy-rpc-python-command "python2")
+  :custom ((elpy-rpc-python-command "python")
+           (elpy-shell-starting-directory 'current-directory "use folder file is in, for .python-version reasons")
            (elpy-shell-use-project-root nil))
   :config (elpy-enable))
+
+(use-package pyenv-mode-auto)
 
 (use-package flycheck-mypy
   :after flycheck
