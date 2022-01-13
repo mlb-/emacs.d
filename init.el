@@ -522,6 +522,9 @@ The following %-sequences are provided:
 (use-package helm-pass
   :commands helm-pass)
 
+(use-package wgrep-helm
+  :custom ((wgrep-auto-save-buffer t "I use git, so autosave is cool")))
+
 (use-package pushover
   :custom (pushover-user-key (plist-get (car (auth-source-search :host "pushover"))
                                         :token)))
