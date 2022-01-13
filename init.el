@@ -345,7 +345,8 @@ unique name per project."
           scala-mode-hook
           ein:notebook-multilang-mode-hook
           python-mode-hook
-          python-shell-setup-codes
+          inferior-python-mode-hook
+          ;; python-shell-setup-codes
           json-mode-hook) . turn-on-smartparens-strict-mode)
   :bind (:map smartparens-strict-mode-map
               ("M-J" . 'sp-join-sexp)
@@ -692,11 +693,18 @@ unique name per project."
 (use-package helm-pass
   :commands helm-pass)
 
-(setq python-shell-interpreter "python2")
+(setq python-shell-interpreter "python")
+(setq python-shell-interpreter-args "-i")
+;; (setq elpy-shell-echo-output nil)
+;; (setq python-shell-prompt-detect-failure-warning nil)
+(setq python-shell-completion-native-enable nil)
 (use-package elpy
-  :custom ((elpy-rpc-python-command "python2")
+  :custom ((elpy-rpc-python-command "python")
+           (elpy-shell-starting-directory 'current-directory "use folder file is in, for .python-version reasons")
            (elpy-shell-use-project-root nil))
   :config (elpy-enable))
+
+(use-package pyenv-mode-auto)
 
 (use-package flycheck-mypy
   :after flycheck
