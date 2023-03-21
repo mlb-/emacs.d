@@ -458,9 +458,9 @@ unique name per project."
 
 (use-package lsp-mode
   ;; Optional - enable lsp-mode automatically in scala files
-  :hook  (scala-mode . lsp)
-         (lsp-mode . lsp-lens-mode)
-         (lsp-mode . lsp-enable-which-key-integration)
+  :hook  (scala-mode-hook . lsp)
+         (lsp-mode-hook . lsp-lens-mode)
+         (lsp-mode-hook . lsp-enable-which-key-integration)
   :config
   ;; Uncomment following section if you would like to tune lsp-mode performance according to
   ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
@@ -505,10 +505,16 @@ unique name per project."
   :hook
   (lsp-mode . dap-mode)
   (lsp-mode . dap-ui-mode)
+  (python-mode-hook . (lambda ()
+                        (require 'dap-python)
+                        ))
   )
 
 (use-package lsp-java
-  :hook (java-mode-hook . lsp))
+  :hook (java-mode-hook . lsp)
+  :custom ((lsp-java-java-path "/Users/mbatema/.jenv/versions/11.0.10/bin/java")))
+
+(use-package helm-lsp)
 
 (use-package elm-mode
   :after company
@@ -555,7 +561,9 @@ unique name per project."
                      :token)))
 
 (use-package org-jira
-  :custom ((jiralib-url "https://apixio.atlassian.net")))
+  :custom ((jiralib-url "https://apixio.atlassian.net"))
+  ;; Mnr2dzSV1YP5qtF08mRI21E3
+  )
 
 (use-package ox-jira
   :after org)
@@ -695,6 +703,8 @@ unique name per project."
 
 (setq python-shell-interpreter "python")
 (setq python-shell-interpreter-args "-i")
+(setq python-shell-interpreter "/Users/mbatema/.pyenv/shims/ipython"
+      python-shell-interpreter-args "-i --simple-prompt")
 ;; (setq elpy-shell-echo-output nil)
 ;; (setq python-shell-prompt-detect-failure-warning nil)
 (setq python-shell-completion-native-enable nil)
@@ -705,10 +715,6 @@ unique name per project."
   :config (elpy-enable))
 
 (use-package pyenv-mode-auto)
-
-(use-package flycheck-mypy
-  :after flycheck
-  )
 
 (use-package ein
   :commands ein:jupyter-server-start
@@ -723,9 +729,14 @@ unique name per project."
   (add-to-list 'company-backends 'company-jedi))
 
 (use-package lsp-python-ms
+  :disabled t
   :hook (python-mode-hook . (lambda ()
                               (require 'lsp-python-ms)
                               (lsp))))
+
+;; (use-package)
+
+
 
 (use-package wgrep-helm
   :custom ((wgrep-auto-save-buffer t "I use git, so autosave is cool")))
