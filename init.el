@@ -523,6 +523,40 @@ The following %-sequences are provided:
   :hook (java-mode-hook . lsp)
   :custom ((lsp-java-java-path "/Users/mbatema/.jenv/versions/11.0.10/bin/java")))
 
+(defun sort-java-imports-like-intellij ()
+    (interactive)
+    (save-excursion
+      (goto-char (point-min))
+      (let* ((beg (progn (search-forward-regexp "^package")
+                         (end-of-line)
+                         (point)))
+             (end (progn (search-forward-regexp "^\\(public\\|private\\|protected\\|class\\|@\\|/\\*\\)")
+                         (previous-line)
+                         (end-of-line)
+                         (point)))
+             (imports (thread-last (buffer-substring beg end)
+                                   (s-split "\n")
+                                   (seq-remove #'string-empty-p)))
+             (other-imports (thread-last imports
+                                         (seq-remove (lambda (import)
+                                                       (or (string-match "^import java" import)
+                                                           (string-match "^import static" import))))
+                                         (seq-sort #'string<)
+                                         (s-join "\n")))
+             (java-imports (thread-last imports
+                                        (seq-filter (lambda (import) (string-match "^import java" import)))
+                                        (seq-sort #'string<)
+                                        (s-join "\n")))
+             (static-imports (thread-last imports
+                                          (seq-filter (lambda (import) (string-match "^import static" import)))
+                                          (seq-sort #'string<)
+                                          (s-join "\n"))))
+        (delete-region beg end)
+        (insert "\n")
+        (when (s-present? other-imports) (insert "\n" other-imports "\n"))
+        (when (s-present? java-imports) (insert "\n" java-imports "\n"))
+        (when (s-present? static-imports) (insert "\n" static-imports "\n")))))
+
 (use-package helm-lsp)
 
 (use-package elm-mode
