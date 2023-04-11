@@ -36,6 +36,7 @@
            (calendar-longitude -122.0439688)))
 
 (use-package sky-color-clock
+  :disabled t
   ;; Gotta clone from https://github.com/zk-phi/sky-color-clock til I
   ;; get around to using https://github.com/quelpa/quelpa-use-package
   :load-path "~/.emacs.d/sky-color-clock"
@@ -312,6 +313,8 @@ The following %-sequences are provided:
 (use-package forge
   :after magit
   :pin melpa)
+(use-package sqlite3)
+
 
 (use-package git-link)
 
@@ -322,7 +325,8 @@ The following %-sequences are provided:
   :diminish ((flycheck-mode . "")
              (flyspell-mode . ""))
   :hook ((after-init-hook . global-flycheck-mode)
-         (prog-mode-hook . flyspell-prog-mode)))
+         ;; (prog-mode-hook . flyspell-prog-mode)
+))
 
 (use-package flycheck-pos-tip
   :after flycheck
@@ -482,6 +486,7 @@ The following %-sequences are provided:
 
 ;; Add metals backend for lsp-mode
 (use-package lsp-metals
+  :disabled t
   :config (setq lsp-metals-treeview-show-when-views-received t))
 
 ;; Enable nice rendering of documentation on hover
@@ -745,20 +750,38 @@ The following %-sequences are provided:
 (use-package helm-pass
   :commands helm-pass)
 
-(setq python-shell-interpreter "python")
-(setq python-shell-interpreter-args "-i")
-(setq python-shell-interpreter "/Users/mbatema/.pyenv/shims/ipython"
-      python-shell-interpreter-args "-i --simple-prompt")
+(use-package auto-virtualenv
+  :after projectile
+  :config
+  (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv)
+  (add-hook 'window-configuration-change-hook 'auto-virtualenv-set-virtualenv)
+  (add-hook 'focus-in-hook 'auto-virtualenv-set-virtualenv)
+  )
+
+;; (setq python-shell-interpreter "/Users/mbatema/.pyenv/shims/ipython"
+      ;; python-shell-interpreter-args "-i --simple-prompt")
 ;; (setq elpy-shell-echo-output nil)
 ;; (setq python-shell-prompt-detect-failure-warning nil)
-(setq python-shell-completion-native-enable nil)
+;; (setq python-shell-completion-native-enable nil)
 (use-package elpy
+  :after auto-virtualenv
   :custom ((elpy-rpc-python-command "python")
            (elpy-shell-starting-directory 'current-directory "use folder file is in, for .python-version reasons")
            (elpy-shell-use-project-root nil))
   :config (elpy-enable))
 
-(use-package pyenv-mode-auto)
+(use-package pyenv-mode
+  :after projectile
+  :config (pyenv-mode)
+  (defun ssbb-pyenv-hook ()
+    "Automatically activates pyenv version if .python-version file exists."
+    (f-traverse-upwards
+     (lambda (path)
+       (let ((pyenv-version-path (f-expand ".python-version" path)))
+         (if (f-exists? pyenv-version-path)
+             (pyenv-mode-set (s-trim (f-read-text pyenv-version-path 'utf-8))))))))
+  (add-hook 'projectile-after-switch-project-hook 'ssbb-pyenv-hook)
+)
 
 (use-package ein
   :commands ein:jupyter-server-start
@@ -769,6 +792,7 @@ The following %-sequences are provided:
   (require 'ein-subpackages))
 
 (use-package company-jedi
+  :disabled t
   :config
   (add-to-list 'company-backends 'company-jedi))
 
