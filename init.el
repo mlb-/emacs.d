@@ -828,6 +828,9 @@ The following %-sequences are provided:
                               (time-subtract after-init-time before-init-time)))
                      gcs-done)))
 
+(if (= emacs-major-version 28)
+    (add-to-list 'image-types 'svg))
+
 (pushover-send "emacs"
                "startup complete")
 
