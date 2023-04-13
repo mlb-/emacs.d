@@ -751,6 +751,7 @@ The following %-sequences are provided:
   :commands helm-pass)
 
 (use-package auto-virtualenv
+  :disabled t
   :after projectile
   :config
   (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv)
@@ -764,6 +765,7 @@ The following %-sequences are provided:
 ;; (setq python-shell-prompt-detect-failure-warning nil)
 ;; (setq python-shell-completion-native-enable nil)
 (use-package elpy
+  :disabled t
   :after auto-virtualenv
   :custom ((elpy-rpc-python-command "python")
            (elpy-shell-starting-directory 'current-directory "use folder file is in, for .python-version reasons")
@@ -771,6 +773,7 @@ The following %-sequences are provided:
   :config (elpy-enable))
 
 (use-package pyenv-mode
+  :disabled t
   :after projectile
   :config (pyenv-mode)
   (defun ssbb-pyenv-hook ()
