@@ -253,6 +253,10 @@ The following %-sequences are provided:
     (cl-letf (((symbol-function 'projectile-compilation-buffer-name)
                (projectile-compilation-buffer-name-for-command "Run")))
       (apply orig-fun args)))
+  (defun projectile-install-project--namespace-buffer (orig-fun &rest args)
+    (cl-letf (((symbol-function 'projectile-compilation-buffer-name)
+               (projectile-compilation-buffer-name-for-command "Install")))
+      (apply orig-fun args)))
   (defun projectile-test-project--namespace-buffer (orig-fun &rest args)
     (cl-letf (((symbol-function 'projectile-compilation-buffer-name)
                (projectile-compilation-buffer-name-for-command "Test")))
@@ -266,6 +270,9 @@ The following %-sequences are provided:
   (advice-add 'projectile-run-project
               :around
               #'projectile-run-project--namespace-buffer)
+  (advice-add 'projectile-install-project
+              :around
+              #'projectile-install-project--namespace-buffer)
   (advice-add 'projectile-test-project
               :around
               #'projectile-test-project--namespace-buffer)
