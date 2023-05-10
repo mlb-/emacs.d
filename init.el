@@ -385,7 +385,18 @@ The following %-sequences are provided:
 (use-package company
   :diminish ""
   :hook (after-init-hook . global-company-mode)
-  :bind ("TAB" . company-indent-or-complete-common))
+  :init (defun my-tab ()
+          "complete by copilot first, then company-mode"
+          (interactive)
+          (or (copilot-accept-completion)
+              (company-indent-or-complete-common nil)))
+  :bind ("TAB" . my-tab)
+  :custom ((lsp-completion-provider :capf))
+  )
+
+(use-package company-box
+  :after company
+  :hook (company-mode-hook . company-box-mode))
 
 (use-package company-quickhelp
   :after company
@@ -507,10 +518,7 @@ The following %-sequences are provided:
 ;; To Company-lsp users:
 ;;   Company-lsp is no longer maintained and has been removed from MELPA.
 ;;   Please migrate to company-capf.
-(use-package company
-  :hook (scala-mode . company-mode)
-  :config
-  (setq lsp-completion-provider :capf))
+;; (use-package company)
 
 ;; Use the Debug Adapter Protocol for running tests and debugging
 (use-package posframe
