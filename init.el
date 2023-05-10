@@ -902,6 +902,17 @@ The following %-sequences are provided:
       ;; v1 api?
       ))
 
+(use-package org-ai
+  :commands (org-ai-mode
+             org-ai-global-mode)
+  :init
+  (add-hook 'org-mode-hook #'org-ai-mode) ; enable org-ai in org-mode
+  (org-ai-global-mode) ; installs global keybindings on C-c M-a
+  :config
+  ;; (setq org-ai-default-chat-model "gpt-3.5-turbo")
+  (org-ai-install-yasnippets) ; if you are using yasnippet and want `ai` snippets
+)
+
 (use-package restart-emacs)
 
 (add-hook 'emacs-startup-hook
