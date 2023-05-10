@@ -804,11 +804,6 @@ The following %-sequences are provided:
   (require 'ein-notebook)
   (require 'ein-subpackages))
 
-(use-package company-jedi
-  :disabled t
-  :config
-  (add-to-list 'company-backends 'company-jedi))
-
 (use-package lsp-python-ms
   :disabled t
   :hook (python-mode-hook . (lambda ()
