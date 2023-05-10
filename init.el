@@ -913,6 +913,23 @@ The following %-sequences are provided:
   (org-ai-install-yasnippets) ; if you are using yasnippet and want `ai` snippets
 )
 
+(use-package quelpa
+  ;; :custom ((quelpa-build-explicit-tar-format-p t "cuz I'm on OS X? Or do I need `brew install gnu-tar`?"))
+  :init (quelpa-self-upgrade)
+  )
+(quelpa
+ '(quelpa-use-package
+   :fetcher git
+   :url "https://github.com/quelpa/quelpa-use-package.git"))
+(use-package quelpa-use-package
+  :custom ((use-package-ensure-function 'quelpa "trying out quelpa and quelpa-use-package")))
+(use-package copilot
+  :quelpa (copilot :fetcher github
+                   :repo "zerolfx/copilot.el"
+                   :branch "main"
+                   :files ("dist" "*.el"))
+  )
+
 (use-package restart-emacs)
 
 (add-hook 'emacs-startup-hook
