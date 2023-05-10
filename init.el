@@ -822,6 +822,86 @@ The following %-sequences are provided:
   :custom (pushover-user-key (plist-get (car (auth-source-search :host "pushover"))
                                         :token)))
 
+(use-package circleci-api
+  :custom (circleci-api-token (plist-get (car (auth-source-search :host "circleci"))
+                                         :token))
+  )
+
+(if nil
+    (progn
+      (circleci-api-org-slug "github" "Apixio")
+      (circleci-api-get-pipelines (circleci-api-org-slug "github" "Apixio"))
+      (circleci-api-get-project (circleci-api-project-slug "github" "Apixio" "apx-interop")
+                                :sync t
+                                :handler (cl-function
+                                          (lambda (&key data &allow-other-keys)
+                                            (insert (format "\n;; %S" data)))))
+      (circleci-api-get-project-pipelines (circleci-api-project-slug "github" "Apixio" "python-apxapi")
+                                          :sync t
+                                     :handler (cl-function
+                                               (lambda (&key data &allow-other-keys)
+                                                 (insert (format "\n%S" (alist-get 'items data))))))
+
+      (circleci-api-trigger-pipeline (circleci-api-project-slug "github" "Apixio" "python-apxapi")
+                                     :branch "tqdm_slack_updater"
+                                     :pipeline-parameters '((force-publish . t))
+                                     :sync t
+                                     :handler (cl-function
+                                               (lambda (&key data &allow-other-keys)
+                                                 (insert (format "\n;; %S" data)))))
+
+      (circleci-api-trigger-pipeline (circleci-api-project-slug "github" "Apixio" "python-apxapi")
+                                     :branch "tqdm_slack_updater"
+                                     :pipeline-parameters '((force-publish . t))
+                                     :sync t
+                                     :handler (cl-function
+                                               (lambda (&key data &allow-other-keys)
+                                                 (insert (format "\n;; %S" data)))))
+      (circleci-api-trigger-pipeline (circleci-api-project-slug "github" "Apixio" "mono")
+                                     :branch "hackday-2022-pirate-edition"
+                                     :pipeline-parameters '((force_publish . t)
+                                                            (force_docker_build . t))
+                                     :sync t
+                                     :handler (cl-function
+                                               (lambda (&key data &allow-other-keys)
+                                                 (insert (format "\n;; %S" data)))))
+      ;; ((number . 1829) (state . "pending") (id . "92976bfb-9333-4b64-b248-742ee547d642") (created_at . "2023-05-04T10:22:25.511Z"))
+
+
+      (circleci-api-get-my-project-pipelines (circleci-api-project-slug "github" "Apixio" "mono")
+                                             :sync t
+                                             :handler (cl-function
+                                                       (lambda (&key data &allow-other-keys)
+                                                         (insert (format "\n%S" (alist-get 'items data))))))
+      (circleci-api-get-pipeline-workflows "5309c9a1-c9cd-4316-8651-03e1f531ceef"
+                                           :sync t
+                                           :handler (cl-function
+                                                     (lambda (&key data &allow-other-keys)
+                                                       (insert (format "\n;; %S" (alist-get 'items data))))))
+      (circleci-api-get-workflow-jobs "b7ccb4ba-2642-476e-84a4-41bbc9e218a7"
+                                      :sync t
+                                      :handler (cl-function
+                                                (lambda (&key data &allow-other-keys)
+                                                  (insert (format "\n;; %S" (alist-get 'items data))))))
+      (circleci-api-run-paginated-request
+       (concat (circleci-api--route--project
+                (circleci-api-project-slug "github" "Apixio" "python-apxapi"))
+               "/job"
+               "/157"
+               )
+       :sync t
+       :handler (cl-function
+                 (lambda (&key data &allow-other-keys)
+                   (insert (format "\n;; %S" data))))
+       )
+
+      (magit-get "remote.origin.url")
+      (magit-get-@{push}-branch)
+      (magit-get-push-branch)
+
+      ;; v1 api?
+      ))
+
 (use-package restart-emacs)
 
 (add-hook 'emacs-startup-hook
