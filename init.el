@@ -112,11 +112,11 @@ The following %-sequences are provided:
   (fancy-battery-mode))
 
 (use-package super-save
-  :diminish ""
+  :delight ""
   :config (super-save-mode +1))
 
 (use-package autorevert
-  :diminish auto-revert-mode)
+  :delight auto-revert-mode)
 
 ;; Thanks, technomancy! (https://github.com/technomancy/emacs-starter-kit/)
 (use-package better-defaults)
@@ -147,7 +147,7 @@ The following %-sequences are provided:
          ("C-h SPC" . helm-all-mark-rings)
          :map helm-command-map
          ("o" . helm-occur))
-  :diminish helm-mode
+  :delight helm-mode
   :config (helm-mode t))
 
 (use-package helm-projectile
@@ -160,7 +160,7 @@ The following %-sequences are provided:
   :config (helm-descbinds-mode))
 
 (use-package which-key
-  :diminish ""
+  :delight
   :config (which-key-mode))
 
 ;; As per suggestion 4
@@ -170,7 +170,7 @@ The following %-sequences are provided:
 
 ;; As per suggestion 5
 (use-package paredit
-  :diminish "()"
+  :delight "()"
   :hook ((emacs-lisp-mode-hook . paredit-mode)
          (cider-repl-mode-hook . paredit-mode)
          (clojure-mode-hook . paredit-mode))
@@ -226,7 +226,7 @@ The following %-sequences are provided:
 
 
 (use-package anzu
-  :diminish ""
+  :delight
   :config (global-anzu-mode t))
 
 ;; colorcolumn/row?
@@ -383,7 +383,7 @@ The following %-sequences are provided:
          ("M-S-<mouse-1>" . mc/add-cursor-on-click)))
 
 (use-package company
-  :diminish ""
+  :delight
   :hook (after-init-hook . global-company-mode)
   :init (defun my-tab ()
           "complete by copilot first, then company-mode"
@@ -396,6 +396,7 @@ The following %-sequences are provided:
 
 (use-package company-box
   :after company
+  :delight
   :hook (company-mode-hook . company-box-mode))
 
 (use-package company-quickhelp
@@ -406,7 +407,7 @@ The following %-sequences are provided:
   :mode "\\.dot$")
 
 (use-package eldoc
-  :diminish ""
+  :delight
   :hook ((emacs-lisp-mode-hook . eldoc-mode)
          (cider-mode-hook . eldoc-mode))
   :custom (eldoc-idle-delay 0.1
@@ -433,13 +434,13 @@ The following %-sequences are provided:
   :custom (docker-tramp-use-names t))
 
 (use-package undo-tree
-  :diminish ""
+  :delight
   :config (global-undo-tree-mode t))
 
 (use-package yasnippet
-  :disabled t
-  :diminish yas-minor-mode
-  :config (yas-global-mode t))
+  ;; :disabled t
+  :delight
+  )
 
 (setq visible-bell nil)
 
@@ -584,7 +585,7 @@ The following %-sequences are provided:
   :hook ((flycheck-mode-hook . flycheck-elm-setup)))
 
 (use-package whitespace
-  :diminish ""
+  :delight
   :hook (((prog-mode-hook text-mode-hook) . whitespace-mode)
          (before-save-hook . whitespace-cleanup))
   :custom ((whitespace-line-column 100 "limit line length")
