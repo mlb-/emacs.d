@@ -930,6 +930,9 @@ The following %-sequences are provided:
                    :files ("dist" "*.el"))
   )
 
+(use-package magit-delta
+  :hook (magit-mode-hook . magit-delta-mode))
+
 (use-package restart-emacs)
 
 (add-hook 'emacs-startup-hook
