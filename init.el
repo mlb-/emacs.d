@@ -733,7 +733,8 @@ The following %-sequences are provided:
                                      "%?")))
            (org-agenda-clockreport-parameter-plist '(:link t :maxlevel 3))
            (org-babel-load-languages (append org-babel-load-languages
-                                             (list (cons 'shell t)))))
+                                             (list (cons 'shell t))))
+           (org-agenda-span 'day))
   :config (add-to-list 'org-modules 'habits))
 
 (use-package org-journal
