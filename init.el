@@ -505,7 +505,8 @@ The following %-sequences are provided:
            (org-capture-templates '(("t" "Task" entry (file+headline "" "Tasks")
                                      "* TODO %?\n  %u\n  %a")
                                     ("m" "Meeting" entry (file+headline "" "Meetings")
-                                     "* TODO %?\n  %u\n  %a" :clock-in t))))
+                                     "* TODO %?\n  %u\n  %a" :clock-in t)))
+           (org-agenda-span 'day))
   :config (add-to-list 'org-modules 'habits))
 
 (use-package org-journal
