@@ -636,9 +636,9 @@ The following %-sequences are provided:
 
 (use-package org-gcal
   :after org
-  :preface (setq creds (car (auth-source-search :host "org-gcal")))
-  :custom ((org-gcal-client-id (plist-get creds :client-id))
-           (org-gcal-client-secret (plist-get creds :client-secret))
+  :preface (setq org-gcal-creds (car (auth-source-search :host "org-gcal")))
+  :custom ((org-gcal-client-id (plist-get org-gcal-creds :client-id))
+           (org-gcal-client-secret (plist-get org-gcal-creds :client-secret))
            (org-gcal-file-alist (mapcar (lambda (e)
                                           (cons (plist-get e :calendar-id)
                                                 (concat "~/org/gcal/" (plist-get e :org-file))))
