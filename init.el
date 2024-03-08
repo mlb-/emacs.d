@@ -940,6 +940,7 @@ The following %-sequences are provided:
                    :repo "zerolfx/copilot.el"
                    :branch "main"
                    :files ("dist" "*.el"))
+  :init (setq exec-path (append exec-path '("~/.nvm/versions/node/v20.1.0/bin")))
   )
 
 (use-package magit-delta
