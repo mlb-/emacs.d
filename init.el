@@ -236,7 +236,6 @@ The following %-sequences are provided:
 ;; auto-resize splits
 
 (use-package projectile
-  :bind-keymap ("C-c p" . projectile-command-map)
   :delight '(:eval (concat " [" (projectile-project-name) "]"))
   :custom ((projectile-use-git-grep t)
            (projectile-switch-project-action 'projectile-vc)
@@ -267,6 +266,15 @@ The following %-sequences are provided:
     (cl-letf (((symbol-function 'projectile-compilation-buffer-name)
                (projectile-compilation-buffer-name-for-command "Compile")))
       (apply orig-fun args)))
+  (defun helm-projectile-grep-with-dir (&optional directory)
+    (interactive "P")
+    (when current-prefix-arg
+      (setq directory (read-directory-name "Grep within: " nil (projectile-project-root) t)))
+    (helm-projectile-grep directory))
+  ;; (define-key projectile-command-map (kbd "s g") #'helm-projectile-grep)
+  ;; (define-key projectile-command-map [remap helm-projectile-grep] #'helm-projectile-grep-with-dir)
+  (define-key projectile-command-map (kbd "s g") #'helm-projectile-grep-with-dir)
+  :bind-keymap ("C-c p" . projectile-command-map)
   :config
   (projectile-global-mode t)
   (advice-add 'projectile-run-project
