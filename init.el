@@ -541,8 +541,9 @@ The following %-sequences are provided:
 
 (use-package pushover
   ;; :disabled t
-  :custom (pushover-user-key (plist-get (car (auth-source-search :host "pushover"))
-                                        :token)))
+  ;; :custom (pushover-user-key (plist-get (car (auth-source-search :host "pushover"))
+  ;;                                       :token))
+)
 
 (use-package restart-emacs)
 
@@ -554,5 +555,5 @@ The following %-sequences are provided:
                               (time-subtract after-init-time before-init-time)))
                      gcs-done)))
 
-(pushover-send "emacs"
-               "startup complete")
+;; (pushover-send "emacs"
+;;                "startup complete")
