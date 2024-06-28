@@ -390,6 +390,7 @@ The following %-sequences are provided:
 (use-package docker)
 
 (use-package docker-tramp
+  :disabled t ; apparently I can use tramp-container?
   :custom (docker-tramp-use-names t))
 
 (use-package undo-tree
