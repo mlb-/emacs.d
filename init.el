@@ -34,6 +34,7 @@
            (calendar-longitude -122.0439688)))
 
 (use-package sky-color-clock
+  :disabled t
   :load-path "~/.emacs.d/sky-color-clock"
   :custom ((sky-color-clock-enable-emoji-icon nil)
            (sky-color-clock-enable-xpm-icon t))
@@ -460,6 +461,7 @@ The following %-sequences are provided:
            (whitespace-style '(face tabs empty trailing lines-tail))))
 
 (use-package org-gcal
+  :disabled t
   :after org
   :preface (setq creds (car (auth-source-search :host "org-gcal")))
   :custom ((org-gcal-client-id (plist-get creds :client-id))
@@ -538,6 +540,7 @@ The following %-sequences are provided:
   :custom ((wgrep-auto-save-buffer t "I use git, so autosave is cool")))
 
 (use-package pushover
+  ;; :disabled t
   :custom (pushover-user-key (plist-get (car (auth-source-search :host "pushover"))
                                         :token)))
 
