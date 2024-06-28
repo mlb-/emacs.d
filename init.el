@@ -128,7 +128,7 @@ The following %-sequences are provided:
   :config (smex-initialize))
 
 ;;; Thanks, https://tuhdo.github.io/helm-intro.html
-(use-package helm-config
+(use-package helm
   :ensure helm
   :demand t
   :custom (helm-command-prefix-key "C-c h" "Avoid fat-fingering C-c C-x.")
