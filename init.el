@@ -422,7 +422,7 @@ The following %-sequences are provided:
               ([remap xref-find-references] . 'lsp-ui-peek-find-references))
   :hook ((lsp-mode-hook . lsp-ui-mode)))
 
-(use-package company-lsp)
+;; (use-package company-lsp)
 
 (use-package lsp-javacomp
   :after company-lsp
