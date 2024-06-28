@@ -148,6 +148,8 @@ The following %-sequences are provided:
   :config (helm-projectile-on))
 
 (use-package helm-descbinds
+  :after which-key
+  :custom (helm-descbinds-disable-which-key nil)
   :config (helm-descbinds-mode))
 
 (use-package which-key
