@@ -547,6 +547,10 @@ The following %-sequences are provided:
 
 (use-package restart-emacs)
 
+(use-package lsp-mode
+  :custom ((lsp-pylsp-plugins-mypy-enabled t)
+           (lsp-pylsp-plugins-ruff-enabled t)))
+
 (add-hook 'emacs-startup-hook
           (lambda ()
             (message "Emacs ready in %s with %d garbage collections."
