@@ -375,6 +375,8 @@ The following %-sequences are provided:
 
 (setq-default indent-tabs-mode nil)
 
+(customize-set-variable 'fill-column 120)
+
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
@@ -446,7 +448,7 @@ The following %-sequences are provided:
   :diminish ""
   :hook (((prog-mode-hook text-mode-hook) . whitespace-mode)
          (before-save-hook . whitespace-cleanup))
-  :custom ((whitespace-line-column 80 "limit line length")
+  :custom ((whitespace-line-column 120 "limit line length")
            (whitespace-style '(face tabs empty trailing lines-tail))))
 
 (use-package org-gcal
