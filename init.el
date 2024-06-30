@@ -333,7 +333,8 @@ The following %-sequences are provided:
   :demand t
   :hook ((js2-mode-hook
           java-mode-hook
-          json-mode-hook) . turn-on-smartparens-strict-mode)
+          json-mode-hook
+          python-mode-hook) . turn-on-smartparens-strict-mode)
   :bind (:map smartparens-strict-mode-map
               ("M-J" . 'sp-join-sexp)
               ("]" . 'sp-up-sexp))
