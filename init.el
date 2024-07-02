@@ -372,9 +372,16 @@ The following %-sequences are provided:
          ("M-S-<mouse-1>" . mc/add-cursor-on-click)))
 
 (use-package company
-  :diminish ""
+  :delight
   :hook (after-init-hook . global-company-mode)
-  :bind ("TAB" . company-indent-or-complete-common))
+  :init (defun my-tab ()
+          "complete by copilot first, then company-mode"
+          (interactive)
+          (or (copilot-accept-completion)
+              (company-indent-or-complete-common nil)))
+  :bind ("TAB" . my-tab)
+  :custom ((lsp-completion-provider :capf))
+  )
 
 (use-package graphviz-dot-mode
   :mode "\\.dot$")
@@ -546,6 +553,25 @@ The following %-sequences are provided:
   :custom (pushover-user-key (plist-get (car (auth-source-search :host "pushover"))
                                         :token)))
 
+;; copilot?
+(use-package quelpa
+  ;; I had to install `gnu-tar`.
+  ;; :custom ((quelpa-build-explicit-tar-format-p t "cuz I'm on OS X? Or do I need `brew install gnu-tar`?"))
+  ;; :init (quelpa-self-upgrade)
+  )
+(quelpa
+ '(quelpa-use-package
+   :fetcher git
+   :url "https://github.com/quelpa/quelpa-use-package.git"))
+(use-package quelpa-use-package
+  :custom ((use-package-ensure-function 'quelpa "trying out quelpa and quelpa-use-package")))
+(use-package copilot
+  :quelpa (copilot :fetcher github
+                   :repo "zerolfx/copilot.el"
+                   :branch "main"
+                   :files ("dist" "*.el"))
+  :init (setq exec-path (append exec-path '("~/.nvm/versions/node/v18.20.3/bin")))
+  )
 (use-package restart-emacs)
 
 (use-package lsp-mode
