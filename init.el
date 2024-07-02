@@ -436,6 +436,10 @@ The following %-sequences are provided:
   :hook ((lsp-mode-hook . lsp-ui-mode)))
 
 ;; (use-package company-lsp)
+;; I think I need to look for `company-capf`?
+
+;; what is `helm-lsp`?
+;; Do I want `ob-mermaid`?
 
 (use-package lsp-javacomp
   :after company-lsp
@@ -553,6 +557,7 @@ The following %-sequences are provided:
   ;;                                       :token))
 )
 
+;; org-ai?
 ;; copilot?
 (use-package quelpa
   ;; I had to install `gnu-tar`.
@@ -572,6 +577,8 @@ The following %-sequences are provided:
                    :files ("dist" "*.el"))
   :init (setq exec-path (append exec-path '("~/.nvm/versions/node/v18.20.3/bin")))
   )
+;; magit-delta?
+
 (use-package restart-emacs)
 
 (use-package lsp-mode
