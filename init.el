@@ -288,7 +288,7 @@ The following %-sequences are provided:
 (use-package markdown-mode)
 ;; erlang-mode?
 (use-package magit
-  :pin melpa-stable
+  ;; :pin melpa-stable
   :bind ("C-c g" . magit-status)
   :custom (magit-branch-prefer-remote-upstream '("master" "develop")))
 
