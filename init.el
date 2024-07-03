@@ -302,6 +302,15 @@ The following %-sequences are provided:
   :pin melpa-stable
   :config (magithub-feature-autoinject t))
 
+(use-package magit-gitlab
+  :after magit
+  :pin melpa-stable
+  :ensure t
+  :config
+  ;; Update magit-mode-map such that pressing @ opens the magit-gitlab-mr transient
+  (define-key magit-mode-map (kbd "@") 'magit-gitlab-mr)
+  (transient-append-suffix 'magit-dispatch "!" '("@" "Act on MR" magit-gitlab-mr)))
+
 (use-package git-link)
 
 (use-package tex-site
