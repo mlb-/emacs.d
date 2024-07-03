@@ -34,6 +34,7 @@
            (calendar-longitude -122.0439688)))
 
 (use-package sky-color-clock
+  :disabled t
   :load-path "~/.emacs.d/sky-color-clock"
   :custom ((sky-color-clock-enable-emoji-icon nil)
            (sky-color-clock-enable-xpm-icon t))
