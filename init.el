@@ -27,7 +27,7 @@
   :config (exec-path-from-shell-initialize))
 
 (use-package solarized-theme
-  :config (load-theme 'solarized-dark t))
+  :config (load-theme 'solarized-light t))
 
 (use-package calendar
   :custom ((calendar-latitude 37.6239587)
