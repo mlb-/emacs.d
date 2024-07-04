@@ -311,7 +311,10 @@ The following %-sequences are provided:
   (define-key magit-mode-map (kbd "@") 'magit-gitlab-mr)
   (transient-append-suffix 'magit-dispatch "!" '("@" "Act on MR" magit-gitlab-mr)))
 
-(use-package git-link)
+(use-package git-link
+  :preface (defun git-link-vynca-gitlab (host &rest args)
+             (apply 'git-link-gitlab "gitlab.com" args))
+  :config (add-to-list 'git-link-remote-alist '("vyngit" git-link-vynca-gitlab) git-link-remote-alist))
 
 (use-package tex-site
   :ensure auctex)
