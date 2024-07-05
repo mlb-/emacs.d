@@ -581,8 +581,8 @@ The following %-sequences are provided:
          ("M-p" . 'copilot-previous-completion)
          ("M-n" . 'copilot-next-completion)
          ("<tab>" . 'copilot-accept-completion)
-         ("M-f" . 'copilot-accept-completion-by-word)
-         ("M-<return>" . 'copilot-accept-completion-by-line))
+         ("C-w" . 'copilot-accept-completion-by-word)
+         ("C-l" . 'copilot-accept-completion-by-line))
   :init (setq exec-path (append exec-path '("~/.nvm/versions/node/v18.20.3/bin"))))
 
 (use-package restart-emacs)
