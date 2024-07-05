@@ -303,6 +303,7 @@ The following %-sequences are provided:
   :config (magithub-feature-autoinject t))
 
 (use-package magit-gitlab
+  :disabled t
   :after magit
   :pin melpa-stable
   :ensure t
