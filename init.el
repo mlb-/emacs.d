@@ -470,7 +470,7 @@ The following %-sequences are provided:
   :hook ((flycheck-mode-hook . flycheck-elm-setup)))
 
 (use-package whitespace
-  :diminish ""
+  :delight ""
   :hook (((prog-mode-hook text-mode-hook) . whitespace-mode)
          (before-save-hook . whitespace-cleanup))
   :custom ((whitespace-line-column 120 "limit line length")
