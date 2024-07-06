@@ -154,7 +154,7 @@ The following %-sequences are provided:
   :config (helm-descbinds-mode))
 
 (use-package which-key
-  :diminish ""
+  :delight ""
   :config (which-key-mode))
 
 ;; As per suggestion 4
