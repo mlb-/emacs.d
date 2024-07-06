@@ -220,7 +220,7 @@ The following %-sequences are provided:
 
 
 (use-package anzu
-  :diminish ""
+  :delight ""
   :config (global-anzu-mode t))
 
 ;; colorcolumn/row?
