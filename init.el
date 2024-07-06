@@ -417,7 +417,7 @@ The following %-sequences are provided:
   :custom (docker-tramp-use-names t))
 
 (use-package undo-tree
-  :diminish ""
+  :delight ""
   :config (global-undo-tree-mode t))
 
 (use-package yasnippet
