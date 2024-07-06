@@ -106,7 +106,7 @@ The following %-sequences are provided:
   (fancy-battery-mode))
 
 (use-package super-save
-  :diminish ""
+  :delight ""
   :config (super-save-mode +1))
 
 (use-package autorevert
