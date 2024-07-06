@@ -389,7 +389,7 @@ The following %-sequences are provided:
   :mode "\\.dot$")
 
 (use-package eldoc
-  :diminish ""
+  :delight ""
   :hook ((emacs-lisp-mode-hook . eldoc-mode)
          (cider-mode-hook . eldoc-mode))
   :custom (eldoc-idle-delay 0.1
