@@ -296,11 +296,9 @@ The following %-sequences are provided:
   :after magit
   :hook (magit-mode-hook . bug-reference-mode))
 
-(use-package magithub
-  :disabled t
+(use-package forge
   :after magit
-  :pin melpa-stable
-  :config (magithub-feature-autoinject t))
+  :pin melpa)
 
 (use-package magit-gitlab
   :disabled t
