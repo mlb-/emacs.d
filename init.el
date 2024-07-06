@@ -110,7 +110,7 @@ The following %-sequences are provided:
   :config (super-save-mode +1))
 
 (use-package autorevert
-  :diminish auto-revert-mode)
+  :delight auto-revert-mode)
 
 ;; Thanks, technomancy! (https://github.com/technomancy/emacs-starter-kit/)
 (use-package better-defaults)
