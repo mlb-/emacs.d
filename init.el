@@ -141,7 +141,7 @@ The following %-sequences are provided:
          ("C-h SPC" . helm-all-mark-rings)
          :map helm-command-map
          ("o" . helm-occur))
-  :diminish helm-mode
+  :delight helm-mode
   :config (helm-mode t))
 
 (use-package helm-projectile
