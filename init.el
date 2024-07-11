@@ -164,7 +164,7 @@ The following %-sequences are provided:
 
 ;; As per suggestion 5
 (use-package paredit
-  :diminish "()"
+  :delight "()"
   :hook ((emacs-lisp-mode-hook . paredit-mode)
          (cider-repl-mode-hook . paredit-mode)
          (clojure-mode-hook . paredit-mode))
