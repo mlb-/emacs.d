@@ -597,6 +597,9 @@ The following %-sequences are provided:
   :custom ((lsp-pylsp-plugins-mypy-enabled t)
            (lsp-pylsp-plugins-ruff-enabled t)))
 
+(use-package kubel)
+(use-package kubernetes)
+
 (add-hook 'emacs-startup-hook
           (lambda ()
             (message "Emacs ready in %s with %d garbage collections."
