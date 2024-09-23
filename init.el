@@ -578,8 +578,8 @@ The following %-sequences are provided:
  '(quelpa-use-package
    :fetcher git
    :url "https://github.com/quelpa/quelpa-use-package.git"))
-(use-package quelpa-use-package
-  :custom ((use-package-ensure-function 'quelpa "trying out quelpa and quelpa-use-package")))
+(use-package quelpa-use-package)
+
 (use-package copilot
   :quelpa (copilot :fetcher github
                    :repo "copilot-emacs/copilot.el"
