@@ -318,6 +318,11 @@ The following %-sequences are provided:
   (define-key magit-mode-map (kbd "@") 'magit-gitlab-mr)
   (transient-append-suffix 'magit-dispatch "!" '("@" "Act on MR" magit-gitlab-mr)))
 
+(use-package magit-todos
+  :after magit
+  :custom ((magit-todos-branch-list-merge-base-ref "@{u}" "Just ask the branch what its upstream is."))
+  :config (magit-todos-mode 1))
+
 (use-package git-link
   :preface (defun git-link-vynca-gitlab (host &rest args)
              (apply 'git-link-gitlab "gitlab.com" args))
