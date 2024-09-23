@@ -605,6 +605,14 @@ The following %-sequences are provided:
 (use-package kubel)
 (use-package kubernetes)
 
+(use-package dap-mode
+  :after lsp-mode
+  :commands dap-debug
+  :config
+  (require 'dap-python)
+  (setq dap-python-debugger 'debugpy)
+  )
+
 (add-hook 'emacs-startup-hook
           (lambda ()
             (message "Emacs ready in %s with %d garbage collections."
