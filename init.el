@@ -599,6 +599,7 @@ The following %-sequences are provided:
 (use-package restart-emacs)
 
 (use-package lsp-mode
+  :hook (python-ts-mode-hook . lsp-mode)
   :custom ((lsp-pylsp-plugins-mypy-enabled t)
            (lsp-pylsp-plugins-ruff-enabled t)))
 
@@ -612,6 +613,29 @@ The following %-sequences are provided:
   (require 'dap-python)
   (setq dap-python-debugger 'debugpy)
   )
+
+(use-package python-pytest
+  :custom ((python-pytest-executable "poetry run pytest"))
+  :bind (("C-c C-S-p" . python-pytest-dispatch))
+  )
+
+(use-package treesit-auto
+  :custom ((treesit-auto-install 'prompt)
+           (treesit-auto-langs '(python))
+           )
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))
+  (global-treesit-auto-mode)
+  )
+
+(use-package combobulate
+  :hook ((python-ts-mode-hook . combobulate-mode))
+  :custom (combobulate-key-prefix "C-c o")
+  :bind ("C-c o" . combobulate)
+  ;; :after treesit-auto
+  :quelpa (combobulate :fetcher github
+                       :repo "mickeynp/combobulate"))
 
 (add-hook 'emacs-startup-hook
           (lambda ()
