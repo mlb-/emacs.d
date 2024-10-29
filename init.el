@@ -603,6 +603,8 @@ The following %-sequences are provided:
   :custom ((lsp-pylsp-plugins-mypy-enabled t)
            (lsp-pylsp-plugins-ruff-enabled t)))
 
+(use-package hcl-mode)
+
 (use-package kubel)
 (use-package kubernetes)
 
