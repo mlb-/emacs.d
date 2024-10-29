@@ -504,7 +504,6 @@ The following %-sequences are provided:
   :config (org-gcal-fetch))
 
 (use-package ace-window
-  :custom (aw-keys '(?j ?k ?l ?\; ?m ?, ?. ?/))
   :bind ("M-o" . ace-window))
 
 (use-package alert
