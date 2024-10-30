@@ -628,6 +628,13 @@ The following %-sequences are provided:
   (treesit-auto-add-to-auto-mode-alist 'all)
   (add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))
   (global-treesit-auto-mode)
+
+  (defun treesit-which-function ()
+    (treesit-defun-name (treesit-defun-at-point)))
+
+  (add-hook 'python-ts-mode-hook (lambda ()
+                                   (setq-local which-func-functions '(treesit-which-function))
+                                   ))
   )
 
 (use-package combobulate
