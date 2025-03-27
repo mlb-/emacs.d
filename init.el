@@ -434,7 +434,7 @@ The following %-sequences are provided:
 
 (use-package yasnippet
   :disabled t
-  :diminish yas-minor-mode
+  :delight yas-minor-mode
   :config (yas-global-mode t))
 
 (setq visible-bell nil)
