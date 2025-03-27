@@ -358,6 +358,7 @@ The following %-sequences are provided:
 (use-package smartparens-config
   :ensure smartparens
   :demand t
+  :delight smartparens-mode
   :hook ((hcl-mode-hook
           js2-mode-hook
           java-mode-hook
