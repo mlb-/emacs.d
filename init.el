@@ -332,8 +332,9 @@ The following %-sequences are provided:
   :ensure auctex)
 
 (use-package flycheck
-  :diminish ((flycheck-mode . "")
-             (flyspell-mode . ""))
+  :delight
+  (flycheck-mode)
+  (flyspell-mode)
   :hook ((after-init-hook . global-flycheck-mode)
          (prog-mode-hook . flyspell-prog-mode)))
 
