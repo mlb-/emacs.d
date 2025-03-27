@@ -648,6 +648,10 @@ The following %-sequences are provided:
   :quelpa (combobulate :fetcher github
                        :repo "mickeynp/combobulate"))
 
+(use-package ellama
+  :custom (ellama-keymap-prefix "C-c l")
+  )
+
 (add-hook 'emacs-startup-hook
           (lambda ()
             (message "Emacs ready in %s with %d garbage collections."
