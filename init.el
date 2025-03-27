@@ -358,7 +358,8 @@ The following %-sequences are provided:
 (use-package smartparens-config
   :ensure smartparens
   :demand t
-  :hook ((js2-mode-hook
+  :hook ((hcl-mode-hook
+          js2-mode-hook
           java-mode-hook
           json-mode-hook
           python-mode-hook) . turn-on-smartparens-strict-mode)
@@ -602,7 +603,9 @@ The following %-sequences are provided:
   :custom ((lsp-pylsp-plugins-mypy-enabled t)
            (lsp-pylsp-plugins-ruff-enabled t)))
 
-(use-package hcl-mode)
+(use-package hcl-mode
+  :mode "\\.tf$"
+  )
 
 (use-package kubel)
 (use-package kubernetes)
