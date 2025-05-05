@@ -392,12 +392,6 @@ The following %-sequences are provided:
 (use-package company
   :delight
   :hook (after-init-hook . global-company-mode)
-  :init (defun my-tab ()
-          "complete by copilot first, then company-mode"
-          (interactive)
-          (or (copilot-accept-completion)
-              (company-indent-or-complete-common nil)))
-  :bind ("TAB" . my-tab)
   :custom ((lsp-completion-provider :capf))
   )
 
@@ -587,6 +581,7 @@ The following %-sequences are provided:
                    :repo "copilot-emacs/copilot.el"
                    :branch "main"
                    :files ("*.el"))
+  :custom ((copilot-idle-delay 5))
   :bind (("C-c C-M-f" . copilot-diagnose)
          ("C-c M-f" . copilot-complete)
          :map copilot-completion-map
@@ -596,7 +591,7 @@ The following %-sequences are provided:
          ("<tab>" . 'copilot-accept-completion)
          ("C-w" . 'copilot-accept-completion-by-word)
          ("C-l" . 'copilot-accept-completion-by-line))
-  :init (setq exec-path (append exec-path '("~/.nvm/versions/node/v18.20.3/bin"))))
+  :init (setq exec-path (append exec-path '("/Users/matthewbatema/.nvm/versions/node/v22.14.0/bin"))))
 
 (use-package restart-emacs)
 
