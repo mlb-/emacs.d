@@ -293,7 +293,9 @@ The following %-sequences are provided:
   (add-to-list 'tramp-default-proxies-alist
                '(nil "root" "/ssh:%h:"))
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
-(use-package markdown-mode)
+(use-package markdown-mode
+  :custom ((markdown-command "grip - --export -"))
+  )
 ;; erlang-mode?
 (use-package magit
   ;; :pin melpa-stable
@@ -592,6 +594,82 @@ The following %-sequences are provided:
          ("C-w" . 'copilot-accept-completion-by-word)
          ("C-l" . 'copilot-accept-completion-by-line))
   :init (setq exec-path (append exec-path '("/Users/matthewbatema/.nvm/versions/node/v22.14.0/bin"))))
+
+(use-package copilot-chat
+  :quelpa (copilot-chat :fetcher github
+                        :repo "chep/copilot-chat.el")
+  :custom ((copilot-chat-follow t)
+           ;; (copilot-chat-frontend 'markdown)
+)
+  :bind (("C-c M-F" . copilot-chat-transient))
+  :config
+  (defun copilot-chat--get-included-files-org (instance)
+    "Generate a org header listing files from buffers in INSTANCE.
+Argument INSTANCE is the copilot chat instance to get buffers from."
+    (let* ((buffers (copilot-chat-buffers instance))
+           (files (cl-remove-if #'null
+                                (mapcar (lambda (buf)
+                                          (when (buffer-live-p buf)
+                                            (buffer-file-name buf)))
+                                        buffers))))
+      (when files
+        (concat "* Included Files\n\n"
+                (mapconcat (lambda (file)
+                             (format "- ~%s~"
+                                     (file-relative-name file
+                                                         (copilot-chat-directory instance))))
+                           files
+                           "\n")
+                "\n\n"))))
+
+  (defun copilot-chat--add-files-from-org (instance org)
+    "Parse ORG for file list and add them to INSTANCE buffers.
+Argument INSTANCE is the copilot chat instance to modify.
+Argument ORG is the text containing file paths to parse."
+    (when (and org (string-match "* Included Files\n" org))
+      (let ((files-section (substring org (match-end 0)))
+            (base-dir (copilot-chat-directory instance))
+            (file-paths nil))
+
+        ;; Extract file paths from org list items
+        (with-temp-buffer
+          (insert files-section)
+          (goto-char (point-min))
+          (while (re-search-forward "- ~\\([^~]+\\)~" nil t)
+            (push (match-string 1) file-paths)))
+
+        ;; Add each file to the instance
+        (dolist (rel-path file-paths)
+          (let* ((full-path (expand-file-name rel-path base-dir))
+                 (buf (and (file-exists-p full-path)
+                           (find-file-noselect full-path))))
+            (when buf
+              (copilot-chat--add-buffer instance buf)))))))
+
+  (defun copilot-chat-insert-included-files ()
+    "Insert a org header listing files from current copilot chat instance."
+    (interactive)
+    (let* ((instance (copilot-chat--current-instance))
+           (org (copilot-chat--get-included-files-org instance)))
+      (when org
+        (insert org))))
+
+  (defun copilot-chat-update-buffers-from-org ()
+    "Update current instance's buffers from org file list in current buffer."
+    (interactive)
+    (let ((instance (copilot-chat--current-instance))
+          (org (buffer-substring-no-properties (point-min) (point-max))))
+      (copilot-chat--add-files-from-org instance org)))
+
+  ;; Add "Insert included files" command to the buffers transient
+  (transient-append-suffix 'copilot-chat-transient-buffers "l"
+    '("I" "Insert included files list" copilot-chat-insert-included-files))
+
+  ;; Add "Update buffers from org" command after the previous one
+  (transient-append-suffix 'copilot-chat-transient-buffers "I"
+    '("U" "Update buffers from org" copilot-chat-update-buffers-from-org))
+
+)
 
 (use-package restart-emacs)
 
