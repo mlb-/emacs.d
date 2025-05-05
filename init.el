@@ -727,6 +727,18 @@ Argument ORG is the text containing file paths to parse."
   :custom (ellama-keymap-prefix "C-c l")
   )
 
+(use-package org-jira
+  :custom ((jiralib-url "https://vyncahealthinc.atlassian.net")
+           (org-jira-default-jql "assignee = currentUser() AND sprint IN openSprints() ORDER BY Rank ASC")
+           (org-jira-done-states '("DONE"))
+           (org-jira-priority-to-org-priority-alist '(("Highest" . ?A)
+                                                      ("High" . ?B)
+                                                      ("Low" . ?C)))
+           (org-jira-progress-issue-flow '(("OPEN REQUEST" . "FULFILLING REQUEST")
+                                           ("FULFILLING REQUEST" . "TESTING")
+                                           ))
+           (org-jira-use-status-as-todo t)))
+
 (add-hook 'emacs-startup-hook
           (lambda ()
             (message "Emacs ready in %s with %d garbage collections."
