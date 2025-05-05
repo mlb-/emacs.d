@@ -51,7 +51,7 @@
 
 (use-package spaceline-config
   :ensure spaceline
-  :config (spaceline-spacemacs-theme))
+  :config (spaceline-emacs-theme))
 
 (use-package fancy-battery
   :config
