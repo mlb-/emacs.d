@@ -185,6 +185,7 @@ The following %-sequences are provided:
 (transient-mark-mode 0)
 
 (use-package cider
+  :disabled t
   :pin melpa-stable
   :custom ((cider-repl-pop-to-buffer-on-connect nil
                                                 "Don't be rude.")
@@ -201,6 +202,7 @@ The following %-sequences are provided:
   :hook ((cider-connected-hook . repl-connected-alert)
          (cider-test-report-mode-hook . cider-tests-finished-alert)))
 (use-package clojure-mode
+  :disabled t
   :after compile
   :config
   (add-to-list 'compilation-error-regexp-alist-alist
@@ -212,9 +214,11 @@ The following %-sequences are provided:
   (add-to-list 'compilation-error-regexp-alist 'lein-test))
 (use-package clj-refactor
   :pin melpa-stable
+  :disabled t
   :after cider)
 
 (use-package flycheck-clojure
+  :disabled t
   :after cider
   :config (flycheck-clojure-setup))
 
