@@ -740,6 +740,16 @@ Argument ORG is the text containing file paths to parse."
   :custom (ellama-keymap-prefix "C-c l")
   )
 
+(use-package code-review
+  :disabled t ;; alas, looks like some sqlite dep error
+)
+
+(use-package fringe-current-line
+  :config (global-fringe-current-line-mode)
+  )
+
+(use-package devdocs)
+
 (use-package org-jira
   :custom ((jiralib-url "https://vyncahealthinc.atlassian.net")
            (org-jira-default-jql "assignee = currentUser() AND sprint IN openSprints() ORDER BY Rank ASC")
