@@ -742,7 +742,9 @@ Argument ORG is the text containing file paths to parse."
            (org-jira-progress-issue-flow '(("OPEN REQUEST" . "FULFILLING REQUEST")
                                            ("FULFILLING REQUEST" . "TESTING")
                                            ))
-           (org-jira-use-status-as-todo t)))
+           (org-jira-use-status-as-todo t)
+           (org-jira-custom-jqls '(
+                                  (:jql "Sprint in openSprints() ORDER BY assignee ASC, Rank DESC" :limit 200 :filename "this-sprints-work")))))
 
 (add-hook 'emacs-startup-hook
           (lambda ()
