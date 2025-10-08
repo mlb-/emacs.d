@@ -746,6 +746,14 @@ Argument ORG is the text containing file paths to parse."
            (org-jira-custom-jqls '(
                                   (:jql "Sprint in openSprints() ORDER BY assignee ASC, Rank DESC" :limit 200 :filename "this-sprints-work")))))
 
+;; (use-package mcp
+;;   :disabled t
+;;   ;; :ensure t
+;;   ;; :after gptel
+
+;;   :config (require 'mcp-hub)
+;;   :hook (after-init . mcp-hub-start-all-server))
+
 (add-hook 'emacs-startup-hook
           (lambda ()
             (message "Emacs ready in %s with %d garbage collections."
