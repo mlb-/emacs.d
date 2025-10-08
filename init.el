@@ -325,6 +325,7 @@ The following %-sequences are provided:
   (transient-append-suffix 'magit-dispatch "!" '("@" "Act on MR" magit-gitlab-mr)))
 
 (use-package magit-todos
+  :disabled t
   :after magit
   :custom ((magit-todos-branch-list-merge-base-ref "@{u}" "Just ask the branch what its upstream is."))
   :config (magit-todos-mode 1))
