@@ -705,11 +705,12 @@ Argument ORG is the text containing file paths to parse."
 
 (use-package treesit-auto
   :custom ((treesit-auto-install 'prompt)
-           (treesit-auto-langs '(python))
+           (treesit-auto-langs '(python json))
            )
   :config
   (treesit-auto-add-to-auto-mode-alist 'all)
   (add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))
+  (add-to-list 'major-mode-remap-alist '(js-json-mode . json-ts-mode))
   (global-treesit-auto-mode)
 
   (defun treesit-which-function ()
