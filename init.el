@@ -746,6 +746,238 @@ Argument ORG is the text containing file paths to parse."
            (org-jira-custom-jqls '(
                                   (:jql "Sprint in openSprints() ORDER BY assignee ASC, Rank DESC" :limit 200 :filename "this-sprints-work")))))
 
+(use-package gptel
+  ;; wtf @ bug https://github.com/karthink/gptel/issues/556
+  ;; :custom (gptel-backend (gptel-make-gh-copilot "Copilot"))
+  :config
+  (setq gptel-backend (gptel-make-gh-copilot "Copilot"))
+  (defvar-local git-ls-extra-args nil
+    "Extra arguments to pass to `git ls-files`.
+    Set this in `.dir-locals.el` to customize behavior per repo.")
+
+  (put 'git-ls-extra-args 'safe-local-variable
+       (lambda (val)
+         (and (listp val) (cl-every #'stringp val))))
+
+  (defun git-ls ()
+    "Return a list of tracked files in the current Git repository, optionally filtered."
+    (let ((default-directory (magit-toplevel)))
+      (unless default-directory
+        (error "Not inside a Git repository"))
+      (apply #'magit-git-lines "ls-files" git-ls-extra-args)))
+
+  (gptel-make-tool
+   :name "git-ls"
+   :confirm t
+   :description "List all Git-tracked files in the current repository."
+   :category "Git"
+   :function #'git-ls
+   :args nil)
+
+  (defun git-current-branch-name ()
+    "Return the name of the current Git branch."
+    (let ((default-directory (magit-toplevel)))
+      (unless default-directory
+        (error "Not inside a Git repository"))
+      (magit-git-string "rev-parse" "--abbrev-ref" "HEAD")))
+
+  (gptel-make-tool
+   :name "git-current-branch-name"
+   :confirm t
+   :description "Get the name of the current Git branch."
+   :category "Git"
+   :function #'git-current-branch-name
+   :args nil)
+
+  (defun magit-ddwim-diff-string ()
+  "Return unified diff like Magit `dd`: BASE...HEAD where BASE is DWIM merge target."
+  (let* ((default-directory (magit-toplevel))
+         (base (or (magit-get-upstream-branch)      ; e.g. "origin/main" for the current branch
+                   (magit-main-branch)       ; fallback: repo’s main branch name
+                   "origin/HEAD")))
+    (magit-git-lines "diff" "--no-ext-diff" "--patch" (format "%s...HEAD" base))))
+
+  (gptel-make-tool
+   :name "magit-ddwim-diff"
+   :confirm t
+   :description "Get a unified diff of the current branch against its upstream or main branch."
+   :category "Git"
+   :function #'magit-ddwim-diff-string
+   :args nil)
+
+  (defvar remove-nulls--excluded-keys '("avatarUrls" "iconUrl" "self" "customfield_10001" "worklog" "votes" "progress" "id")
+    "Keys to exclude entirely from the JSON output.")
+
+  (defun remove-nulls (obj)
+    "Recursively remove nil values and excluded keys from OBJ."
+    (cond
+     ;; Alist: remove excluded keys and nil values, recurse into values
+     ((and (listp obj) (not (vectorp obj)))
+      (let ((cleaned (delq nil
+                           (mapcar (lambda (pair)
+                                     (when (and (consp pair)
+                                                (not (member (format "%s" (car pair))
+                                                             remove-nulls--excluded-keys)))
+                                       (let ((v (remove-nulls (cdr pair))))
+                                         (unless (null v)
+                                           (cons (car pair) v)))))
+                                   obj))))
+        (if cleaned cleaned nil)))
+     ;; Vector: recurse into elements
+     ((vectorp obj)
+      (apply 'vector (delq nil (mapcar #'remove-nulls obj))))
+     ;; Otherwise return scalar
+     (t obj)))
+
+  (defun get-jira-ticket-json (ticket-key)
+    "Fetch the raw JIRA issue for TICKET-KEY and return it as a JSON string, omitting null values."
+    (let* ((raw (jiralib-get-issue ticket-key))
+           (pruned (remove-nulls raw)))
+      (json-encode pruned)))
+
+  (gptel-make-tool
+   :name "get-jira-ticket-json"
+   :confirm t
+   :description "Return the raw JIRA issue payload as a JSON string."
+   :category "Jira"
+   :function (lambda (ticket-key)
+               (get-jira-ticket-json ticket-key))
+   :args (list
+          '(:name "ticket-key"
+                  :type "string"
+                  :description "The JIRA issue key, e.g. \"ABC-123\"")))
+
+  (defun fetch-jira-sprint-tickets-for-user ()
+    "Fetch JIRA issues assigned to the current user in active sprints.
+Return the issues as a JSON-encoded string, sorted by rank in ascending order."
+    (let* ((jql-query "assignee = currentUser() AND sprint in openSprints() AND ORDER BY rank ASC" 1)
+           (issues (jiralib-do-jql-search jql-query))
+           (filtered-issues (seq-remove #'null issues)))
+      (json-encode filtered-issues)))
+
+  (gptel-make-tool
+   :name "get-my-jira-sprint-tickets-json"
+   :confirm t
+   :description "Fetch all JIRA issues assigned to the current user in active sprints, sorted by rank."
+   :category "Jira"
+   :function #'get-my-jira-sprint-tickets-json
+   :args nil)
+
+  ;; TODO: expose a JQL query tool
+  ;; TODO: expose a mypy cache for file tool
+
+  (defun git-cat-file (path &optional rev)
+    "Return the contents of PATH at REV (defaults to HEAD) using `git cat-file`."
+    (let ((default-directory (magit-toplevel)))
+      (unless default-directory
+        (error "Not inside a Git repository"))
+      (let* ((rev (or rev "HEAD"))
+             (blob (string-trim (magit-git-string "ls-tree" "-z" "-r" rev path)))
+             (blob-id (when (string-match "\\b\\([0-9a-f]\\{40\\}\\)\\b" blob)
+                        (match-string 1 blob))))
+        (if blob-id
+            (magit-git-output "cat-file" "-p" blob-id)
+          (error "File not found at given rev: %s" path)))))
+
+  (gptel-make-tool
+   :name "git-cat-file"
+   :confirm t
+   :description "Read the contents of a file in the current Git repository at a specific revision."
+   :category "Git"
+   :function (lambda (file-path)
+               (git-cat-file file-path))
+   :args (list
+         '(:name "file-path"
+                :type "string"
+                :description "The file path to read, relative to the repository root.")))
+
+  (defun my/clipboard-text ()
+    "Return system clipboard text, or fall back to kill ring."
+    (or (and (fboundp 'gui-get-selection)
+             (or (gui-get-selection 'CLIPBOARD nil)
+                 (gui-get-selection 'CLIPBOARD 'STRING)))
+        (let ((s (shell-command-to-string "pbpaste")))
+          (unless (string-empty-p s) s))
+        (current-kill 0 t)))
+
+  (gptel-make-tool
+   :name "clipboard-text"
+   :confirm t
+   :description "Get the current text content of the system clipboard."
+   :category "System"
+   :function #'my/clipboard-text
+   :args nil)
+
+  (setq gptel--known-presets
+        '(
+         (branch-prompt
+          :description nil
+          :backend "Copilot"
+          :model gpt-4.1
+          :system "You are a large language model living in Emacs and a helpful assistant. Respond concisely.
+
+Help me pick a branch name for my Jira ticket.
+
+Don't use any prefix.
+
+The branch name must start with the Jira ticket ID.
+
+Use the `get-jira-ticket-json` tool to get the Jira ticket details.
+
+Consider the ticket title and ticket description before providing a useful suffix for the branch name.
+
+Use the `clipboard-text` tool to get the Jira ticket from my clipboard.
+"
+          :tools ("clipboard-text" "get-jira-ticket-json")
+          :stream t
+          :temperature 1.0
+          :max-tokens nil
+          :use-context system
+          :track-media nil
+          :include-reasoning t)
+         (prompt-prompt
+          :description nil
+          :backend "Copilot"
+          :model claude-sonnet-4
+          :system default
+          :tools ("get-jira-ticket-json" "git-current-branch-name" "git-ls")
+          :stream t
+          :temperature 1.0
+          :max-tokens nil
+          :use-context system
+          :track-media nil
+          :include-reasoning t)
+         (mr-prompt
+          :description nil
+          :backend "Copilot"
+          :model claude-sonnet-4
+          :system "You are a large language model living in Emacs and a helpful assistant. Respond concisely.
+
+You are my boss, an Engineering Manager, who happens to be an amazing Staff/Principal level Engineer in their own right,
+and wants to help me also become a Staff/Principal Engineer. Read over the diff for my branch (`magit-ddwim-diff`) and
+the associated Jira ticket (`git-current-branch-name` + `get-jira-ticket-json`) then:
+- suggest a PR title that follows the Conventional Commits style
+- in a markdown code block, write an PR (using Conventional Commits for both the PR title and each `Changes Made` entry)
+- let me know if I've implemented too much beyond the scope of the ticket?
+- let me know if I've missed implementation details or acceptance criteria from the ticket, especially in unit tests
+- enumerate any added TODOs so I can resolve them or create follow-up tickets to address them
+- clean it up (technically, readability, accessability, maintainability, testability, and any other sense that would be
+  expected for my boss, a skilled former IC, to think of)
+
+Please use the MR Template
+
+
+"
+          :tools ("get-jira-ticket-json" "git-current-branch-name" "magit-ddwim-diff")
+          :stream t
+          :temperature 1.0
+          :max-tokens nil
+          :use-context system
+          :track-media nil
+          :include-reasoning t)))
+
+  )
+
 ;; (use-package mcp
 ;;   :disabled t
 ;;   ;; :ensure t
