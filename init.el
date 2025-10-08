@@ -598,7 +598,14 @@ The following %-sequences are provided:
          ("<tab>" . 'copilot-accept-completion)
          ("C-w" . 'copilot-accept-completion-by-word)
          ("C-l" . 'copilot-accept-completion-by-line))
-  :init (setq exec-path (append exec-path '("/Users/matthewbatema/.nvm/versions/node/v22.14.0/bin"))))
+  :init (setq exec-path (append exec-path '("/Users/matthewbatema/.nvm/versions/node/v22.14.0/bin")))
+  :config (defun convert-md-headers-region (beg end)
+            "Convert Markdown headers to Org headers in region."
+            (interactive "r")
+            (save-excursion
+              (goto-char beg)
+              (while (re-search-forward "^\\(#\\{1,6\\}\\)\\s-+" end t)
+                (replace-match (make-string (length (match-string 1)) ?*) t t nil 1)))))
 
 (use-package copilot-chat
   :quelpa (copilot-chat :fetcher github
