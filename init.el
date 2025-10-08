@@ -575,12 +575,12 @@ The following %-sequences are provided:
 (use-package quelpa
   ;; I had to install `gnu-tar`.
   ;; :custom ((quelpa-build-explicit-tar-format-p t "cuz I'm on OS X? Or do I need `brew install gnu-tar`?"))
-  ;; :init (quelpa-self-upgrade)
+  :init (quelpa-self-upgrade)
   )
-(quelpa
- '(quelpa-use-package
-   :fetcher git
-   :url "https://github.com/quelpa/quelpa-use-package.git"))
+;; (quelpa
+;;  '(quelpa-use-package
+;;    :fetcher git
+;;    :url "https://github.com/quelpa/quelpa-use-package.git"))
 (use-package quelpa-use-package)
 
 (use-package copilot
