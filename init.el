@@ -718,8 +718,90 @@ Argument ORG is the text containing file paths to parse."
   )
 
 (use-package python-pytest
+  :after alert
   :custom ((python-pytest-executable "poetry run pytest"))
   :bind (("C-c C-S-p" . python-pytest-dispatch))
+  :config
+  ;; buffer-local scratch for one run
+  (defvar-local my/pytest-start-time nil)
+
+  (defun my/pytest-started ()
+    "Remember start time + command line for the current pytest buffer."
+    (setq my/pytest-start-time (current-time)))
+
+  (defun my/pytest-parse-summary ()
+    "Parse the final '== ... ==' pytest summary line in current buffer.
+Handles optional '(h:mm:ss)' after seconds."
+    (save-excursion
+      (goto-char (point-max))
+      (let* ((case-fold-search t)
+             (summary
+              (when (re-search-backward "^=\\{2,\\}\\s-+\\(.+?\\)\\s-+=\\{2,\\}\\s-*$" nil t)
+                (match-string 1)))
+             (tbl (make-hash-table :test 'eq)))
+        (when summary
+          ;; split on commas; duration may be glued to the last chunk
+          (dolist (chunk (split-string summary "[[:space:]]*,[[:space:]]*" t))
+            (let ((c chunk))
+              ;; 1) pull out duration anywhere in the chunk, e.g., "in 1537.69s (0:25:37)"
+              (when (string-match "in\\s-+\\([0-9.]+\\)s\\(?:\\s-*(\\([0-9:]+\\))\\)?\\s-*$" c)
+                (puthash :duration (string-to-number (match-string 1 c)) tbl)
+                ;; strip the duration tail so counts regex can match cleanly
+                (setq c (replace-regexp-in-string
+                         "\\s-*in\\s-+[0-9.]+s\\(?:\\s-*(\\([0-9:]+\\))\\)?\\s-*$" "" c)))
+              ;; 2) counts like "15 passed", "3 warnings", etc.
+              (when (string-match "\\`\\([0-9]+\\)\\s-+\\([[:alpha:]-]+\\)\\'" c)
+                (puthash (intern (concat ":" (match-string 2 c)))
+                         (string-to-number (match-string 1 c)) tbl))))
+          ;; build plist + total (exclude :duration from total)
+          (let ((plist '()) (total 0))
+            (maphash (lambda (k v)
+                       (setq plist (plist-put plist k v))
+                       (unless (eq k :duration) (setq total (+ total v))))
+                     tbl)
+            (setq plist (plist-put plist :total total))
+            (plist-put plist :summary summary))))))
+
+  (defun my/pytest-extract-header ()
+    "Extract `cwd:` and `cmd:` lines from a python-pytest buffer.
+Returns a plist (:cwd PATH :cmd STR) or nil if not found."
+    (save-excursion
+      (goto-char (point-min))
+      (let (cwd cmd)
+        (when (re-search-forward "^cwd: \\(.*\\)$" nil t)
+          (setq cwd (match-string 1)))
+        (when (re-search-forward "^cmd: \\(.*\\)$" nil t)
+          (setq cmd (match-string 1)))
+        (when (or cwd cmd)
+          (list :cwd cwd :cmd cmd)))))
+
+  (defun my/pytest-finished ()
+    "Notify with a compact summary when pytest finishes."
+    (let* ((buf (current-buffer))
+           (hdr (my/pytest-extract-header))
+           (cwd (plist-get hdr :cwd))
+           (cmd (plist-get hdr :cmd))
+           (elapsed (when my/pytest-start-time
+                      (float-time (time-subtract (current-time)
+                                                 my/pytest-start-time))))
+           (info (my/pytest-parse-summary))
+           (duration (or (plist-get info :duration) elapsed))
+           (line (or (plist-get info :summary)
+                     "No summary line found."))
+           (title (format "pytest finished (%s)"
+                          (if duration (format "%.1fs" duration) "duration n/a")))
+           (msg (string-join
+                 (delq nil
+                       (list
+                        line
+                        (and cwd (format "cwd: %s" cwd))
+                        (and cmd (format "cmd: %s" cmd))))
+                 "\n")))
+      (display-buffer buf)
+      (alert msg :title title :buffer buf))) ; uses your alert backends
+
+  (add-hook 'python-pytest-started-hook  #'my/pytest-started)
+  (add-hook 'python-pytest-finished-hook #'my/pytest-finished)
   )
 
 (use-package treesit-auto
