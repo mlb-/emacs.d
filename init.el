@@ -568,8 +568,20 @@ The following %-sequences are provided:
   :custom ((wgrep-auto-save-buffer t "I use git, so autosave is cool")))
 
 (use-package pushover
-  :custom (pushover-user-key (plist-get (car (auth-source-search :host "pushover"))
-                                        :token)))
+  :after alert
+  :custom
+  (pushover-user-key
+   (plist-get (car (auth-source-search :host "pushover")) :token))
+  :config
+  ;; expose a `:style 'pushover` for `alert`
+  (alert-define-style 'pushover
+    :title "Send via Pushover"
+    :notifier
+    (lambda (info)
+      (pushover-send
+       (or (plist-get info :title) "Emacs alert")
+       (or (plist-get info :message) "")))))
+
 
 ;; copilot?
 (use-package quelpa
