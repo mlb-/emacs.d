@@ -512,12 +512,19 @@ The following %-sequences are provided:
 
 (use-package alert
   :commands alert
-  :custom (alert-user-configuration '((((:status buried idle)
-                                        (:mode . "^compilation-mode$"))
-                                       pushover
-                                       ((:continue . t)))
-                                      (nil notifier nil)
-                                      (nil log nil))))
+  :custom (alert-user-configuration
+           '(;; for gptel
+             ((;(:status buried idle)
+               (:category . "gptel"))
+              pushover
+              ((:continue . t)))
+             ;; for compilation mode
+             (((:status buried idle)
+               (:mode . "^compilation-mode$"))
+              pushover
+              ((:continue . t)))
+             (nil notifier nil)
+             (nil log nil))))
 
 (use-package compile
   :init
@@ -863,6 +870,44 @@ Returns a plist (:cwd PATH :cmd STR) or nil if not found."
   ;; :custom (gptel-backend (gptel-make-gh-copilot "Copilot"))
   :config
   (setq gptel-backend (gptel-make-gh-copilot "Copilot"))
+
+  ;; buffer-local scratch for one run
+  (defvar-local my/gptel-start-time nil)
+
+  (defun my/gptel-response-started ()
+    "Mark the start of a gptel response in this buffer."
+    (setq my/gptel-start-time (current-time)))
+
+  (defun my/gptel--backend-name ()
+    "Return a friendly backend/model string."
+    (let ((backend (when (boundp 'gptel-backend) gptel-backend))
+          (model   (when (boundp 'gptel-model)   gptel-model)))
+      (format "%s%s"
+              (cond
+               ((symbolp backend) (symbol-name backend))
+               ;; some backends are structs/objs; be defensive
+               ((ignore-errors (slot-value backend 'name)))
+               (t (format "%s" backend)))
+              (if model (format " · %s" model) ""))))
+
+  (defun my/gptel-response-finished (&rest _)
+    "Notify when a gptel response completes (for long runs)."
+    (let* ((buf (current-buffer))
+           (elapsed (when my/gptel-start-time
+                      (float-time (time-subtract (current-time) my/gptel-start-time))))
+           (title (format "gptel finished (%s)"
+                          (if elapsed (format "%.1fs" elapsed) "duration n/a")))
+           ;; Try to include a compact hint of what finished.
+           (msg (string-join
+                 (delq nil
+                       (list (buffer-name buf)
+                             (my/gptel--backend-name)))
+                 " — ")))
+      (alert msg :title title :buffer buf :category "gptel")))
+
+  (add-hook 'gptel-pre-response-hook  #'my/gptel-response-started)
+  (add-hook 'gptel-post-response-hook #'my/gptel-response-finished)
+
   (defvar-local git-ls-extra-args nil
     "Extra arguments to pass to `git ls-files`.
     Set this in `.dir-locals.el` to customize behavior per repo.")
