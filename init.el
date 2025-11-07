@@ -868,6 +868,8 @@ Returns a plist (:cwd PATH :cmd STR) or nil if not found."
 (use-package gptel
   ;; wtf @ bug https://github.com/karthink/gptel/issues/556
   ;; :custom (gptel-backend (gptel-make-gh-copilot "Copilot"))
+  :custom ((gptel-model 'gpt-5-mini))
+  :after magit
   :config
   (setq gptel-backend (gptel-make-gh-copilot "Copilot"))
 
@@ -930,6 +932,41 @@ Returns a plist (:cwd PATH :cmd STR) or nil if not found."
    :category "Git"
    :function #'git-ls
    :args nil)
+
+  (defun my/git-grep-files (pattern &optional
+                                    ;; path
+                                    case-insensitive)
+    "Return a list of unique absolute file paths matching PATTERN using `git grep`.
+;; If PATH is non-nil, limit the search to that path (relative to repo root).
+If CASE-INSENSITIVE is non-nil, pass -i to git grep."
+    (let* ((default-directory (or (magit-toplevel) (user-error "Not inside a Git repository")))
+           (ci-flag (when case-insensitive "-i"))
+           (args (delq nil
+                       (append (list "grep" "-n" "--full-name" "--no-color"
+                                     ;; pass case-flag if requested
+                                     ci-flag
+                                     "-e" pattern)
+                               ;; path separator: if path provided, add "--" then path
+                               ;; (when path (list "--" path))
+                               ))))
+      (apply #'magit-git-lines args)))
+
+  (gptel-make-tool
+   :name "my-search-files"
+   :confirm t
+   :description "Search repository using `git grep` and return a list of matching file paths."
+   :category "Git"
+   :function (lambda (pattern &optional
+                              ;; path
+                              case_insensitive)
+               ;; return same shape as git-ls: a list of file path strings
+               (my/git-grep-files pattern
+                                  ;; path
+                                  case_insensitive))
+   :args (list
+          '(:name "pattern" :type string :description "Pattern to search for (git grep -e)")
+          ;; '(:name "path" :type "string" :description "Optional path within repo to restrict search" :optional t)
+          '(:name "case_insensitive" :type boolean :description "Optional: make git grep case-insensitive" :optional t)))
 
   (defun git-current-branch-name ()
     "Return the name of the current Git branch."
@@ -1036,18 +1073,6 @@ Return the issues as a JSON-encoded string, sorted by rank in ascending order."
             (magit-git-output "cat-file" "-p" blob-id)
           (error "File not found at given rev: %s" path)))))
 
-  (gptel-make-tool
-   :name "git-cat-file"
-   :confirm t
-   :description "Read the contents of a file in the current Git repository at a specific revision."
-   :category "Git"
-   :function (lambda (file-path)
-               (git-cat-file file-path))
-   :args (list
-         '(:name "file-path"
-                :type "string"
-                :description "The file path to read, relative to the repository root.")))
-
   (defun my/clipboard-text ()
     "Return system clipboard text, or fall back to kill ring."
     (or (and (fboundp 'gui-get-selection)
@@ -1070,7 +1095,7 @@ Return the issues as a JSON-encoded string, sorted by rank in ascending order."
          (branch-prompt
           :description nil
           :backend "Copilot"
-          :model gpt-4.1
+          :model gpt-5-mini
           :system "You are a large language model living in Emacs and a helpful assistant. Respond concisely.
 
 Help me pick a branch name for my Jira ticket.
@@ -1131,17 +1156,173 @@ Please use the MR Template
           :max-tokens nil
           :use-context system
           :track-media nil
-          :include-reasoning t)))
+          :include-reasoning t)
+         (mcp-meta-prompt
+          :description "mcp-meta-prompt"
+          :backend "Copilot"
+          :model gpt-5-mini
+          :system default
+          :tools
+          ("addCommentToJiraIssue"
+           "atlassianUserInfo"
+           "create_directory"
+           "editJiraIssue"
+           "edit_file"
+           "get-jira-ticket-json"
+           "getAccessibleAtlassianResources"
+           "getJiraIssue"
+           "getJiraIssueRemoteIssueLinks"
+           "getJiraIssueTypeMetaWithFields"
+           "get_file_info"
+           "git-current-branch-name"
+           "git-ls"
+           "list_allowed_directories"
+           "list_directory"
+           "magit-ddwim-diff"
+           "move_file"
+           "my-search-files"
+           "read_file"
+           "read_multiple_files"
+           "search"
+           "searchJiraIssuesUsingJql"
+           "sequentialthinking"
+           "write_file")
+          :stream t
+          :temperature 1.0
+          :max-tokens nil
+          :use-context system
+          :track-media nil
+          :include-reasoning t)
+         (mr-review
+          :description nil
+          :backend "Copilot"
+          :model gpt-5-mini
+          :system "
+You are my boss, an Engineering Manager, who happens to be an amazing Staff/Principal level Engineer in their own right,
+and wants to help me also become a Staff/Principal Engineer. Read over this MR and help me:
+- let me know if I've implemented too much beyond the scope of the ticket?
+- let me know if I've missed implementation details or acceptance criteria from the ticket, especially in unit tests
+- enumerate any added TODOs so I can resolve them or create follow-up tickets to address them
+- clean it up (technically, readability, accessability, maintainability, testability, and any other sense that would be
+  expected for my boss, a skilled former IC, to think of)
+"
+          :tools
+          ("addCommentToJiraIssue"
+           "atlassianUserInfo"
+           "download_attachment"
+           "editJiraIssue"
+           "execute_graphql"
+           "getAccessibleAtlassianResources"
+           "getJiraIssue"
+           "getJiraIssueRemoteIssueLinks"
+           "getJiraIssueTypeMetaWithFields"
+           "get_branch_diffs"
+           "get_commit"
+           "get_commit_diff"
+           "get_file_contents"
+           "get_issue"
+           "get_issue_link"
+           "get_label"
+           "get_merge_request"
+           "get_merge_request_diffs"
+           "get_namespace"
+           "get_project"
+           "get_project_events"
+           "get_repository_tree"
+           "get_users"
+           "list_commits"
+           "list_events"
+           "list_group_iterations"
+           "list_group_projects"
+           "list_issue_discussions"
+           "list_issue_links"
+           "list_issues"
+           "list_labels"
+           "list_merge_requests"
+           "list_namespaces"
+           "list_project_members"
+           "list_projects"
+           "mr_discussions"
+           "my_issues"
+           "search"
+           "searchJiraIssuesUsingJql"
+           "search_repositories"
+           "sequentialthinking"
+           "verify_namespace")
+          :stream t
+          :temperature 1.0
+          :max-tokens nil
+          :use-context system
+          :track-media nil
+          :include-reasoning t)
+         ;; insert new presets here
+         )))
 
-  )
+(use-package mcp
+  :after gptel
+  :custom
+  ((mcp-hub-servers
+    `(
+      ;; ---  A. Fetch: super-basic web fetcher  ---
+      ("fetch"
+       :command "docker"
+       :args ("run" "-i" "--rm" "--pull=always" "mcp/fetch"))
+      ;; ("mcp-fetch"
+      ;;  :command "npx"
+      ;;  :args ("-y" "mcp-fetch"))
+      ;; ("server-curl"
+      ;;  :command "npx"
+      ;;  :args ("-y" "@mcp-get-community/server-curl"))
+      ;; ---  B. Filesystem: allow ~/dev as a sandbox  ---
+      ;; NOTE: Docker image expects allowed dirs under /projects, so we bind mount.
+      ("filesystem"
+       :command "docker"
+       :args ("run" "-i" "--rm"
+              "--mount" ,(format "type=bind,src=%s,dst=/projects/vos-core-svc"
+                                 (expand-file-name "~/dev/vynca-enterprise/apps/vos-core-svc/"))
+              "--mount" ,(format "type=bind,src=%s,dst=/projects/prompts"
+                                 (expand-file-name "~/dev/vynca-enterprise/prompts/"))
+              "mcp/filesystem"
+              "/projects"))
+      ("atlassian"
+       :command "npx"
+       :args ("-y" "mcp-remote" "https://mcp.atlassian.com/v1/sse"))
+      ("gitlab"
+       :command "docker"
+       :args ("run"
+              "-i" "--rm"
+              "-e" "GITLAB_PERSONAL_ACCESS_TOKEN"
+              "-e" "GITLAB_API_URL"
+              "-e" "GITLAB_READ_ONLY_MODE"
+              "-e" "USE_GITLAB_WIKI"
+              "-e" "USE_MILESTONE"
+              "-e" "USE_PIPELINE"
+              "iwakitakuma/gitlab-mcp")
+       :env (:GITLAB_PERSONAL_ACCESS_TOKEN ,(funcall
+                                             (plist-get (car (auth-source-search
+                                                              :host "gitlab.com/api/v4"
+                                                              :user "matthewbatema^mcp"
+                                                              :max 1)) :secret))
+                                           :GITLAB_API_URL "https://gitlab.com/api/v4"
+                                           :GITLAB_READ_ONLY_MODE "true"
+                                           :USE_GITLAB_WIKI "false"
+                                           :USE_MILESTONE "false"
+                                           :USE_PIPELINE "false"))
+      ("sequentialthinking"
+       :command "docker"
+       :args ("run",
+              "--rm",
+              "-i",
+              "mcp/sequentialthinking"))
+      ;; more MCPs here
+      ))
+   (jsonrpc-default-request-timeout 300))
 
-;; (use-package mcp
-;;   :disabled t
-;;   ;; :ensure t
-;;   ;; :after gptel
-
-;;   :config (require 'mcp-hub)
-;;   :hook (after-init . mcp-hub-start-all-server))
+  :hook (after-init . mcp-hub-start-all-server)
+  :config
+  ;; Use the built-in hub so Emacs manages lifecycle (start/stop/restart)
+  (require 'mcp-hub)
+  (require 'gptel-integrations))
 
 (add-hook 'emacs-startup-hook
           (lambda ()
